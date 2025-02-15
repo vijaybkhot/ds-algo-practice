@@ -25,7 +25,7 @@ class Solution(object):
 
         # Loop over each subarray to check for duplicates
         for i in range(len(l)):
-            if (l[i]-r[i]+1) == 1:
+            if (r[i] - l[i] + 1) <= 1:
                 continue
             curr_list = nums[l[i]:r[i]+1]
              # Find the min and max elements in the current list
@@ -34,8 +34,8 @@ class Solution(object):
 
             if (min_element == max_element):
                 continue
+
             curr_set = set(curr_list)
-            
             # Check for duplicates
             if len(curr_set) != len(curr_list):
                 result[i] = False
@@ -49,12 +49,9 @@ class Solution(object):
                 result[i] = False
                 continue
             
-            
             # Check if all elements in the arithmetic progression exist
             for j in range(len(curr_list)):
-                expected_element = min_element + (expected_difference * j)
-                if expected_element not in curr_set:
+                if (min_element + (expected_difference * j)) not in curr_set:
                     result[i] = False
                     break
-
         return result
