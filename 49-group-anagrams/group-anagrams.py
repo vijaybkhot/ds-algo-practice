@@ -29,18 +29,29 @@ class Solution(object):
         # Create an empty alphabet dictionary:
         # alphabet_dict = {a:0, b:0, c:0, d:0, e:0, f:0, g:0, h:0, i:0, j:0, k:0, l:0, m:0, n:0, o:0, p:0, q:0, r:0, s:0, t:0, u:0, v:0, w:0, x:0, y:0, z:0}
 
+        # def getAlphabetFrequency(word):
+        #     curr_aplha_dict = {'a':0, 'b':0, 'c':0, 'd':0, 'e':0, 'f':0, 'g':0, 'h':0, 'i':0, 'j':0, 'k':0, 'l':0, 'm':0, 'n':0, 'o':0, 'p':0, 'q':0, 'r':0, 's':0, 't':0, 'u':0, 'v':0, 'w':0, 'x':0, 'y':0, 'z':0}
+        #     word_char__list = list(word)
+        #     for char in word_char__list:
+        #         curr_aplha_dict[char.lower()] += 1
+        #     return curr_aplha_dict
+
         def getAlphabetFrequency(word):
-            curr_aplha_dict = {'a':0, 'b':0, 'c':0, 'd':0, 'e':0, 'f':0, 'g':0, 'h':0, 'i':0, 'j':0, 'k':0, 'l':0, 'm':0, 'n':0, 'o':0, 'p':0, 'q':0, 'r':0, 's':0, 't':0, 'u':0, 'v':0, 'w':0, 'x':0, 'y':0, 'z':0}
-            word_char__list = list(word)
-            for char in word_char__list:
-                curr_aplha_dict[char.lower()] += 1
+            curr_aplha_dict = {}
+            for char in word:
+                lower_char = char.lower()
+                if lower_char in curr_aplha_dict:
+                    curr_aplha_dict[lower_char] += 1
+                else:
+                    curr_aplha_dict[lower_char] = 1
             return curr_aplha_dict
         
         # loop over all words in list to get alphabet frequency dict
         anagram_map = {}
         for i in range (len(strs)):
             alpha_freq_dict = getAlphabetFrequency(strs[i])
-            tuple_of_tuples = tuple(alpha_freq_dict.items())
+            sorted_alpha_freq_dict = dict(sorted(alpha_freq_dict.items()))
+            tuple_of_tuples = tuple(sorted_alpha_freq_dict.items())
             if tuple_of_tuples in anagram_map:
                 anagram_map[tuple_of_tuples].append(i)
             else:
