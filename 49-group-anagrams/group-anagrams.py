@@ -4,37 +4,8 @@ class Solution(object):
         :type strs: List[str]
         :rtype: List[List[str]]
         # """
-        # # Function to create a character frequency dictionary:
-        # def charFrequencyDict(string):
-        #     charFreqDict = {}
-        #     for char in string:
-        #         if char in charFreqDict:
-        #             charFreqDict[char] += 1
-        #         else:
-        #             charFreqDict[char] = 1
-        #     return charFreqDict
 
-        # # Get charFreqDicts for all strs
-        # charFreqDictArray = []
-        # for string in strs:
-        #     charFreqDictArray.append(charFrequencyDict(string))
-        
-        # # Loop through the charFreqDictArray to find similar anagrams and group them
-        # anagramGroupHashMap = {}
-        # for i in range(len(strs)):
-        #     currAnagramStr = (charFreqDictArray[i])
-        #     if currAnagramStr in anagramGroupHashMap:
-        #         anagramGroupHashMap[currAnagramStr].append(i)
-        #     else:
-        #         anagramGroupHashMap[currAnagramStr] = [i]
-        
-        # result = []
-        # for anagramGroup in anagramGroupHashMap.values():
-        #     anagramGroupArray = [strs[index] for index in anagramGroup]
-        #     result.append(anagramGroupArray)
-        
-        # return result
-
+        # O(n*k log k) solution
         # Convert the anagrams to words which have characters in sorted order
         sorted_anagrams = []
         for string in strs:
@@ -54,6 +25,43 @@ class Solution(object):
             result.append(anagramGroupArray)
         
         return result
+
+        # Create an empty alphabet dictionary:
+        # alphabet_dict = {a:0, b:0, c:0, d:0, e:0, f:0, g:0, h:0, i:0, j:0, k:0, l:0, m:0, n:0, o:0, p:0, q:0, r:0, s:0, t:0, u:0, v:0, w:0, x:0, y:0, z:0}
+
+        def getAlphabetFrequency(word):
+            curr_aplha_dict = {a:0, b:0, c:0, d:0, e:0, f:0, g:0, h:0, i:0, j:0, k:0, l:0, m:0, n:0, o:0, p:0, q:0, r:0, s:0, t:0, u:0, v:0, w:0, x:0, y:0, z:0}
+            word_char__list = list(word)
+            for char in word_char__list:
+                curr_aplha_dict[char] += 1
+            return curr_aplha_dict
+        
+        # loop over all words in list to get alphabet frequency dict
+        anagram_map = {}
+        for i in range in (len(strs)):
+            alpha_freq_dict = getAlphabetFrequency(strs[i])
+            tuple_of_tuples = tuple(alpha_freq_dict.items())
+            if tuple_of_tuples in anagram_map:
+                anagram_map[anagram_map].append(i)
+            else:
+                anagram_map[anagram_map] = [i]
+        
+        # Get the indices of each anagram from the anagram_map and group all the words from strs having same anagram together
+
+        result = []
+
+        for anagram_index_array in anagram_map.values():
+            result.append([strs[index] for index in anagram_index_array])
+        return result
+
+
+
+        
+
+
+
+
+
             
 
 
