@@ -6,7 +6,7 @@ class Solution(object):
         :type r: List[int]
         :rtype: List[bool]
         """
-        # Brute force solution
+        # Solution using sort
         result = []
         for i in range(len(l)):
             curr_list = nums[l[i]:r[i]+1]
