@@ -4,6 +4,9 @@ class Solution(object):
         :type nums: List[int]
         :rtype: List[int]
         """
+        if len(nums)==0 or len(nums)==1:
+            return nums
+            
         # Initialize arrays
         prefix = [1] * len(nums)
         postfix = [1] * len(nums)
