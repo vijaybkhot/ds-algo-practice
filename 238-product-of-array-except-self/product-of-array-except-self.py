@@ -32,6 +32,9 @@ class Solution(object):
         # return output
 
         # Solution without separate prefix and postfix array
+        if len(nums)==0 or len(nums)==1:
+            return nums
+
         output = [1] * len(nums)
         # calculate prefix and store in the output
         for i in range(1, len(nums)):
