@@ -4,6 +4,7 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
+        
         majority_number = int(math.floor(len(nums)/2))
         frequency_map = {}
         for i in range(len(nums)):
