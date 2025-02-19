@@ -1,20 +1,26 @@
+class ListNode(object):
+    
+    def __init__(self, key):
+        self.key = key
+        self.next = None
+
 class MyHashSet(object):
 
     def __init__(self):
-        self.size = 10**7
-        self.data = [False] * (self.size)
-        
+        self.size = 10**4
+        self.set = [ListNode(0) for i in range(self.size)]        
 
     def add(self, key):
         """
         :type key: int
         :rtype: None
         """
-        if 0 <= key < self.size:
-            if self.data[key] == True:
+        cur = self.set[key % self.size] 
+        while cur.next:
+            if cur.next.key == key:
                 return
-            else:
-                self.data[key]=True
+            cur = cur.next
+        cur.next = ListNode(key)
         
 
     def remove(self, key):
@@ -22,19 +28,24 @@ class MyHashSet(object):
         :type key: int
         :rtype: None
         """
-        if 0 <= key < self.size:
-            if self.data[key] == False:
+        cur = self.set[key % self.size] 
+        while cur.next:
+            if cur.next.key == key:
+                cur.next = cur.next.next
                 return
-            else:
-                self.data[key]=False
+            cur = cur.next
 
     def contains(self, key):
         """
         :type key: int
         :rtype: bool
         """
-        if 0 <= key < self.size:
-            return self.data[key]
+        cur = self.set[key % self.size] 
+        while cur.next:
+            if cur.next.key == key:
+                return True
+            cur = cur.next
+        return False
         
 
 
