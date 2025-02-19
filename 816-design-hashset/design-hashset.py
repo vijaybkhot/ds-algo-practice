@@ -1,5 +1,4 @@
 class ListNode(object):
-    
     def __init__(self, key):
         self.key = key
         self.next = None
@@ -8,49 +7,42 @@ class MyHashSet(object):
 
     def __init__(self):
         self.size = 10007
-        self.set = [ListNode(0) for i in range(self.size)]        
+        self.set = [None] * self.size  # Use None instead of dummy nodes
 
     def add(self, key):
-        """
-        :type key: int
-        :rtype: None
-        """
-        cur = self.set[key % self.size] 
-        while cur.next:
-            if cur.next.key == key:
-                return
+        index = key % self.size
+        if self.set[index] is None:
+            self.set[index] = ListNode(key)
+            return
+        cur = self.set[index]
+        while cur:
+            if cur.key == key:
+                return  # Key already exists
+            if cur.next is None:
+                break
             cur = cur.next
-        cur.next = ListNode(key)
-        
+        cur.next = ListNode(key)  # Append at end
 
     def remove(self, key):
-        """
-        :type key: int
-        :rtype: None
-        """
-        cur = self.set[key % self.size] 
-        while cur.next:
-            if cur.next.key == key:
-                cur.next = cur.next.next
+        index = key % self.size
+        cur = self.set[index]
+        if cur is None:
+            return
+        if cur.key == key:
+            self.set[index] = cur.next  # Remove head
+            return
+        prev = None
+        while cur:
+            if cur.key == key:
+                prev.next = cur.next
                 return
-            cur = cur.next
+            prev, cur = cur, cur.next
 
     def contains(self, key):
-        """
-        :type key: int
-        :rtype: bool
-        """
-        cur = self.set[key % self.size] 
-        while cur.next:
-            if cur.next.key == key:
+        index = key % self.size
+        cur = self.set[index]
+        while cur:
+            if cur.key == key:
                 return True
             cur = cur.next
         return False
-        
-
-
-# Your MyHashSet object will be instantiated and called as such:
-# obj = MyHashSet()
-# obj.add(key)
-# obj.remove(key)
-# param_3 = obj.contains(key)
