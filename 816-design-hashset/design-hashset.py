@@ -7,7 +7,7 @@ class MyHashSet(object):
 
     def __init__(self):
         self.size = 10007
-        self.set = [None] * self.size  # Use None instead of dummy nodes
+        self.set = [None] * self.size  
 
     def add(self, key):
         index = key % self.size
