@@ -7,7 +7,7 @@ class ListNode(object):
 class MyHashSet(object):
 
     def __init__(self):
-        self.size = 10**4
+        self.size = 10007
         self.set = [ListNode(0) for i in range(self.size)]        
 
     def add(self, key):
