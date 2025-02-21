@@ -40,22 +40,43 @@ class Solution(object):
         #     return merge(left, right)
         
 
-        # Bucket sort: in place sorting
-        if not nums:
-            return nums
-        max_elem = max(nums)
-        count = [0] * (max_elem + 1)
+        # # Bucket sort: in place sorting
+        # if not nums:
+        #     return nums
+        # max_elem = max(nums)
+        # count = [0] * (max_elem + 1)
 
-        for num in nums:
-            count[num] += 1
+        # for num in nums:
+        #     count[num] += 1
 
-        j = 0
-        for i in range(len(count)):
-            while count[i] > 0:
-                nums[j] = i  
-                j += 1
-                count[i] -= 1
-        return nums
+        # j = 0
+        # for i in range(len(count)):
+        #     while count[i] > 0:
+        #         nums[j] = i  
+        #         j += 1
+        #         count[i] -= 1
+        # return nums
+
+        # One pass partition solution
+        l = 0
+        r = len(nums)-1
+        i = 0
+
+        def swap(i, j):
+            temp = nums[i]
+            nums[i] = nums[j]
+            nums[j] = temp
+        
+        while i <= r:
+            if nums[i]==0:
+                swap(l, i)
+                l += 1
+            elif nums[i] == 2:
+                swap(i, r)
+                r -=1
+                i -= 1
+            i += 1
+
 
 
             
