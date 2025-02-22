@@ -25,12 +25,12 @@ class Solution(object):
         # Efficient solution:
         res = 0
         prefix_count = {0: 1}
-        prefix_array = [0]
+        prefix_sum = 0
         for i in range(len(nums)):
-            curr_prefix = prefix_array[-1] + nums[i]
+            curr_prefix = prefix_sum + nums[i]
             if curr_prefix-k in prefix_count:
                 res += prefix_count[curr_prefix-k]
-            prefix_array.append(curr_prefix)
+            prefix_sum += nums[i]
             prefix_count[curr_prefix] = prefix_count.get(curr_prefix, 0) + 1
         
         return res
