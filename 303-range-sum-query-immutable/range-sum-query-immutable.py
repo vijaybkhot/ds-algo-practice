@@ -4,10 +4,9 @@ class NumArray(object):
         """
         :type nums: List[int]
         """
-        self.array = nums
         self.prefix = [0]
-        for i in range(len(self.array)):
-            self.prefix.append(self.prefix[-1] + self.array[i])
+        for i in range(len(nums)):
+            self.prefix.append(self.prefix[-1] +nums[i])
         
         
 
