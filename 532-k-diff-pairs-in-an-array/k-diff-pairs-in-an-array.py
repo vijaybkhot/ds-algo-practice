@@ -13,9 +13,6 @@ class Solution(object):
             right = left + 1
             curr_left = nums[left]
             possible_right = curr_left + k
-            # if nums[right] == curr_left:
-            #     while (nums[right] == curr_left) and (right < len(nums)):
-            #         right += 1
             for i in range(right, len(nums)):
                 if nums[i] == possible_right:
                     diff_pair += 1
