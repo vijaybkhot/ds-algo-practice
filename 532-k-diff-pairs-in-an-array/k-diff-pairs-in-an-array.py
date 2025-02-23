@@ -26,7 +26,7 @@ class Solution(object):
 
         # Efficient solution using hash map
         # Create a hash map to count frequency of each number in the array
-        
+    
         diff_pair = 0
         hash_map = {}
         for num in nums:
