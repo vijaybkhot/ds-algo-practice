@@ -5,6 +5,9 @@ class NumArray(object):
         :type nums: List[int]
         """
         self.array = nums
+        self.prefix = [0]
+        for i in range(len(self.array)):
+            self.prefix.append(self.prefix[-1] + self.array[i])
         
         
 
@@ -14,10 +17,7 @@ class NumArray(object):
         :type right: int
         :rtype: int
         """
-        prefix = [0]
-        for i in range(len(self.array)):
-            prefix.append(prefix[-1] + self.array[i])
-        return prefix[right+1] - prefix[left]
+        return self.prefix[right+1] - self.prefix[left]
 
         
 
