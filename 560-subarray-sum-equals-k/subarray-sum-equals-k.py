@@ -11,11 +11,11 @@ class Solution(object):
         # for i in range(1, len(nums)):
         #     prefix_array.append(prefix_array[i-1] + nums[i])
 
-        # for num in prefix_array:
-        #     if num == k:
-        #         res += 1
         
-        # for i in range(len(prefix_array)-1, 0, -1):
+        # for i in range(len(prefix_array)-1, -1, -1):
+        #     # If the current prefix itself is equal to target
+        #     if prefix_array[i] == k:
+        #         res += 1
         #     for j in range(i-1, -1, -1):
         #         if prefix_array[i] - prefix_array[j] == k:
         #             res += 1
