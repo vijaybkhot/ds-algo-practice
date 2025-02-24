@@ -22,5 +22,3 @@ class Solution(object):
             prefix = prefix + (nums[i+1] if i + 1 < len(nums) else 0)
 
         return False
-        
-        return False
