@@ -35,8 +35,8 @@ class Solution(object):
         for num in nums:
             prefix += num
             curr_remainder = prefix % k
-            # if curr_remainder < 0:
-            #     curr_remainder += k
+            if curr_remainder < 0:
+                curr_remainder += k
             # If the remainder has appeared before, it means there are `remainder_count[curr_remainder]` subarrays ending here that are divisible by k
             res += remainder_count.get(curr_remainder, 0)
             
