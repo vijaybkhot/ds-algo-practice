@@ -21,16 +21,8 @@ class Solution(object):
         for index, num in enumerate(nums, start=0):
             prefix += num
             curr_remainder = prefix % k
-            # if curr_remainder == 0:
-            #     res += 1
-            #     remainder.setdefault(curr_remainder, []).append(index)
-            # else:
-            #     remainder.setdefault(curr_remainder, []).append(index)
-            #     res += len(remainder[curr_remainder]) - 1
             remainder.setdefault(curr_remainder, []).append(index)
-            res += len(remainder[curr_remainder]) - 1
-            if curr_remainder == 0:
-                res += 1
+            res += len(remainder[curr_remainder]) - 1 if curr_remainder !=0 else len(remainder[curr_remainder])
                     
         return res
         
