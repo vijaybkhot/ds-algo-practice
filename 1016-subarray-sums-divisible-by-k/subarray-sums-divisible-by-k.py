@@ -32,7 +32,7 @@ class Solution(object):
         res = 0
         remainder_count = {0: 1}  # To count the number of times a remainder has appeared
         prefix = 0
-        for index, num in enumerate(nums, start=0):
+        for num in nums:
             prefix += num
             curr_remainder = prefix % k
             if curr_remainder < 0:
