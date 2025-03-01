@@ -36,7 +36,7 @@ class Solution(object):
         
         # Loop over each number, and mark the index of that number negative. i.e. if 1 is present, make the number at index 0 negative
         # If a number is out of bounds of the array, skip it
-        for i in range(n):
+        for i in range(n):      
             num = abs(nums[i])
             if 1 <= num <= n:
                 # Mark the index corresponding to the number as negative
