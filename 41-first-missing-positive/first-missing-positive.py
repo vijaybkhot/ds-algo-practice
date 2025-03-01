@@ -19,13 +19,39 @@ class Solution(object):
         #         return i
         # return range_num + 2
 
-        # Using hash set
-        nums_set = set(nums)
-        for i in range(1, len(nums_set)+1):
-            if i not in nums_set:
+        # # Using hash set - But the space complexity is O(n). Time complexity is O(n)
+        # nums_set = set(nums)
+        # for i in range(1, len(nums_set)+1):
+        #     if i not in nums_set:
+        #         return i
+        
+        # return len(nums_set) + 1
+
+        # Optimal O(n) time and O(1) space complexity solution
+        # Replace negative numbers with 0
+        n = len(nums)
+        for i in range(n):
+            if nums[i] < 0:
+                nums[i] = 0
+        
+        # Loop over each number, and mark the index of that number negative. i.e. if 1 is present, make the number at index 0 negative
+        # If a number is out of bounds of the array, skip it
+        for i in range(n):
+            num = abs(nums[i])
+            if 1 <= num <= n:
+                # Mark the index corresponding to the number as negative
+                if nums[num-1] > 0:
+                    nums[num-1] = - nums[num-1]
+                elif nums[num-1] == 0:
+                    nums[num-1] = -1 * (n+1)
+        
+        # Now loop over the transformed array and the first index whose vlaue is positive is the answer
+        for i in range(1, n+1):
+            if nums[i-1] >= 0:
                 return i
         
-        return len(nums_set) + 1
+        return n + 1
+        
 
 
                 
