@@ -67,12 +67,9 @@ class Solution(object):
                 continue
             curr_target = -curr_num
             left, right = i + 1, n-1
-            curr_triplet = []
             while left < right:
                 if nums[left] + nums[right] == curr_target:
-                    curr_triplet = [nums[i], nums[left], nums[right]]
-                    if len(curr_triplet) == 3:
-                        res.append(curr_triplet)
+                    res.append([nums[i], nums[left], nums[right]])
                     left += 1
                     while nums[left] == nums[left-1] and left < right:
                         left += 1
