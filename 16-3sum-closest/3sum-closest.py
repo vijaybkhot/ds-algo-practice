@@ -20,8 +20,8 @@ class Solution(object):
 
                 if nums[i] + nums[left] + nums[right] == target:
                     return target
-                elif right == left + 1:
-                    break
+                # elif right == left + 1:
+                #     break
                 elif nums[i] + nums[left] + nums[right] > target:
                     right -= 1
                 else:
