@@ -8,21 +8,24 @@ class Solution(object):
         nums.sort()
         n = len(nums)
         curr_closest = float('inf')
-        res = 0
+        res = float('inf')
         for i in range(n - 2):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
             left, right = i + 1, n - 1
             while left < right:
-                if abs(target - (nums[i] + nums[left] + nums[right])) < curr_closest:
-                    curr_closest = abs(target - (nums[i] + nums[left] + nums[right]))
-                    res = (nums[i] + nums[left] + nums[right])
-
-                if nums[i] + nums[left] + nums[right] == target:
+                current_sum = nums[i] + nums[left] + nums[right]
+                if abs(target - current_sum) < abs(target - res):
+                    res = current_sum
+                
+                # If the current sum is exactly equal to the target, return target
+                if current_sum == target:
                     return target
-                elif nums[i] + nums[left] + nums[right] > target:
-                    right -= 1
-                else:
+                
+                # Adjust the pointers based on the current sum
+                if current_sum < target:
                     left += 1
+                else:
+                    right -= 1
             
         return res
