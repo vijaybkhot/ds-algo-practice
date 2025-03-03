@@ -8,7 +8,7 @@ class Solution(object):
         nums.sort()
         n = len(nums)
         curr_closest = float('inf')
-        res = float('inf')
+        res = 0
         for i in range(n - 2):
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
@@ -20,8 +20,6 @@ class Solution(object):
 
                 if nums[i] + nums[left] + nums[right] == target:
                     return target
-                # elif right == left + 1:
-                #     break
                 elif nums[i] + nums[left] + nums[right] > target:
                     right -= 1
                 else:
