@@ -7,7 +7,6 @@ class Solution(object):
         """
         nums.sort()
         n = len(nums)
-        curr_closest = float('inf')
         res = float('inf')
         for i in range(n - 2):
             if i > 0 and nums[i] == nums[i - 1]:
@@ -24,7 +23,13 @@ class Solution(object):
                 # Adjust the pointers based on the current sum
                 if current_sum < target:
                     left += 1
+                    # Skip duplicates for left
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
                 else:
                     right -= 1
+                    # Skip duplicates for right
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
             
         return res
