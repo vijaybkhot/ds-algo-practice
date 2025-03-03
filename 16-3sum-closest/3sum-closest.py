@@ -17,7 +17,6 @@ class Solution(object):
                 current_sum = nums[i] + nums[left] + nums[right]
                 if abs(target - current_sum) < abs(target - res):
                     res = current_sum
-                
                 # If the current sum is exactly equal to the target, return target
                 if current_sum == target:
                     return target
