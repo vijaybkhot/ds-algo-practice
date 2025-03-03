@@ -61,7 +61,7 @@ class Solution(object):
         nums.sort()
         n = len(nums)
         res = []
-        for i in range(n):
+        for i in range(n-2):
             curr_num = nums[i]
             if i > 0 and curr_num == nums[i-1]:
                 continue
@@ -80,6 +80,6 @@ class Solution(object):
                     left += 1
                 else:
                     right -= 1      
-                      
+
         return res
 
