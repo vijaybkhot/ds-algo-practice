@@ -22,7 +22,7 @@ class Solution(object):
                     if curr_sum == target:
                         res.append([nums[i], nums[j], nums[left], nums[right]])
                         left += 1
-                        while nums[left] == nums[left-1] and left < right:
+                        while left < right and nums[left] == nums[left-1]:
                             left += 1
                     elif curr_sum > target:
                         right -= 1
