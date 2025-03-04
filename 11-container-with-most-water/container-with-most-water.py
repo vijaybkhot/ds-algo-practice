@@ -4,6 +4,7 @@ class Solution(object):
         :type height: List[int]
         :rtype: int
         """
+        # First attempt, partially correct solution.
         # left, right = 0, len(height)-1
         # max_area = min(height[left], height[right]) * (right - left)
         # while left < right:
@@ -22,6 +23,7 @@ class Solution(object):
 
         # return max_area
 
+        # Improved solution - Greedy approach to moving pointer
         left, right = 0, len(height)-1
         max_area = min(height[left], height[right]) * (right - left)
         while left < right:
