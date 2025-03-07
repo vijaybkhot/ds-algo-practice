@@ -16,6 +16,8 @@ class Solution(object):
 
             while (right - left + 1) - max_freq > k:
                 freq_map[s[left]] -= 1
+                if freq_map[s[left]] == max_freq:
+                    max_freq = max(freq_map.values())
                 left += 1 # Shrink window until a valid substring remains
             max_length = max(max_length, (right - left + 1))
         
