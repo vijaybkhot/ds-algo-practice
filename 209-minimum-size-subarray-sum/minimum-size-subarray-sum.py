@@ -19,9 +19,8 @@ class Solution(object):
             if curr_sum >= target:
                 minimal_length = min(minimal_length, (right-left+1))
         
-        if minimal_length <= len(nums):
-            return minimal_length
-        else:
-            return 0
+        
+        return minimal_length if minimal_length <= len(nums) else 0
+       
 
         
