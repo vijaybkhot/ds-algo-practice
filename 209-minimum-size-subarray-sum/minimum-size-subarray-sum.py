@@ -12,12 +12,9 @@ class Solution(object):
             # Include right in widow
             curr_sum += nums[right]
 
-            while True:
-                if (curr_sum - nums[left]) >= target:
+            while (curr_sum - nums[left]) >= target:
                     curr_sum -= nums[left]
                     left += 1
-                else:
-                    break
             
             if curr_sum >= target:
                 minimal_length = min(minimal_length, (right-left+1))
