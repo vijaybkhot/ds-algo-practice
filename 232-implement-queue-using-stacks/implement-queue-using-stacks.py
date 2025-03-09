@@ -1,8 +1,8 @@
 class MyQueue(object):
 
     def __init__(self):
-        self.stack = []
-        self.stack2 = []
+        self.s1 = []
+        self.s2 = []
         
 
     def push(self, x):
@@ -10,7 +10,7 @@ class MyQueue(object):
         :type x: int
         :rtype: None
         """
-        self.stack.append(x)
+        self.s1.append(x)
         
         
 
@@ -18,30 +18,25 @@ class MyQueue(object):
         """
         :rtype: int
         """
-        for i in range(len(self.stack)-1):
-            self.stack2.append(self.stack.pop())
-        pop_item = self.stack.pop()
-        for i in range(len(self.stack2)):
-            self.stack.append(self.stack2.pop())
-        return pop_item
-
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())
+        return self.s2.pop()
     def peek(self):
         """
         :rtype: int
         """
-        for i in range(len(self.stack)-1):
-            self.stack2.append(self.stack.pop())
-        peek_item = self.stack[-1]
-        for i in range(len(self.stack2)):
-            self.stack.append(self.stack2.pop())
-        return peek_item
+        if not self.s2:
+            while self.s1:
+                self.s2.append(self.s1.pop())
+        return self.s2[-1]
         
 
     def empty(self):
         """
         :rtype: bool
         """
-        return len(self.stack) == 0
+        return not self.s1 and not self.s2
         
 
 
