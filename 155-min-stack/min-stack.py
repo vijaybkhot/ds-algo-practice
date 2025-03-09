@@ -2,7 +2,7 @@ class MinStack(object):
 
     def __init__(self):
         self.stack = []
-        self. min = []
+        self.min = []
         
 
     def push(self, val):
@@ -21,7 +21,7 @@ class MinStack(object):
         :rtype: None
         """
         self.min.pop()
-        return self.stack.pop()
+        self.stack.pop()
         
     def top(self):
         """
