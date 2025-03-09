@@ -1,7 +1,7 @@
 class MyStack(object):
 
     def __init__(self):
-        self.stack = []
+        self.stack = deque()
         
 
     def push(self, x):
@@ -16,7 +16,9 @@ class MyStack(object):
         """
         :rtype: int
         """
-        return self.stack.pop()
+        for i in range(len(self.stack)-1):
+            self.push(self.stack.popleft())
+        return self.stack.popleft()
         
     def top(self):
         """
