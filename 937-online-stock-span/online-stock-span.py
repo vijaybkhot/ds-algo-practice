@@ -2,7 +2,6 @@ class StockSpanner(object):
 
     def __init__(self):
         self.stack = []
-        self.stocks = []
         
 
     def next(self, price):
