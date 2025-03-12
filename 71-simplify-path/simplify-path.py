@@ -15,5 +15,5 @@ class Solution(object):
                 continue
             else:
                 stack.append(path_str)
-        return '/'+'/'.join(stack)
+        return "/" + "/".join(stack)
         
