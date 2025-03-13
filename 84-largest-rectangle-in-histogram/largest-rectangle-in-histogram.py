@@ -29,27 +29,18 @@ class Solution(object):
         # return max_area
 
         # Optimized monotonic stack approach
-        stack = []
         max_area = 0
-        for idx, h in enumerate(heights):
-            while stack and heights[stack[-1]] > h:
-                popped_index = stack.pop()
-                height = heights[popped_index]
-                # If the stack is empty, it means this height spans from index 0 to idx
-                width = idx if not stack else idx - stack[-1] - 1
-                area = height * width
-                max_area = max(area, max_area)
-            stack.append(idx)
+        stack = []
+
+        for i, h in enumerate(heights):
+            start = i
+            while stack and stack[-1][1] > h:
+                index, height = stack.pop()
+                max_area = max(max_area, (height * (i - index)))
+                start = index
+            stack.append((start, h))
         
-        # Process any remaining elements in the stack
-        while stack:
-            popped_index = stack.pop()
-            height = heights[popped_index]
-            width = len(heights) if not stack else len(heights) - stack[-1] - 1
-            area = height * width
-            max_area = max(area, max_area)
+        for i, h in stack:
+            max_area = max(max_area, h * (len(heights) - i))
         
         return max_area
-                    
-
-                
