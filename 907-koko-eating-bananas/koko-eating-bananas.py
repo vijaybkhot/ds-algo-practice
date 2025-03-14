@@ -7,15 +7,14 @@ class Solution(object):
         """
         low = 1
         high = max(piles)
+        res = high
 
         def calcHours(piles, k):
             total_hours = 0
             for pile in piles:
                 curr_hour = math.ceil(float(pile) / k)
                 total_hours += curr_hour
-            
             return total_hours
-
 
         while low <= high:
             mid = (low + high) // 2
