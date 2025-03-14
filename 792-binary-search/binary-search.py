@@ -8,9 +8,6 @@ class Solution(object):
         
         left = 0
         right = len(nums)-1
-
-        if left == right and nums[left] == target:
-            return left
         
         while left <= right:
             mid = (right + left) // 2
