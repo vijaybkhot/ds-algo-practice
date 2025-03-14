@@ -11,9 +11,9 @@ class Solution(object):
 
         while left <= right:
             mid = (left + right) // 2
-            if int(mid * mid) == x:
+            if (mid * mid) == x:
                 return mid
-            elif int(mid * mid) < x:
+            elif (mid * mid) < x:
                 left = mid + 1
             else:
                 right = mid - 1
