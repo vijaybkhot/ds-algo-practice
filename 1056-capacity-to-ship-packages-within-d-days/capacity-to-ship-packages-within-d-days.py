@@ -5,10 +5,10 @@ class Solution(object):
         :type days: int
         :rtype: int
         """
-        def calcDaysForCapacity(capacity, weights):
+        def calcDaysForCapacity(capacity):
             curr_capacity = 0
             days = 1
-            for index, weight in enumerate(weights):
+            for weight in weights:
                 curr_capacity += weight
                 if curr_capacity > capacity:
                     days += 1
@@ -19,7 +19,7 @@ class Solution(object):
         res = high
         while low <= high:
             mid = (low + high) // 2
-            if calcDaysForCapacity(mid, weights) <= days:
+            if calcDaysForCapacity(mid) <= days:
                 res = mid
                 high = mid - 1
             else:
