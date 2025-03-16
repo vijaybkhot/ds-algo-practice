@@ -11,7 +11,8 @@ class TimeMap(object):
         :type timestamp: int
         :rtype: None
         """
-        self.map[key] = self.map.get(key, [])
+        if key not in self.map:
+            self.map[key] = []
         self.map[key].append([timestamp, value])        
 
     def get(self, key, timestamp):
@@ -23,6 +24,9 @@ class TimeMap(object):
         if key not in self.map or self.map[key][0][0] > timestamp:
             return ""
         
+        if self.map[key][-1][0] < timestamp:
+            return self.map[key][-1][1]
+
         value_arr = self.map[key]
         left, right = 0, len(value_arr)-1
         while left <= right:
@@ -34,7 +38,7 @@ class TimeMap(object):
             else:
                 return value_arr[mid][1]
 
-        return value_arr[right][1]
+        return "" if right < 0 else value_arr[right][1]
         
 
 
