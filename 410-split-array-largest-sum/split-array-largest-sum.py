@@ -6,6 +6,8 @@ class Solution(object):
         :rtype: int
         """
         def isValidSubArraysForSum(sum_to_check, array, k):
+            if k > len(array):
+                return False
             current_sum = 0
             subarray_count = 1  # Start with the first subarray
 
@@ -21,7 +23,7 @@ class Solution(object):
                     # Otherwise, add num to the current subarray sum
                     current_sum += num
 
-            # If we used exactly k subarrays, return True, else return False
+            # If we used exactly k subarrays or less, return True, else return False
             return subarray_count <= k
 
         largest_sum = sum(nums)
