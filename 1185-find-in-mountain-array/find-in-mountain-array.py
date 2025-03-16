@@ -24,7 +24,7 @@ class Solution(object):
 
         def findMax():
             left, right = 0, mountainArr.length() - 1
-            while left < right:  # Change here
+            while left < right:
                 mid = (left + right) // 2
                 if mountainArr.get(mid) < mountainArr.get(mid + 1):
                     left = mid + 1
