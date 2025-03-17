@@ -28,10 +28,17 @@ class Solution(object):
         l1 = head
         l2 = prev
         while l1 and l2:
+            # Save the remainder of l1 as
             tmp = l1.next
+
+            # Attach l2 node to l1
             l1.next = l2
-            l1 = l1.next
+
+            # Set l2 to l2.next
             l2 = l2.next
+
+            # Move l1 to l1.next and attach tmp to it then again move l1 to l1.next
+            l1 = l1.next
             l1.next = tmp
             l1 = l1.next
             
