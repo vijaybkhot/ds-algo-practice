@@ -14,6 +14,7 @@ class Solution(object):
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
+
         # Reverse the second half of the list
         prev, curr = None, slow.next
         slow.next = None
@@ -23,8 +24,7 @@ class Solution(object):
             prev = curr
             curr = nxt
 
-        rev_head = prev
-        # Connect the list alternatingly
+        # Connect both halves of the list alternatingly
         l1 = head
         l2 = prev
         while l1 and l2:
