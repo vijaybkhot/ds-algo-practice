@@ -24,11 +24,9 @@ class Solution(object):
 
         # Floyd’s Cycle Detection Algorithm (Tortoise and Hare). Fast and slow pointer
         tortoise, hare = head, head
-        while tortoise and hare:
+        while hare and hare.next:
             tortoise = tortoise.next
-            hare = hare.next.next if hare.next else None
-            if not hare or not tortoise:
-                return False
+            hare = hare.next.next
             if tortoise == hare:
                 return True
         
