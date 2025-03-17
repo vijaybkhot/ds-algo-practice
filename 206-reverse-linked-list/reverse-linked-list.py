@@ -19,15 +19,25 @@ class Solution(object):
         # return prev
 
         # Recursive solution
-        # Base case: if head is None or only one node, return head
+        # # Base case: if head is None or only one node, return head
+        # if not head or not head.next:
+        #     return head
+        
+        # # Recursive call on the rest of the list
+        # new_head = self.reverseList(head.next)
+        
+        # # Reverse the current node's pointer
+        # head.next.next = head
+        # head.next = None
+        
+        # return new_head
+
+        # Base case:
         if not head or not head.next:
             return head
         
-        # Recursive call on the rest of the list
         new_head = self.reverseList(head.next)
-        
-        # Reverse the current node's pointer
         head.next.next = head
         head.next = None
-        
+
         return new_head
