@@ -9,14 +9,14 @@ class Solution(object):
         :type head: Optional[ListNode]
         :rtype: Optional[ListNode]
         """
-        prev, slow, fast = None, head, head.next
-        while fast:
+        prev, slow, fast = None, head, head
+        while fast and fast.next:
             prev = slow
             slow = slow.next
-            fast = fast.next.next if fast.next else None
-        node_to_delete = ListNode()
+            fast = fast.next.next
+        
+        
         if prev and prev.next:
-            node_to_delete = prev.next
             prev.next = prev.next.next
         else:
             return head.next
