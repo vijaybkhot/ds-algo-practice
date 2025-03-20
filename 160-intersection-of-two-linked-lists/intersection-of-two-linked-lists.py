@@ -26,6 +26,7 @@ class Solution(object):
         
         # return None
 
+        # Two pointer approach. O(n+m) time and O(1) extra space
         if not headA or not headB:
             return None
 
