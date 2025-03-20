@@ -10,18 +10,30 @@ class Solution(object):
         :type head1, head1: ListNode
         :rtype: ListNode
         """
-        node_set = set()
-        while headA or headB:
-            if headA is not None and headA in node_set:
-                return headA
-            if headA is not None:
-                node_set.add(headA)
-            if headB is not None and headB in node_set:
-                return headB
-            if headB is not None:
-                node_set.add(headB)
-            headA = headA.next if headA else None
-            headB = headB.next if headB else None
+        # # Set approach. O(n+m) time and O(n) or O(m) extra space
+        # node_set = set()
+        # while headA or headB:
+        #     if headA is not None and headA in node_set:
+        #         return headA
+        #     if headA is not None:
+        #         node_set.add(headA)
+        #     if headB is not None and headB in node_set:
+        #         return headB
+        #     if headB is not None:
+        #         node_set.add(headB)
+        #     headA = headA.next if headA else None
+        #     headB = headB.next if headB else None
         
-        return None
+        # return None
+
+        if not headA or not headB:
+            return None
+
+        ptrA, ptrB = headA, headB
+
+        while ptrA != ptrB:
+            ptrA = ptrA.next if ptrA else headB
+            ptrB = ptrB.next if ptrB else headA
+        
+        return ptrA
         
