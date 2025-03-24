@@ -15,7 +15,8 @@ class Solution(object):
                 res += start - curr_day
             elif start < curr_day and end < curr_day:
                 continue
-            curr_day = end + 1
+            if end >= curr_day:
+                curr_day = end + 1
 
         if curr_day < days+1:
             res += days+1 - curr_day
