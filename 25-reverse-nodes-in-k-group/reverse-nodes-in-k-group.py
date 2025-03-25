@@ -21,9 +21,10 @@ class Solution(object):
         dummy = ListNode()
         dummy.next = head
         tail, curr = dummy, dummy.next
+        node_count = countNodes(head)
         while curr:
             prev = None
-            if countNodes(curr) < k:
+            if node_count < k:
                 tail.next = curr
                 break
             for _ in range(k):
@@ -39,6 +40,7 @@ class Solution(object):
             tail.next = prev
             for _ in range(k):
                 tail = tail.next
+            node_count -= k
 
         return dummy.next
             
