@@ -10,15 +10,31 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: List[int]
         """
-        output = []
-        def inOrder(root, output):
-            if root is not None:
-                inOrder(root.left, output)
-                output.append(root.val)
-                inOrder(root.right, output)
-            return output
+        # # Recursive solution
+        # output = []
+        # def inOrder(root, output):
+        #     if root is not None:
+        #         inOrder(root.left, output)
+        #         output.append(root.val)
+        #         inOrder(root.right, output)
+        #     return output
 
-        return inOrder(root, output)
+        # return inOrder(root, output)
+
+        # Iterative solution
+        stack = []
+        output = []
+        curr = root
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            output.append(curr.val)
+            curr = curr.right
+        
+        return output
+               
 
 
         
