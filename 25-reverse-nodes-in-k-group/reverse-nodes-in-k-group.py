@@ -26,7 +26,6 @@ class Solution(object):
             if countNodes(curr) < k:
                 tail.next = curr
                 break
-
             for _ in range(k):
                 if curr:
                     tmp = curr.next
