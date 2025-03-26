@@ -19,6 +19,5 @@ class Solution(object):
                     invert(root.right)
             return root
         
-        rev_tree = invert(root)
-        return rev_tree
+        return invert(root)
         
