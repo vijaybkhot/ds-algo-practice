@@ -29,11 +29,11 @@ class Solution(object):
         while stack:
             node = stack.pop()
             node.left, node.right = node.right, node.left
-            if node.right:
-                stack.append(node.right)
             if node.left:
                 stack.append(node.left)
-                
+            if node.right:
+                stack.append(node.right)
+
         return root
 
         
