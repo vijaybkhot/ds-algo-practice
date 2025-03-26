@@ -10,12 +10,26 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: List[int]
         """
-        def preorder(root, output):
-            if root:
-                output.append(root.val)
-                preorder(root.left, output)
-                preorder(root.right, output)
-            return output
+        # # Recursive solution
+        # def preorder(root, output):
+        #     if root:
+        #         output.append(root.val)
+        #         preorder(root.left, output)
+        #         preorder(root.right, output)
+        #     return output
         
-        return preorder(root, [])
+        # return preorder(root, [])
+
+        # Iterative solution
+        stack = []
+        output = []
+        curr = root
+        while curr or stack:
+            if curr:
+                output.append(curr.val)
+                stack.append(curr.right)
+                curr = curr.left
+            else:
+                curr = stack.pop()
+        return output
         
