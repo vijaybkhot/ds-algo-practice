@@ -10,14 +10,30 @@ class Solution(object):
         :type root: Optional[TreeNode]
         :rtype: Optional[TreeNode]
         """
-        def invert(root):
-            if root:
-                root.left, root.right = root.right, root.left
-                if root.left:
-                    invert(root.left)
-                if root.right:
-                    invert(root.right)
-            return root
+        # # Recursive solution
+        # def invert(root):
+        #     if root:
+        #         root.left, root.right = root.right, root.left
+        #         if root.left:
+        #             invert(root.left)
+        #         if root.right:
+        #             invert(root.right)
+        #     return root
         
-        return invert(root)
+        # return invert(root)
+
+        # Iterative solution:
+        if not root:
+            return root
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            node.left, node.right = node.right, node.left
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+                
+        return root
+
         
