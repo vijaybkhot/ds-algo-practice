@@ -12,9 +12,7 @@ class Solution(object):
         """
         def invert(root):
             if root:
-                left = root.left
-                root.left = root.right
-                root.right = left
+                root.left, root.right = root.right, root.left
                 if root.left:
                     invert(root.left)
                 if root.right:
