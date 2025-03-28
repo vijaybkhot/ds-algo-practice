@@ -17,17 +17,45 @@ class Solution:
 
         # return self.isValidBST(root.left) and self.isValidBST(root.right)
 
-        # Using in order traversal to create an array 
-        def inorder(root, arr):
-            if root:
-                inorder(root.left, arr)
-                arr.append(root.val)
-                inorder(root.right, arr)
-            return arr
+        # # Using in order traversal to create an array 
+        # def inorder(root, arr):
+        #     if root:
+        #         inorder(root.left, arr)
+        #         arr.append(root.val)
+        #         inorder(root.right, arr)
+        #     return arr
         
-        inorder_arr = inorder(root, [])
-        for i in range(1, len(inorder_arr)):
-            if inorder_arr[i] <= inorder_arr[i-1]:
+        # inorder_arr = inorder(root, [])
+        # # Checking if the array is in sorted order.
+        # for i in range(1, len(inorder_arr)):
+        #     if inorder_arr[i] <= inorder_arr[i-1]:
+        #         return False
+        
+        # return True
+
+        # Modified inorder traversal method without the extra array. We store the previous element in a variable and check every element in the inorder path is greater than this previous element.
+        prev = None
+
+        def inorder(node):
+            nonlocal prev
+
+            if not node:
+                return True
+            
+            # Check left subtree
+            if not inorder(node.left):
                 return False
+            
+
+            # Check the current node val
+            if prev is not None and node.val <= prev:
+                return False
+            prev = node.val
+            
+
+            # Check the right subtree
+            
+            return inorder(node.right)
         
-        return True
+        return inorder(root)
+            
