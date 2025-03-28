@@ -19,8 +19,11 @@ class Solution:
             return False
 
 
-        if (not root and subRoot) or (root and not subRoot):
+        if (not root and subRoot):
             return False
+            
+        if not subRoot:
+            return True
         
         if isSameTree(root, subRoot):
             return True
