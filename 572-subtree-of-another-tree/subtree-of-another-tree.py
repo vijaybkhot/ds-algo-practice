@@ -22,7 +22,7 @@ class Solution:
         if (not root and subRoot) or (root and not subRoot):
             return False
         
-        if isSameTree(root, subRoot) or (root.left and isSameTree(root.left, subRoot)) or (root.right and isSameTree(root.right, subRoot)):
+        if isSameTree(root, subRoot):
             return True
         
         
