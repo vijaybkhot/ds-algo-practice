@@ -56,13 +56,28 @@ class Solution:
         
         # return inorder(root)
             
-        # DFS Solution
-
-        def valid(node, left, right):
-            if not node:
-                return True
-            if not left < node.val < right:
-                return False
-            return valid(node.left, left, node.val) and valid(node.right, node.val, right)
+        # # DFS Solution
+        # def valid(node, left, right):
+        #     if not node:
+        #         return True
+        #     if not left < node.val < right:
+        #         return False
+        #     return valid(node.left, left, node.val) and valid(node.right, node.val, right)
         
-        return valid(root, float('-inf'), float('inf'))
+        # return valid(root, float('-inf'), float('inf'))
+
+        # BFS SOlution
+        
+        q = deque([(root, float('-inf'), float('inf'))])
+
+        while q:
+            node, left, right = q.popleft()
+            if not (left < node.val < right):
+                return False
+            if node.left:
+                q.append((node.left, left, node.val))
+            
+            if node.right:
+                q.append((node.right, node.val, right))
+        
+        return True
