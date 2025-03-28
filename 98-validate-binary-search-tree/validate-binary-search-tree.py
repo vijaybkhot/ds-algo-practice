@@ -33,29 +33,36 @@ class Solution:
         
         # return True
 
-        # Modified inorder traversal method without the extra array. We store the previous element in a variable and check every element in the inorder path is greater than this previous element.
-        prev = None
+        # # Modified inorder traversal method without the extra array. We store the previous element in a variable and check every element in the inorder path is greater than this previous element.
+        # prev = None
 
-        def inorder(node):
-            nonlocal prev
+        # def inorder(node):
+        #     nonlocal prev
 
+        #     if not node:
+        #         return True
+            
+        #     # Check left subtree
+        #     if not inorder(node.left):
+        #         return False
+
+        #     # Check the current node val
+        #     if prev is not None and node.val <= prev:
+        #         return False
+        #     prev = node.val
+
+        #     # Check the right subtree
+        #     return inorder(node.right)
+        
+        # return inorder(root)
+            
+        # DFS Solution
+
+        def valid(node, left, right):
             if not node:
                 return True
-            
-            # Check left subtree
-            if not inorder(node.left):
+            if not left < node.val < right:
                 return False
-            
-
-            # Check the current node val
-            if prev is not None and node.val <= prev:
-                return False
-            prev = node.val
-            
-
-            # Check the right subtree
-            
-            return inorder(node.right)
+            return valid(node.left, left, node.val) and valid(node.right, node.val, right)
         
-        return inorder(root)
-            
+        return valid(root, float('-inf'), float('inf'))
