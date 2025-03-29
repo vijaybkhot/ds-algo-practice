@@ -19,26 +19,39 @@ class Solution:
 
         # return sorted_bst_arr[k-1]
 
-        # Optimized solution for follow up question. Using iterative inorder traversal
+        # # Optimized solution for follow up question. Using iterative inorder traversal
+        # stack = []
+        # curr = root
 
-        stack = []
-        curr = root
+        # while True:
+        #     # Go left as much as possible
+        #     while curr:
+        #         stack.append(curr)
+        #         curr = curr.left
+            
+        #     # Process the leftmost node
+        #     curr = stack.pop()
+        #     k -= 1
+        #     if k == 0:
+        #         return curr.val  # Found kth smallest
+            
+        #     # Move to the right subtree
+        #     curr = curr.right
 
-        while True:
-            # Go left as much as possible
-            while curr:
-                stack.append(curr)
-                curr = curr.left
-            
-            # Process the leftmost node
-            curr = stack.pop()
-            k -= 1
-            if k == 0:
-                return curr.val  # Found kth smallest
-            
-            # Move to the right subtree
-            curr = curr.right
+        # Recursive inorder traversal
+        self.count = 0
+        self.result = None
 
+        def inorder(node):
+            if node and self.result is None:
+                inorder(node.left)
+                self.count += 1
+                if self.count == k:
+                    self.result = node.val
+                    return
+                inorder(node.right)
             
+        inorder(root)
+        return self.result
 
         
