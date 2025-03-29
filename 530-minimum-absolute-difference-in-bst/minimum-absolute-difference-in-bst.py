@@ -42,7 +42,7 @@ class Solution:
             if self.prev is not None:
                 self.res = min(self.res, abs(node.val - self.prev))
             
-            self.prev = node.val  # Update prev
+            self.prev = node.val  
             
             inorder(node.right)
 
