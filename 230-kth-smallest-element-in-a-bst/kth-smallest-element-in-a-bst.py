@@ -22,20 +22,23 @@ class Solution:
         # Optimized solution for follow up question. Using iterative inorder traversal
 
         stack = []
-        smallest = 0
         curr = root
 
-        while curr or stack:
+        while True:
+            # Go left as much as possible
             while curr:
                 stack.append(curr)
                 curr = curr.left
-            # Process leftmost node
-            curr = stack.pop()
-            smallest += 1
-            if smallest == k:
-                return curr.val
-            curr = curr.right
             
+            # Process the leftmost node
+            curr = stack.pop()
+            k -= 1
+            if k == 0:
+                return curr.val  # Found kth smallest
+            
+            # Move to the right subtree
+            curr = curr.right
+
             
 
         
