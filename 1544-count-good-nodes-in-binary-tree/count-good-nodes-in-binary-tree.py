@@ -9,7 +9,6 @@ class Solution:
         if root is None:
             return 0
         self.good_nodes = 0
-        curr_max = root.val
 
         def dfs(root, max_val):
             if root:
@@ -19,6 +18,6 @@ class Solution:
                 dfs(root.left, max_val)
                 dfs(root.right, max_val)
         
-        dfs(root, curr_max)
+        dfs(root, root.val)
         return self.good_nodes
         
