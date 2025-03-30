@@ -21,12 +21,31 @@ class Solution:
         # dfs(root, root.val)
         # return self.good_nodes
         
-        # Optimized solution - without using class variable
-        def dfs(node, max_val):
-            if not node:
-                return 0
-            good = 1 if node.val >= max_val else 0
-            max_val = max(max_val, node.val)
-            return good + dfs(node.left, max_val) + dfs(node.right, max_val)
+        # # Optimized solution - without using class variable
+        # def dfs(node, max_val):
+        #     if not node:
+        #         return 0
+        #     good = 1 if node.val >= max_val else 0
+        #     max_val = max(max_val, node.val)
+        #     return good + dfs(node.left, max_val) + dfs(node.right, max_val)
 
-        return dfs(root, root.val)
+        # return dfs(root, root.val)
+
+        # Using iterative dfs
+        if not root:
+            return 0
+        
+        stack = [(root, root.val)]
+        good_nodes = 0
+        while stack:
+            node, max_val = stack.pop()
+
+            if node.val >= max_val:
+                good_nodes += 1
+            new_max = max(max_val, node.val)
+            if node.left:
+                stack.append((node.left, new_max))
+            if node.right:
+                stack.append((node.right, new_max))
+        
+        return good_nodes
