@@ -8,15 +8,15 @@ class Solution:
             else:
                 charHashMap[char] = [charHashMap[char][0], index]
         
-        curr_last_index = charHashMap[s[0]][1]
-        i = 0
+        end = charHashMap[s[0]][1]
+        start = 0
         for index, char in enumerate(s):
-            if index == curr_last_index:
-                res.append(index - i + 1)
-                i = index + 1
-                curr_last_index = charHashMap[s[index+1]][1] if index+1 < len(s) else index
+            if index == end:
+                res.append(end - start + 1)
+                start = end + 1
+                end = charHashMap[s[start]][1] if start < len(s) else index
             else:
-                curr_last_index = max(curr_last_index, charHashMap[s[index]][1])
+                end = max(end, charHashMap[s[index]][1])
             
         return res
 
