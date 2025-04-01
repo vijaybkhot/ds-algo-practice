@@ -21,12 +21,12 @@ class Solution:
             
             return [True, first_value]
         
-        root = Node(1, 0)
         def divideIntoFour(matrix, root):
             n = len(matrix)
             if n > 1:
                 if hasSameValues(matrix)[0]:
                     return Node(grid[0][0], 1, None, None, None, None)
+                    
                 new_len = n//2
                 grid1 = [row[:new_len] for row in matrix[:new_len]]  # Top-left
                 grid2 = [row[new_len:] for row in matrix[:new_len]]  # Top-right
