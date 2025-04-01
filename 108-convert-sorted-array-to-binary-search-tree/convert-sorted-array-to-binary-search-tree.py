@@ -32,14 +32,27 @@ class Solution:
         #     return root
         
         # return buildTree(root, nums[:n//2], nums[(n//2)+1:])
-        # More optimal approach
-        if not nums:
-            return None
-        mid = len(nums) // 2
-        root = TreeNode(nums[mid])
-        root.left = self.sortedArrayToBST(nums[:mid])
-        root.right = self.sortedArrayToBST(nums[mid+1:])
+        # # More optimal approach
+        # if not nums:
+        #     return None
+        # mid = len(nums) // 2
+        # root = TreeNode(nums[mid])
+        # root.left = self.sortedArrayToBST(nums[:mid])
+        # root.right = self.sortedArrayToBST(nums[mid+1:])
 
-        return root
+        # return root
+
+        # Approach without slicing arrays
+        def helper(left, right):
+            if left > right:
+                return None
+            mid = (left + right) // 2
+            root = TreeNode(nums[mid])
+            root.left = helper(left, mid-1)
+            root.right = helper(mid+1, right)
+            return root
+        
+        return helper(0, len(nums)-1)
+
             
         
