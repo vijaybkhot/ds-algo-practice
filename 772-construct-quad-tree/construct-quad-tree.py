@@ -81,37 +81,65 @@ class Solution:
         #     return []
         # return divideIntoFour(grid, Node(1, 0, None, None, None, None))
 
-        # More readable solution
-
-        def hasSameValues(matrix):
-            first_value = matrix[0][0]
-            for row in matrix:
-                for val in row:
-                    if val != first_value:
-                        return [False, 0]
-            return [True, first_value]
+        # # More readable solution
+        # def hasSameValues(matrix):
+        #     first_value = matrix[0][0]
+        #     for row in matrix:
+        #         for val in row:
+        #             if val != first_value:
+        #                 return [False, 0]
+        #     return [True, first_value]
         
-        def divideIntoFour(matrix):
-            n = len(matrix)
+        # def divideIntoFour(matrix):
+        #     n = len(matrix)
 
-            same, value = hasSameValues(matrix)
+        #     same, value = hasSameValues(matrix)
+        #     if same:
+        #         return Node(value, True, None, None, None, None)
+            
+        #     new_len = n // 2
+        #     grid1 = [row[:new_len] for row in matrix[:new_len]]  # Top-left
+        #     grid2 = [row[new_len:] for row in matrix[:new_len]]  # Top-right
+        #     grid3 = [row[:new_len] for row in matrix[new_len:]]  # Bottom-left
+        #     grid4 = [row[new_len:] for row in matrix[new_len:]]  # Bottom-right
+
+
+        #     return Node(1, False, divideIntoFour(grid1), divideIntoFour(grid2), divideIntoFour(grid3), divideIntoFour(grid4))
+        
+        # return divideIntoFour(grid)
+
+        # More optimized and more readable solution
+        def hasSameValues(x1, y1, x2, y2):
+            """Check if all values in the sub-grid from (x1, y1) to (x2, y2) are the same."""
+            first_value = grid[x1][y1]
+            for i in range(x1, x2):
+                for j in range(y1, y2):
+                    if grid[i][j] != first_value:
+                        return False, 0
+            return True, first_value
+
+        def divideIntoFour(x1, y1, x2, y2):
+            """Recursive function to construct the QuadTree efficiently."""
+            
+            # Call hasSameValues() ONCE per submatrix
+            same, value = hasSameValues(x1, y1, x2, y2)
             if same:
                 return Node(value, True, None, None, None, None)
-            
-            new_len = n // 2
-            grid1 = [row[:new_len] for row in matrix[:new_len]]  # Top-left
-            grid2 = [row[new_len:] for row in matrix[:new_len]]  # Top-right
-            grid3 = [row[:new_len] for row in matrix[new_len:]]  # Bottom-left
-            grid4 = [row[new_len:] for row in matrix[new_len:]]  # Bottom-right
 
+            midX = (x1 + x2) // 2
+            midY = (y1 + y2) // 2
 
-            return Node(1, False, divideIntoFour(grid1), divideIntoFour(grid2), divideIntoFour(grid3), divideIntoFour(grid4))
+            return Node(1, False,
+                        divideIntoFour(x1, y1, midX, midY),  # Top-left
+                        divideIntoFour(x1, midY, midX, y2),  # Top-right
+                        divideIntoFour(midX, y1, x2, midY),  # Bottom-left
+                        divideIntoFour(midX, midY, x2, y2))  # Bottom-right
         
-        return divideIntoFour(grid)
+        return divideIntoFour(0, 0, len(grid), len(grid))
+
+
+                        
+
 
 
                 
-
-
-
-        
