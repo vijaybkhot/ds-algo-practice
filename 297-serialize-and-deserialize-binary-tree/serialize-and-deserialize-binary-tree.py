@@ -6,7 +6,7 @@
 #         self.right = None
 
 class Codec:
-
+    # Approach 1: This approach fails when values in tree are not unique
     # def serialize(self, root):
     #     """Encodes a tree to a single string.
         
