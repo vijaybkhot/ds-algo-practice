@@ -19,7 +19,7 @@ class Solution:
             self.curr_max = max(self.curr_max, curr_path_sum)
             return_path_sum = max(node.val, node.val+left_path_sum, node.val + right_path_sum)
             return return_path_sum
-            
-        curr_path_sum = dfs(root)
-        return max(self.curr_max, curr_path_sum)
+        
+        dfs(root)
+        return self.curr_max
             
