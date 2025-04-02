@@ -6,8 +6,9 @@
 #         self.right = right
 class Solution:
     def delNodes(self, root: Optional[TreeNode], to_delete: List[int]) -> List[TreeNode]:
-        arr = []
+        res = []
         to_delete_set = set(to_delete)
+
         def dfs(node):
             if node:
                 dfs(node.left)
@@ -19,15 +20,15 @@ class Solution:
                 
                 if node.val in to_delete_set:
                     if node.left:
-                        arr.append(node.left)
+                        res.append(node.left)
                     if node.right:
-                        arr.append(node.right)
+                        res.append(node.right)
 
         
         dfs(root)
         if root.val not in to_delete_set:
-            arr.append(root)
-        return arr           
+            res.append(root)
+        return res           
             
             
 
