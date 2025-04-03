@@ -19,6 +19,7 @@ class Solution:
 
             if p.val in merged_set and q.val in merged_set and self.res is None:
                 self.res =  node
+                return set()
             return merged_set
 
         dfs(root)
