@@ -9,11 +9,10 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-
         def dfs(node):
             if node is None:
                 return None
-            left_tree, right_tree = None, None
+
             if node.left:
                 left_tree = node.left
                 right_tree = node.right
@@ -26,7 +25,6 @@ class Solution:
                     curr.right = dfs(right_tree)
             elif node.right:
                 node.right = dfs(node.right)
-
             return node
                     
         dfs(root)
