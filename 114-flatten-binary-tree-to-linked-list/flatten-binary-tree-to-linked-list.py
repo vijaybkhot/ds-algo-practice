@@ -9,23 +9,35 @@ class Solution:
         """
         Do not return anything, modify root in-place instead.
         """
-        def dfs(node):
-            if node is None:
-                return None
-
-            if node.left:
-                left_tree = node.left
-                right_tree = node.right
-                node.left = None
-                node.right = dfs(left_tree)
-                if node.right:
-                    curr = node.right
-                    while curr.right:
-                        curr = curr.right
-                    curr.right = dfs(right_tree)
-            elif node.right:
-                node.right = dfs(node.right)
-            return node
+        # # Recursive DFS Approach:
+        # def dfs(node):
+        #     if node is None:
+        #         return None
+        #     if node.left:
+        #         left_tree = node.left
+        #         right_tree = node.right
+        #         node.left = None
+        #         node.right = dfs(left_tree)
+        #         if node.right:
+        #             curr = node.right
+        #             while curr.right:
+        #                 curr = curr.right
+        #             curr.right = dfs(right_tree)
+        #     elif node.right:
+        #         node.right = dfs(node.right)
+        #     return node
                     
-        dfs(root)
+        # dfs(root)
+
+        # Iterative approach
+        curr = root
+        while curr:
+            if curr.left:
+                pre = curr.left
+                while pre.right:
+                    pre = pre.right
+                pre.right = curr.right
+                curr.right = curr.left
+                curr.left = None
+            curr = curr.right
         
