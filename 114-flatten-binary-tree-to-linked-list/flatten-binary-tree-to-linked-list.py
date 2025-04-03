@@ -29,24 +29,23 @@ class Solution:
                         
             # dfs(root)
 
-            if root is None:
-                return None
-            if root.left:
-                left_tree = root.left
-                right_tree = root.right
-                root.left = None
-                root.right = self.flatten(left_tree)
-                if root.right:
-                    curr = root.right
-                    while curr.right:
-                        curr = curr.right
-                    curr.right = self.flatten(right_tree)
-            elif root.right:
-                root.right = self.flatten(root.right)
+            # # Recursive without a helper function
+            # if root is None:
+            #     return None
+            # if root.left:
+            #     left_tree = root.left
+            #     right_tree = root.right
+            #     root.left = None
+            #     root.right = self.flatten(left_tree)
+            #     if root.right:
+            #         curr = root.right
+            #         while curr.right:
+            #             curr = curr.right
+            #         curr.right = self.flatten(right_tree)
+            # elif root.right:
+            #     root.right = self.flatten(root.right)
             
-            return root
-
-
+            # return root
 
             # # Iterative approach - More space optimal because no stack calls
             # curr = root
@@ -60,3 +59,12 @@ class Solution:
             #         curr.left = None
             #     curr = curr.right
             
+            while root:
+                if root.left:
+                    pre = root.left
+                    while pre.right:
+                        pre = pre.right
+                    pre.right = root.right
+                    root.right = root.left
+                    root.left = None
+                root = root.right
