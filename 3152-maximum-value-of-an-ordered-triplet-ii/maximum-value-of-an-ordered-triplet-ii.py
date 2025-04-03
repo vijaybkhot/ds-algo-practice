@@ -1,6 +1,9 @@
 class Solution:
     def maximumTripletValue(self, nums: List[int]) -> int:
         n = len(nums)
+        if n < 3:
+            return 0
+
         left_max = [0] * n
         left_max[0] = nums[0]
 
