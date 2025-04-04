@@ -31,7 +31,6 @@ class Solution:
                 return 0
             return 1 + max(height(node.left), height(node.right))
             
-
         def dfs(node):
             left_height = height(node.left)
             right_height = height(node.right)
