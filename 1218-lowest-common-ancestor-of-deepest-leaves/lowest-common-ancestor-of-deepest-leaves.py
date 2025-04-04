@@ -24,22 +24,38 @@ class Solution:
         #             q.append(node.right)
         # return leaf_node
         
-        self.lca = None
+        # # Working approach - but inefficient. Lot of recomputations in calculating the height of subtrees recursively
+        # self.lca = None
+        # def height(node):
+        #     if not node:
+        #         return 0
+        #     return 1 + max(height(node.left), height(node.right))
 
-        def height(node):
-            if not node:
-                return 0
-            return 1 + max(height(node.left), height(node.right))
-            
-        def dfs(node):
-            left_height = height(node.left)
-            right_height = height(node.right)
-            if left_height == right_height:
-                self.lca = node
-            elif left_height > right_height:
-                dfs(node.left)
-            else:
-                dfs(node.right)
-        dfs(root)
-        return self.lca
+        # def dfs(node):
+        #     left_height = height(node.left)
+        #     right_height = height(node.right)
+        #     if left_height == right_height:
+        #         self.lca = node
+        #     elif left_height > right_height:
+        #         dfs(node.left)
+        #     else:
+        #         dfs(node.right)
+        # dfs(root)
+        # return self.lca
         
+        # Optimal approach
+        def dfs(node):
+            if not node:
+                return (0, None)    # (height, LCA)
+            left_height, left_lca = dfs(node.left)
+            right_height, right_lca = dfs(node.right)
+
+            if left_height > right_height:
+                return (left_height+1, left_lca)
+            elif right_height > left_height:
+                return (right_height+1, right_lca)
+            else:
+                return (left_height+1, node)
+
+        return dfs(root)[1]
+            
