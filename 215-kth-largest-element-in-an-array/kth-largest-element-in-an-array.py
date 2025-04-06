@@ -9,11 +9,10 @@ class Solution:
         #         heapq.heappushpop(heap, num)
         # return heap[0]
         # Solution using custom heap
-        def heappush(heap, val, k):
+        def heappush(heap, val):
             heap.append(val)
             bubble_up(heap, len(heap)-1)
-            if len(heap) > k:
-                remove_min(heap)
+            
 
         def bubble_up(heap, idx):
             while idx > 0:
@@ -52,7 +51,9 @@ class Solution:
         heap = []
 
         for num in nums:
-            heappush(heap, num, k)
+            heappush(heap, num)
+            if len(heap) > k:
+                remove_min(heap)
         
         return heap[0]
             
