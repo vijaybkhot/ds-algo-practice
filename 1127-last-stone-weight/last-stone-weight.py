@@ -31,7 +31,6 @@ class Solution:
                 difference = abs(stone1 - stone2)
                 if difference > 0:
                     heapq.heappush(heap, -difference)
-                    heapq.heapify(heap)
 
             elif len(heap) <=1:
                 break
