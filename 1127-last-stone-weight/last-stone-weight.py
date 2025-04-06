@@ -37,6 +37,27 @@ class Solution:
         # return 0 if not heap else -heap[0]
 
         
+        def heapify(heap):
+            n = len(heap)
+            for i in reversed(range(n // 2)):
+                bubble_down(heap, i, n)
+        
+        def bubble_down(heap, idx, n):
+            while idx < n:
+                largest = idx
+                left = (2*idx) + 1
+                right = (2*idx) + 2
+                if left < n and heap[left] > heap[largest]:
+                    largest = left
+                if right < n and heap[right] > heap[largest]:
+                    largest = right
+                if largest == idx:
+                    break
+                heap[largest], heap[idx] = heap[idx], heap[largest]
+                idx = largest
+            
+
+            
 
         def heappush(heap: List[int], val: int):
             heap.append(val)
@@ -78,20 +99,18 @@ class Solution:
 
             return root
         
-        heap = []
-        for num in stones:
-            heappush(heap, num)
+        heapify(stones)
         
         while True:
-            if len(heap) > 1:
-                stone1 = heappop(heap)
-                stone2 = heappop(heap)
+            if len(stones) > 1:
+                stone1 = heappop(stones)
+                stone2 = heappop(stones)
                 difference = abs(stone1 - stone2)
                 if difference > 0:
-                    heappush(heap, difference)
-            elif len(heap) <= 1:
+                    heappush(stones, difference)
+            elif len(stones) <= 1:
                 break
-        return 0 if not heap else heap[0]
+        return 0 if not stones else stones[0]
 
 
 
