@@ -49,6 +49,6 @@ class Solution:
                 freq += 1
                 if freq < 0:
                     heapq.heappush(heap, (freq, task))
-        
+                    
         return total_interval
 
