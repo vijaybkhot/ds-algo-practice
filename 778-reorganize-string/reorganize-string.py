@@ -15,6 +15,13 @@ class Solution:
         # return output
 
         # Solution using heap
+        def addCharToRes(s, char, count, heap):
+            s += char
+            count += 1
+            if count < 0:
+                heapq.heappush(heap, (count, char))
+            return s
+
         freq_count = Counter(s)
         max_heap = [(-count, char) for char, count in freq_count.items()]
         heapq.heapify(max_heap)
@@ -26,15 +33,9 @@ class Solution:
             if res and res[-1] == char1:
                 if max_heap:
                     count2, char2 = heapq.heappop(max_heap)
-                    res += char2
-                    count2 += 1
-                    if count2 < 0:
-                        heapq.heappush(max_heap, (count2, char2))
+                    res = addCharToRes(res, char2, count2, max_heap)
                 else:
                     return ""
-            res += char1 
-            count1 += 1
-            if count1 < 0:
-                heapq.heappush(max_heap, (count1, char1))
+            res = addCharToRes(res, char1, count1, max_heap)
         
         return res
