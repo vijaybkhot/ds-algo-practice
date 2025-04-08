@@ -49,12 +49,12 @@ class Solution:
 
         if not max_heap:
             return ""
-        
-        first_count, first_char = heapq.heappop(max_heap)
-        output = [first_char]
-        first_count += 1
-        if first_count < 0:
-            heapq.heappush(max_heap, (first_count, first_char))
+        output = []
+        # first_count, first_char = heapq.heappop(max_heap)
+        # output = [first_char]
+        # first_count += 1
+        # if first_count < 0:
+        #     heapq.heappush(max_heap, (first_count, first_char))
 
         while max_heap:
             count1, char1 = heapq.heappop(max_heap)
