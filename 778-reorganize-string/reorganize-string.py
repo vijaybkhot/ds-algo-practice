@@ -27,15 +27,17 @@ class Solution:
         heapq.heapify(max_heap)
         
         res = ""
+        prev_char = ""
 
         while max_heap:
             count1, char1 = heapq.heappop(max_heap)
-            if res and res[-1] == char1:
+            if res and prev_char == char1:
                 if max_heap:
                     count2, char2 = heapq.heappop(max_heap)
                     res = addCharToRes(res, char2, count2, max_heap)
                 else:
                     return ""
             res = addCharToRes(res, char1, count1, max_heap)
+            prev_char = char1
         
         return res
