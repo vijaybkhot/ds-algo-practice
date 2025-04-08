@@ -58,7 +58,7 @@ class Solution:
 
         while max_heap:
             count1, char1 = heapq.heappop(max_heap)
-            if len(output) >= 2 and output[-1] == char1 and output[-2] == char1:
+            if len(output) > 1 and output[-1] == char1 and output[-2] == char1:
                 if max_heap:
                     count2, char2 = heapq.heappop(max_heap)
                     output.append(char2)
@@ -67,10 +67,10 @@ class Solution:
                         heapq.heappush(max_heap, (count2, char2))
                 else:
                     break
-
-            output.append(char1)
-            count1 += 1
-            if count1 < 0:
+            else:
+                output.append(char1)
+                count1 += 1
+            if count1:
                 heapq.heappush(max_heap, (count1, char1))
             
         return ''.join(output)
