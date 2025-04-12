@@ -1,6 +1,7 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         
+        # Solution using slicing - O(n*n!) time - extra n for creating slices. O(n^2) space - extra n for creating sliced lists along with n for recursion stack
         # k = len(nums)
         # result = []
         # def dfs(curr_path, remainder):
@@ -16,7 +17,7 @@ class Solution:
         # dfs([], nums)
         # return result
 
-        # Solution II: Swapping in place
+        # Solution II: Swapping in place - More optimal - O(n!) time and O(n) space for recursion tree
         result = []
         k = len(nums)
 
