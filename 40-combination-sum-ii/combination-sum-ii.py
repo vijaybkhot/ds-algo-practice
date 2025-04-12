@@ -40,7 +40,7 @@ class Solution:
             dfs(curr_index+1, curr_combination, total + candidates[curr_index])
             curr_combination.pop()
             new_curr_index = curr_index + 1
-            while new_curr_index + 1 <= len(candidates) and candidates[new_curr_index-1] == candidates[new_curr_index]:
+            while new_curr_index  < len(candidates) and candidates[new_curr_index-1] == candidates[new_curr_index]:
                 new_curr_index += 1
             dfs(new_curr_index, curr_combination, total)
         
