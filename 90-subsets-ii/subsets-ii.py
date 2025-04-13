@@ -6,9 +6,7 @@ class Solution:
 
         def dfs(start, path):
             if path:
-                res.append(path[:])
-            if start >= len(nums):
-                return        
+                res.append(path[:])       
             for i in range(start, len(nums)):
                 if i > start and nums[i] == nums[i-1]:
                     continue
