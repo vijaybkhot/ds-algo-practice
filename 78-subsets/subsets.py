@@ -14,18 +14,28 @@ class Solution:
         # dfs(0, [])
         # return result
 
-        # Solution using BFS
-        q = deque([[nums[0]], []]) if nums else deque([])
-        i = 1
+        # Solution using a for loop in dfs function
 
-        while i < (len(nums)):
-            for _ in range(len(q)):
-                curr_path = q.popleft()
-                q.append(curr_path + [nums[i]])
-                q.append(curr_path)
-            i += 1
+        res = []
+        def dfs(start, path):
+            res.append(path[:])
+
+            for i in range(start, len(nums)):
+                path.append(nums[i])
+                dfs(i+1, path)
+                path.pop()
+        dfs(0, [])
+        return res
+
+        # # Solution using BFS
+        # q = deque([[]])
+        # for num in nums:
+        #     for _ in range(len(q)):
+        #         curr_path = q.popleft()
+        #         q.append(curr_path + [num])
+        #         q.append(curr_path)
         
-        return list(q)
+        # return list(q)
 
 
             
