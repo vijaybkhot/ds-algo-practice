@@ -11,19 +11,35 @@ class Solution:
             '9': ['w', 'x', 'y', 'z']
         }
 
+        # # Attempt I
+        # res = []
+        # def backtrack(start, path):
+        #     if start >= len(digits):
+        #         if len(path)>0 and len(path) == len(digits):
+        #             res.append(''.join(path[:]))
+        #         return
+            
+        #     for i in range(start, len(digits)):
+        #         curr_chars = num_to_char_map[digits[i]]
+        #         for char in curr_chars:
+        #             path.append(char)
+        #             backtrack(i+1, path)
+        #             path.pop()
+
+        # Simplified code
         res = []
-        def backtrack(start, path):
-            if start >= len(digits):
-                if len(path)>0 and len(path) == len(digits):
+
+        def backtrack(index, path):
+            if index == len(digits):
+                if len(path) > 0:
                     res.append(''.join(path[:]))
                 return
             
-            for i in range(start, len(digits)):
-                curr_chars = num_to_char_map[digits[i]]
-                for char in curr_chars:
-                    path.append(char)
-                    backtrack(i+1, path)
-                    path.pop()
+            for char in num_to_char_map[digits[index]]:
+                path.append(char)
+                backtrack(index+1, path)
+                path.pop()
+
         
         backtrack(0, [])
         return res
