@@ -27,12 +27,15 @@ class Solution:
         #             path.pop()
 
         # Simplified code
+        if not digits:
+            return []
+
         res = []
+        
 
         def backtrack(index, path):
             if index == len(digits):
-                if len(path) > 0:
-                    res.append(''.join(path[:]))
+                res.append(''.join(path[:]))
                 return
             
             for char in num_to_char_map[digits[index]]:
