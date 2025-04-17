@@ -48,7 +48,7 @@ class Solution:
                         return True
                     visited[i] = False  # backtrack
 
-                    # ⚠️ Prune if the current subset is empty — no need to try other elements at this level
+                    #Prune if the current subset is empty — no need to try other elements at this level
                     if current_sum == 0:
                         break
 
