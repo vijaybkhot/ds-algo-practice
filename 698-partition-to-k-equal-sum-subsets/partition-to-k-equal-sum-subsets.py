@@ -4,7 +4,8 @@ class Solution:
         if total_sum % k or len(nums) < k:
             return False
         target_subset_sum = total_sum // k
-
+        
+        nums.sort(reverse=True)
         subsets = [0] * k
         def dfs(index):
             if index == len(nums):
@@ -16,7 +17,7 @@ class Solution:
                     if dfs(index+1):
                         return True
                     subsets[i] -= nums[index]
-                    
+
                 if subsets[i] == 0:
                     break
             return False
