@@ -1,23 +1,42 @@
-class Solution(object):
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
-        result = []
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
 
-        def backtrack(current, open, close):
-            if len(current) == 2*n:
-                result.append(current)
+        def dfs(open_paren, closed_paren, path):
+            if len(path) == 2*n:
+                
+                res.append(''.join(path[:]))
                 return
-            
-            if open < n:
-                backtrack(current+'(', open+1, close)
-            
-            if close < open:
-                backtrack(current+')', open, close+1)
         
-        backtrack("", 0, 0)
-        return result
-        
+
+            if open_paren == n:
+                path.append('(')
+                dfs(open_paren-1, closed_paren, path)
+                path.pop()
+            
+            elif open_paren == 0:
+                path.append(')')
+                dfs(open_paren, closed_paren-1, path)
+                path.pop()
+
+            elif (open_paren <= closed_paren) and (open_paren > 0):
+                path.append('(')
+                dfs(open_paren-1, closed_paren, path)
+                path.pop()
+
+                path.append(')')
+                dfs(open_paren, closed_paren-1, path)
+                path.pop()
+            
+
+            
+
+        dfs(n, n, [])
+
+        return res
+
+    
+                
+            
+
         
