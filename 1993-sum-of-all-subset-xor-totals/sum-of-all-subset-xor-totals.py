@@ -1,22 +1,15 @@
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
-
-        def decimal_to_binary(deci):
-            remainder = []
-            while True:
-                remainder.append(deci % 2)
-                deci = deci // 2
-                if deci == 0:
-                    break
-            return remainder[::-1]
+        self.xor = 0
         
-        
-        def dfs(i, total):
-            if i == len(nums):
+        def dfs(index, total):
+            if index == len(nums):
                 return total
             
-            return dfs(i+1, total^nums[i]) + dfs(i+1, total)
-        
+            include = dfs(index+1, total^nums[index])
+            exclude = dfs(index+1, total)
 
-        return dfs(0, 0)
+            return include + exclude
         
+        return dfs(0, 0)
+
