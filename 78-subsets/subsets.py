@@ -16,16 +16,16 @@ class Solution:
 
         # Solution using a for loop in dfs function
 
-        res = []
-        def dfs(start, path):
-            res.append(path[:])
+        # res = []
+        # def dfs(start, path):
+        #     res.append(path[:])
 
-            for i in range(start, len(nums)):
-                path.append(nums[i])
-                dfs(i+1, path)
-                path.pop()
-        dfs(0, [])
-        return res
+        #     for i in range(start, len(nums)):
+        #         path.append(nums[i])
+        #         dfs(i+1, path)
+        #         path.pop()
+        # dfs(0, [])
+        # return res
 
         # # Solution using BFS
         # q = deque([[]])
@@ -36,6 +36,24 @@ class Solution:
         #         q.append(curr_path)
         
         # return list(q)
+
+        res = []
+
+        def dfs(index, path):
+            res.append(path[:])
+            for i in range(index, len(nums)):
+                path.append(nums[i])
+                dfs(i + 1, path)
+                path.pop()
+        
+        dfs(0, [])
+        return res
+
+
+
+
+
+
 
 
             
