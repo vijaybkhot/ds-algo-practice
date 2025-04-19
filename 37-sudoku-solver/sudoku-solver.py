@@ -3,6 +3,7 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
+        # First Attempt: Correct answer!
         self.complete = False
         row_sets = [set() for _ in range(9)]
         col_sets = [set() for _ in range(9)]
