@@ -27,9 +27,9 @@ class Solution:
         wordSet = set(wordDict)
         
         def dfs(curr_index, start, path):
-            if curr_index == len(s)-1:
-                if ''.join(s[start:curr_index+1]) in wordSet:
-                    path += s[start:curr_index+1]
+            if curr_index == len(s):
+                if s[start:curr_index] in wordSet:
+                    path += s[start:curr_index]
                     res.append(path)
                 return
             
