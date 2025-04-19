@@ -47,30 +47,51 @@ class Solution:
         # dfs(0, [], 0)
         # return result
 
-        # Same approach, using for loop
+        # # Same approach, using for loop
 
-        result = []
-        candidates.sort()  # \U0001f511 Sorting helps skip duplicates
+        # result = []
+        # candidates.sort()  # \U0001f511 Sorting helps skip duplicates
 
-        def dfs(start, path, total):
-            if total == target:
-                result.append(path[:])
-                return
-            if total > target:
-                return
+        # def dfs(start, path, total):
+        #     if total == target:
+        #         result.append(path[:])
+        #         return
+        #     if total > target:
+        #         return
 
-            for i in range(start, len(candidates)):
-                # \U0001f501 Skip duplicates (only at the same recursion level)
-                if i > start and candidates[i] == candidates[i - 1]:
-                    continue
+        #     for i in range(start, len(candidates)):
+        #         # \U0001f501 Skip duplicates (only at the same recursion level)
+        #         if i > start and candidates[i] == candidates[i - 1]:
+        #             continue
 
-                # \U0001f53d Choose candidates[i], move to i+1 (no reuse!)
-                path.append(candidates[i])
-                dfs(i + 1, path, total + candidates[i])
-                path.pop()  # backtrack
+        #         # \U0001f53d Choose candidates[i], move to i+1 (no reuse!)
+        #         path.append(candidates[i])
+        #         dfs(i + 1, path, total + candidates[i])
+        #         path.pop()  # backtrack
 
-        dfs(0, [], 0)
-        return result
+        # dfs(0, [], 0)
+        # return result
 
 
         
+        result = []
+        candidates.sort()
+
+        def dfs(start,  path, total):
+            if total == target:
+                result.append(path[:])
+                return
+            if total > target or start >= len(candidates):
+                return
+            
+            for i in range(start, len(candidates)):
+                if candidates[i] > target:
+                    break
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+                path.append(candidates[i])
+                dfs(i+1, path, total+candidates[i])
+                path.pop()
+        
+        dfs(0, [], 0)
+        return result
