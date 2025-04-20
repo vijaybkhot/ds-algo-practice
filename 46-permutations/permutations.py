@@ -35,17 +35,17 @@ class Solution:
         # return result
 
         res = []
-        def dfs(start, path, rem):
+        def dfs(path, rem):
             if len(nums) == len(path):
                 res.append(path[:])
             
             for i in range(len(rem)):
                 path.append(rem[i])
                 new_rem = rem[:i] + rem[i+1:]
-                dfs(i+1, path, new_rem)
+                dfs(path, new_rem)
                 path.pop()
                 
-        dfs(0, [], nums[:])
+        dfs([], nums[:])
         return res
                 
 
