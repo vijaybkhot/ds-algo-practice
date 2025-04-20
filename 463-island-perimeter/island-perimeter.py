@@ -15,12 +15,6 @@ class Solution:
                     res += (isLeft + isRight + isTop + isBottom)
 
                     
-                    
-                # isLeft = grid[i][j-1] if j-1 > -1 else 0
-                # isRight = grid[i][j+1] if j+1 < len(grid[0]) else 0
-                # isTop = grid[i-1][j] if i-1 > -1 else 0
-                # isBottom = grid[i+1][j] if i+1 < len(grid) else 0
-                # res += (isLeft + isRight + isTop + isBottom)
         
         return res
         
