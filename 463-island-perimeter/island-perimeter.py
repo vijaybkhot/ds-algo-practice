@@ -25,10 +25,7 @@ class Solution:
                 return 1
             if (i, j) in visited:
                 return 0
-            # left = dfs(i, j-1) if (i, j-1) not in visited else 0
-            # right = dfs(i, j+1) if (i, j+1) not in visited else 0
-            # top = dfs(i-1, j) if (i-1, j) not in visited else 0
-            # bottom = dfs(i+1, j) if (i+1, j) not in visited else 0
+        
             visited.add((i, j))
             
             return dfs(i, j-1) + dfs(i, j+1) + dfs(i-1, j) + dfs(i+1, j)
