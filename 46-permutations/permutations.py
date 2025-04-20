@@ -34,19 +34,35 @@ class Solution:
         # dfs(0)
         # return result
 
-        res = []
-        def dfs(path, rem):
-            if len(nums) == len(path):
-                res.append(path[:])
+        # res = []
+        # def dfs(path, rem):
+        #     if len(nums) == len(path):
+        #         res.append(path[:])
             
-            for i in range(len(rem)):
-                path.append(rem[i])
-                new_rem = rem[:i] + rem[i+1:]
-                dfs(path, new_rem)
-                path.pop()
+        #     for i in range(len(rem)):
+        #         path.append(rem[i])
+        #         new_rem = rem[:i] + rem[i+1:]
+        #         dfs(path, new_rem)
+        #         path.pop()
                 
-        dfs([], nums[:])
+        # dfs([], nums[:])
+        # return res
+
+        res = []
+
+        def dfs(start):
+            if start == len(nums):
+                res.append(nums.copy())
+                return
+
+            for i in range(start, len(nums)):
+                nums[i], nums[start] = nums[start], nums[i]
+                dfs(start+1)
+                nums[start], nums[i] = nums[i], nums[start]
+        
+        dfs(0)
         return res
+
                 
 
         
