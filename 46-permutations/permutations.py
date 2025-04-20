@@ -17,20 +17,36 @@ class Solution:
         # dfs([], nums)
         # return result
 
-        # Solution II: Swapping in place - More optimal - O(n!) time and O(n) space for recursion tree
-        result = []
-        k = len(nums)
+        # # Solution II: Swapping in place - More optimal - O(n!) time and O(n) space for recursion tree
+        # result = []
+        # k = len(nums)
 
-        def dfs(start):
-            if start == len(nums):
-                result.append(nums[:])
-                return
+        # def dfs(start):
+        #     if start == len(nums):
+        #         result.append(nums[:])
+        #         return
             
-            for i in range(start, len(nums)):
-                nums[start], nums[i] = nums[i], nums[start]     # Swap in place
-                dfs(start+1)
-                nums[start], nums[i] = nums[i], nums[start]     # Swap back - backtrack
+        #     for i in range(start, len(nums)):
+        #         nums[start], nums[i] = nums[i], nums[start]     # Swap in place
+        #         dfs(start+1)
+        #         nums[start], nums[i] = nums[i], nums[start]     # Swap back - backtrack
         
-        dfs(0)
-        return result
+        # dfs(0)
+        # return result
 
+        res = []
+        def dfs(start, path, rem):
+            if len(nums) == len(path):
+                res.append(path[:])
+            
+            for i in range(len(rem)):
+                path.append(rem[i])
+                new_rem = rem[:i] + rem[i+1:]
+                dfs(i+1, path, new_rem)
+                path.pop()
+                
+        dfs(0, [], nums[:])
+        return res
+                
+
+        
