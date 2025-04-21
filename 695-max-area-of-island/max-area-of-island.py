@@ -16,7 +16,9 @@ class Solution:
             bottom = (i+1, j) if i+1 < len(grid) else None
             left = (i, j-1) if j-1 > -1 else None
             right = (i, j+1) if j+1 < len(grid[0]) else None
+
             top_area, bottom_area, left_area, right_area = 0, 0, 0, 0
+            
             if top and top not in visited:
                 top_area = dfs(top)
             if bottom and bottom not in visited:
