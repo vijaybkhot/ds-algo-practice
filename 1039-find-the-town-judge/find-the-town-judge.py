@@ -18,7 +18,7 @@ class Solution:
         
         # return judge
 
-        # First attempt:
+        # Second attempt:
         trust_map = {}
         for person in range(1, n+1):
             trust_map[person] = [0, 0]  # trustOut, trustIn
