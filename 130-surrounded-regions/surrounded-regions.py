@@ -35,7 +35,7 @@ class Solution:
         
         for r in range(rows):
             for c in range(cols):
-                if is_surrounded(r, c):
+                if board[r][c] == "O" and is_surrounded(r, c):
                     capture(r, c)
             
 
