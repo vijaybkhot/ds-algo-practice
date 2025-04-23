@@ -42,6 +42,7 @@ class Solution:
         
         # return res
 
+        # Second attempt - Working - O(m*n) Time and O(m*n) Space complexity
         pacific = set()
         atlantic = set()
 
@@ -61,12 +62,21 @@ class Solution:
 
 
 
+        # for r in range(rows):
+        #     for c in range(cols):
+        #         if (r == 0 or c == 0) and (r, c) not in pacific:
+        #             rev_dfs_pacific(r, c, heights[r][c])
+        #         if (r == rows-1 or c == cols-1) and (r, c) not in atlantic:
+        #             rev_dfs_atlantic(r, c, heights[r][c])
+
+        # Cleaner approach:
         for r in range(rows):
-            for c in range(cols):
-                if (r == 0 or c == 0) and (r, c) not in pacific:
-                    rev_dfs_pacific(r, c, heights[r][c])
-                if (r == rows-1 or c == cols-1) and (r, c) not in atlantic:
-                    rev_dfs_atlantic(r, c, heights[r][c])
+            rev_dfs_pacific(r, 0, heights[r][0])           # Left edge
+            rev_dfs_atlantic(r, cols - 1, heights[r][cols - 1])  # Right edge
+
+        for c in range(cols):
+            rev_dfs_pacific(0, c, heights[0][c])           # Top edge
+            rev_dfs_atlantic(rows - 1, c, heights[rows - 1][c])  # Bottom edge
         
         return [[r, c] for (r, c) in pacific if (r, c) in atlantic]
                 
