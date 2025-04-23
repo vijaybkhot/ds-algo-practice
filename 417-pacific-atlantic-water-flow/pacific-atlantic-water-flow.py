@@ -68,12 +68,6 @@ class Solution:
                 if (r == rows-1 or c == cols-1) and (r, c) not in atlantic:
                     rev_dfs_atlantic(r, c, heights[r][c])
         
-        # return atlantic
-        for pos in pacific:
-            if pos in atlantic:
-                res.append([pos[0], pos[1]])
-        
-        return res
-
+        return [[r, c] for (r, c) in pacific if (r, c) in atlantic]
                 
 
