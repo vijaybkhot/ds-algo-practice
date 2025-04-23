@@ -42,15 +42,15 @@ class Solution:
 
         # Using reverse dfs approach:
         rows, cols = len(board), len(board[0])
-        visited = set()
+        
         def rev_dfs_identify_non_region(row, col):
             if board[row][col] == "X" or board[row][col] == "T":
                 return
-            visited.add((row, col))
+            # visited.add((row, col))
             board[row][col] = "T"
             for dr, dc in [(0, -1), (0, 1), (-1, 0), (1, 0)]:
                 r, c = row+dr, col+dc
-                if 0 <= r < rows and 0 <= c < cols and (r, c) not in visited and board[r][c] == "O":
+                if 0 <= r < rows and 0 <= c < cols and board[r][c] == "O":
                     rev_dfs_identify_non_region(r, c)
         
         for r in range(rows):
@@ -67,7 +67,7 @@ class Solution:
                     board[r][c] = "X"
                 elif board[r][c] == "T":
                     board[r][c] = "O"
-                    
+
 
 
 
