@@ -47,6 +47,8 @@ class Solution:
         atlantic = set()
 
         def rev_dfs_pacific(row, col, val):
+            if (row, col) in pacific:
+                return
             pacific.add((row, col))
             for dr, dc in[(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 r, c = row+dr, col+dc
@@ -54,6 +56,8 @@ class Solution:
                     rev_dfs_pacific(r, c, heights[r][c])
         
         def rev_dfs_atlantic(row, col, val):
+            if (row, col) in atlantic:
+                return
             atlantic.add((row, col))
             for dr, dc in[(-1, 0), (1, 0), (0, -1), (0, 1)]:
                 r, c = row+dr, col+dc
