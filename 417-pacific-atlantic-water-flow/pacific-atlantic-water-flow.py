@@ -1,9 +1,6 @@
 class Solution:
     def pacificAtlantic(self, heights: List[List[int]]) -> List[List[int]]:
 
-        rows, cols = len(heights), len(heights[0])
-        res = []
-        
         # # Inefficient approach:
         # def dfs_pacific(pos):
         #     row, col = pos
@@ -43,6 +40,7 @@ class Solution:
         # return res
 
         # Second attempt - Working - O(m*n) Time and O(m*n) Space complexity
+        rows, cols = len(heights), len(heights[0])        
         pacific = set()
         atlantic = set()
 
