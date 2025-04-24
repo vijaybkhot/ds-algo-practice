@@ -30,30 +30,57 @@ class Solution:
         # return False
                  
             
-        total = sum(matchsticks)
-        if total % 4 != 0:
-            return False
+        # total = sum(matchsticks)
+        # if total % 4 != 0:
+        #     return False
 
+        # target_side = total // 4
+        # matchsticks.sort(reverse=True)  # Start with bigger sticks to prune faster
+        # sides = [0] * 4
+
+        # def dfs(index):
+        #     if index == len(matchsticks):
+        #         return all(side == target_side for side in sides)
+            
+        #     for i in range(4):
+        #         if sides[i] + matchsticks[index] <= target_side:
+        #             sides[i] += matchsticks[index]
+        #             if dfs(index + 1):
+        #                 return True
+        #             sides[i] -= matchsticks[index]
+                    
+        #         # Optimization: If this side is still 0 after trying,
+        #         # don't try placing it in other empty sides
+        #         if sides[i] == 0:
+        #             break
+                    
+        #     return False
+
+        # return dfs(0)
+
+
+
+        total = sum(matchsticks)
+
+        if total % 4:
+            return False
+        
         target_side = total // 4
-        matchsticks.sort(reverse=True)  # Start with bigger sticks to prune faster
+        matchsticks.sort(reverse=True)
         sides = [0] * 4
 
-        def dfs(index):
-            if index == len(matchsticks):
+        def dfs(start):
+            if start == len(matchsticks):
                 return all(side == target_side for side in sides)
             
             for i in range(4):
-                if sides[i] + matchsticks[index] <= target_side:
-                    sides[i] += matchsticks[index]
-                    if dfs(index + 1):
+                if sides[i] + matchsticks[start] <= target_side:
+                    sides[i] += matchsticks[start]
+                    if dfs(start+1):
                         return True
-                    sides[i] -= matchsticks[index]
-                    
-                # Optimization: If this side is still 0 after trying,
-                # don't try placing it in other empty sides
-                if sides[i] == 0:
-                    break
-                    
+                    sides[i] -= matchsticks[start]
             return False
-
+                
+        
         return dfs(0)
+
