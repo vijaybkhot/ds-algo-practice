@@ -1,6 +1,7 @@
 class Solution:
     def letterCombinations(self, digits: str) -> List[str]:
         num_to_char_map = {
+            '1':[],
             '2': ['a', 'b', 'c'],
             '3': ['d', 'e', 'f'],
             '4': ['g', 'h', 'i'],
@@ -11,40 +12,55 @@ class Solution:
             '9': ['w', 'x', 'y', 'z']
         }
 
-        # # Attempt I
+        # # # Attempt I
+        # # res = []
+        # # def backtrack(start, path):
+        # #     if start >= len(digits):
+        # #         if len(path)>0 and len(path) == len(digits):
+        # #             res.append(''.join(path[:]))
+        # #         return
+            
+        # #     for i in range(start, len(digits)):
+        # #         curr_chars = num_to_char_map[digits[i]]
+        # #         for char in curr_chars:
+        # #             path.append(char)
+        # #             backtrack(i+1, path)
+        # #             path.pop()
+
+        # # Simplified code
+        # if not digits:
+        #     return []
+
         # res = []
-        # def backtrack(start, path):
-        #     if start >= len(digits):
-        #         if len(path)>0 and len(path) == len(digits):
-        #             res.append(''.join(path[:]))
+        
+
+        # def backtrack(index, path):
+        #     if index == len(digits):
+        #         res.append(''.join(path[:]))
         #         return
             
-        #     for i in range(start, len(digits)):
-        #         curr_chars = num_to_char_map[digits[i]]
-        #         for char in curr_chars:
-        #             path.append(char)
-        #             backtrack(i+1, path)
-        #             path.pop()
+        #     for char in num_to_char_map[digits[index]]:
+        #         path.append(char)
+        #         backtrack(index+1, path)
+        #         path.pop()
 
-        # Simplified code
-        if not digits:
-            return []
+        
+        # backtrack(0, [])
+        # return res
 
         res = []
-        
 
-        def backtrack(index, path):
-            if index == len(digits):
+        def dfs(start, path):
+            if start == len(digits):
                 res.append(''.join(path[:]))
                 return
-            
-            for char in num_to_char_map[digits[index]]:
+            curr_digit_chars = num_to_char_map[digits[start]]
+            for char in curr_digit_chars:
                 path.append(char)
-                backtrack(index+1, path)
+                dfs(start+1, path)
                 path.pop()
-
         
-        backtrack(0, [])
-        return res
+        dfs(0, [])
+        return res if digits else []
 
         
