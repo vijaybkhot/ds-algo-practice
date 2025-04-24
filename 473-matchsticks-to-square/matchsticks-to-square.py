@@ -79,6 +79,8 @@ class Solution:
                     if dfs(start+1):
                         return True
                     sides[i] -= matchsticks[start]
+                if sides[i] == 0:
+                    return False
             return False
                 
         
