@@ -63,24 +63,41 @@ class Solution:
         target_sub_sum = total_sum//k
         subs = [0] * k
         nums.sort(reverse=True)
-        def dfs(start):
-            if start == len(nums):
-                return all(sub == target_sub_sum for sub in subs)
+        # def dfs(start):
+        #     if start == len(nums):
+        #         return all(sub == target_sub_sum for sub in subs)
 
-            for i in range(k):
-                if nums[start] + subs[i] <= target_sub_sum:
-                    subs[i] += nums[start]
-                    if dfs(start+1):
-                        return True
-                    subs[i] -= nums[start]
+        #     for i in range(k):
+        #         if nums[start] + subs[i] <= target_sub_sum:
+        #             subs[i] += nums[start]
+        #             if dfs(start+1):
+        #                 return True
+        #             subs[i] -= nums[start]
                 
-                if subs[i] == 0:
-                    return False
+        #         if subs[i] == 0:
+        #             return False
+        #     return False
+        
+        # return dfs(0)
+        visited = [False] * len(nums)
+        def dfs(start, sub_index, curr_sub_total):
+            if sub_index == k-1:
+                return True
+            
+            if curr_sub_total == target_sub_sum:
+                return dfs(0, sub_index+1, 0)
+            
+            for i in range(start, len(nums)):
+                if not visited[i] and nums[i] + curr_sub_total <= target_sub_sum:
+                    visited[i] = True
+                    if dfs(i+1, sub_index, curr_sub_total+nums[i]):
+                        return True
+                    visited[i] = False
+                    if curr_sub_total == 0:
+                        break
             return False
         
-        return dfs(0)
-                
-
+        return dfs(0, 0, 0)
 
 
 
