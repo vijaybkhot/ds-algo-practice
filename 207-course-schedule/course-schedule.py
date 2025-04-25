@@ -45,5 +45,5 @@ class Solution:
                 if inDegree[neighbor] == 0:
                     queue.append(neighbor)
         
-        return True if len(topo_order) == numCourses else False
+        return len(topo_order) == numCourses
 
