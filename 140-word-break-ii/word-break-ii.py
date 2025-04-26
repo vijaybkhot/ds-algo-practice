@@ -46,7 +46,7 @@ class Solution:
 
         def dfs(start, end, path):
             if start == len(s):
-                res.append(path.strip())
+                res.append(path[:-1])
                 return
 
             for i in range(end, len(s)):
