@@ -53,14 +53,10 @@ class Solution:
             return True
 
 
-
-        idx = 0
-
         for index, (u, v) in enumerate(edges):
             notCycle = union(u, v)
             if not notCycle:
-                idx = index
-        
-        return edges[idx]
+                return [u, v]
+                
             
                 
