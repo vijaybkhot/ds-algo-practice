@@ -16,7 +16,7 @@ class Solution:
         while q:
             node = q.popleft()
             for neighbor in graph[node]:
-                prereq[neighbor] = prereq[neighbor].union(prereq[node])
+                prereq[neighbor].update(prereq[node])
                 prereq[neighbor].add(node)
                 indegree[neighbor] -= 1
                 if indegree[neighbor] == 0:
