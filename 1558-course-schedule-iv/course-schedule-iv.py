@@ -3,10 +3,10 @@ class Solution:
         # Using Kahns algorithm:
         prereq = defaultdict(set)
         graph = defaultdict(set)
-        indegree = defaultdict(int)
+        # indegree = defaultdict(int)
         for a, b in prerequisites:
             graph[a].add(b)
-            indegree[b] += 1
+            # indegree[b] += 1
         
         # q = deque()
         # for i in range(numCourses):
