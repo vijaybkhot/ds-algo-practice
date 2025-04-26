@@ -24,11 +24,5 @@ class Solution:
 
 
             
-        res = []
-        for u, v in queries:
-            if u in prereq[v]:
-                res.append(True)
-            else:
-                res.append(False)
+        return [True if u in prereq[v] else False for u, v in queries]
         
-        return res
