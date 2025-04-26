@@ -1,12 +1,6 @@
 class Solution:
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
-        indegree = defaultdict(int)
         input_graph = defaultdict(set)
-
-        max_indegree = 0
-        max_indegree_node = None
-        remove = 0
-        
         for index, (u, v) in enumerate(edges):
             input_graph[u].add(v)
             input_graph[v].add(u)
