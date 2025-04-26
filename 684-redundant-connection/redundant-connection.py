@@ -44,10 +44,12 @@ class Solution:
         def union(u, v):
             rootU = find(u)
             rootV = find(v)
-            if rootU== rootV:
+            if (rootU == rootV):
                 return False
             
+            
             self.parent[rootU] = rootV
+    
             return True
 
 
