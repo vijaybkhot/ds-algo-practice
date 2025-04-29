@@ -2,11 +2,11 @@ class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         if endWord not in wordList:
             return 0
-        char_sets = [set()] * len(beginWord)
+        # char_sets = [set()] * len(beginWord)
         # Accumulate unique index wise character for all words in wordList
-        for word in wordList:
-            for idx, char in enumerate(word):
-                char_sets[idx].add(char)
+        # for word in wordList:
+        #     for idx, char in enumerate(word):
+        #         char_sets[idx].add(char)
         
         wordSet = set(wordList)
         wordSet.add(beginWord)
@@ -15,10 +15,11 @@ class Solution:
         def getAdjacentWords(word):
             adj = []
             for i in range(len(beginWord)):
-                for char in char_sets[i]:
-                    curr_word = word[:i] + char + word[i+1:]
-                    if curr_word in wordSet:
-                        adj.append(curr_word)
+                for char in 'abcdefghijklmnopqrstuvwxyz':
+                    if char != word[i]:
+                        curr_word = word[:i] + char + word[i+1:]
+                        if curr_word in wordSet:
+                            adj.append(curr_word)
             return adj
         # # One directional BFS
         # q = deque()
