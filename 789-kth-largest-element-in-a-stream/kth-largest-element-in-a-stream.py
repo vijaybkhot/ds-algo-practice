@@ -25,17 +25,17 @@ class KthLargest:
         # Bubble down:
         parent = 0
         while parent < len(self.heap):
-            largest = parent
+            smallest = parent
             left, right = (2 * parent) + 1, (2 * parent) + 2
-            if left < len(self.heap) and self.heap[left] < self.heap[largest]:
-                largest = left
-            if right < len(self.heap) and self.heap[right] < self.heap[largest]:
-                largest = right
-            if largest == parent:
+            if left < len(self.heap) and self.heap[left] < self.heap[smallest]:
+                smallest = left
+            if right < len(self.heap) and self.heap[right] < self.heap[smallest]:
+                smallest = right
+            if smallest == parent:
                 break
         
-            self.heap[largest], self.heap[parent] = self.heap[parent], self.heap[largest]
-            parent = largest
+            self.heap[smallest], self.heap[parent] = self.heap[parent], self.heap[smallest]
+            parent = smallest
             
 
 
