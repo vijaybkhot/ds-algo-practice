@@ -42,8 +42,20 @@ class Solution:
         for i in range(n):
             if indegree[i] == 1:
                 q.append(i)
-        while max(indegree) > 1:
+        
+        # while max(indegree) > 1:
+        #     level_len = len(q)
+        #     for _ in range(level_len):
+        #         node = q.popleft()
+        #         for nei in graph[node]:
+        #             indegree[nei] -= 1
+        #             if indegree[nei] == 1:
+        #                 q.append(nei)
+
+        remaining_nodes = n
+        while remaining_nodes > 2:
             level_len = len(q)
+            remaining_nodes -= level_len
             for _ in range(level_len):
                 node = q.popleft()
                 for nei in graph[node]:
