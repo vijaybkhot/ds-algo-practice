@@ -3,8 +3,7 @@ class Solution:
         # Brute Force approach - Use BFS to count height and count height for every node
         graph = defaultdict(set)
         indegree = [0] * n
-        # if not edges and n == 1:
-        #     return [0]
+        
         for u, v in edges:
             graph[u].add(v)
             graph[v].add(u)
