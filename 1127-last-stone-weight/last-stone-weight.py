@@ -115,15 +115,19 @@ class Solution:
         heapq.heapify(stones_max)
         n = len(stones_max)
         remaining = n
-        while len(stones_max) >= 2:
-            stone1 = -heapq.heappop(stones_max)
-            stone2 = -heapq.heappop(stones_max)
+        while remaining >= 2:
+            if len(stones_max) >= 2:
+                stone1 = -heapq.heappop(stones_max)
+                stone2 = -heapq.heappop(stones_max)
+                if stone1 > stone2:
+                    new_stone = stone1 - stone2
+                    heapq.heappush(stones_max, -new_stone)
+                    remaining -= 1
+                else:
+                    remaining -= 2
 
-            if stone1 != stone2:
-                new_stone = stone1 - stone2
-                heapq.heappush(stones_max, -new_stone)
-                
-            
+
+        
         return -stones_max[0] if stones_max else 0
 
 
