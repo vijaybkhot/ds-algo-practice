@@ -174,12 +174,11 @@ class Solution:
         max_heap = heapify(stones)
 
         while len(max_heap) > 1:
-            if len(max_heap) > 1:
-                max_heap, stone1 = max_pop(max_heap)
-                max_heap, stone2 = max_pop(max_heap)
-                if stone1 != stone2:
-                    new_stone = stone1 - stone2
-                    max_heap = insert(max_heap, new_stone)
+            max_heap, stone1 = max_pop(max_heap)
+            max_heap, stone2 = max_pop(max_heap)
+            if stone1 != stone2:
+                new_stone = stone1 - stone2
+                max_heap = insert(max_heap, new_stone)
         
         return max_heap[0] if max_heap else 0
 
