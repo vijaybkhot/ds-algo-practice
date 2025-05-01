@@ -60,7 +60,6 @@ class Solution:
         # return path
 
         # Using Kruskals algo:
-        vertex_set = set()
         graph = defaultdict(set)
         edges_heap = []
         uf = UnionFind()
@@ -79,8 +78,6 @@ class Solution:
             if not isUnion:
                 continue
             max_weight = max(max_weight, weight)
-            vertex_set.add(u)
-            vertex_set.add(v)
             rootX = uf.find((0, 0))
             rootY = uf.find((rows-1, cols-1))
             if rootX == rootY:
