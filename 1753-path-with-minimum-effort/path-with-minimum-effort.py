@@ -96,10 +96,12 @@ class Solution:
                     c = col+dc
                     if 0 <= r < rows and 0 <= c < cols:
                         edges_heap.append((abs(heights[row][col]-heights[r][c]), (row, col), (r, c)))
-        heapq.heapify(edges_heap)
+        edges_heap.sort()
         max_weight = 0
-        while edges_heap:
-            weight, u, v = heapq.heappop(edges_heap)
+        i = 0
+        while i < len(edges_heap):
+            weight, u, v = edges_heap[i]
+            i += 1
             isUnion = uf.union(u, v)
             if not isUnion:
                 continue
