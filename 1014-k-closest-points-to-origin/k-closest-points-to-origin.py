@@ -106,17 +106,28 @@ class Solution:
                 
         # return queue
 
-        # Using built in heap
-        heap = []
+        # # Using built in heap
+        # heap = []
+        # for x, y in points:
+        #     dist = -(x**2 + y**2)
+        #     if len(heap) < k:
+        #         heapq.heappush(heap, (dist, [x, y]))
+        #     else:
+        #         heapq.heappushpop(heap, (dist, [x, y]))
 
+        # return [point for _, point in heap]
+
+        res = []
+        heap = []
         for x, y in points:
-            dist = -(x**2 + y**2)
-            if len(heap) < k:
-                heapq.heappush(heap, (dist, [x, y]))
-            else:
-                heapq.heappushpop(heap, (dist, [x, y]))
-                
-        return [point for _, point in heap]
+            dist = x**2 + y**2
+            heapq.heappush(heap, (-dist, [x, y]))
+            if len(heap) > k:
+                heapq.heappop(heap)
+        
+        return [point for dist, point in heap]
+        
+
 
 
 
