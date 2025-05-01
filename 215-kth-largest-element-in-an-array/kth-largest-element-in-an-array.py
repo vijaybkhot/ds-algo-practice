@@ -59,11 +59,52 @@ class Solution:
 
 
 
+        # heap = []
+        # for num in nums:
+        #     heapq.heappush(heap, num)
+        #     if len(heap) > k:
+        #         heapq.heappop(heap)
+        
+        # return heap[0]
+
+        def insert(heap, val):
+            heap.append(val)
+            bubble_up(heap, len(heap)-1)
+            if len(heap) > k:
+                remove_min(heap)
+        
+        def bubble_up(heap, idx):
+            while idx > 0:
+                parent_idx = (idx - 1)//2
+                if heap[idx] >= heap[parent_idx]:
+                    break
+                heap[idx], heap[parent_idx] = heap[parent_idx], heap[idx]
+                idx = parent_idx
+        
+        def remove_min(heap):
+            heap[0], heap[-1] = heap[-1], heap[0]
+            res = heap.pop()
+            bubble_down(heap, 0)
+            return res
+        
+        def bubble_down(heap, idx):
+            while idx < len(heap):
+                smallest = idx
+                left, right = 2*idx+1, 2*idx+2
+                if left < len(heap) and heap[left] < heap[smallest]:
+                    smallest = left
+                
+                if right < len(heap) and heap[right] < heap[smallest]:
+                    smallest = right
+                
+                if smallest == idx:
+                    break
+                heap[smallest], heap[idx] = heap[idx], heap[smallest]
+                idx = smallest
+        
         heap = []
         for num in nums:
-            heapq.heappush(heap, num)
-            if len(heap) > k:
-                heapq.heappop(heap)
+            insert(heap, num)
         
         return heap[0]
 
