@@ -59,6 +59,32 @@ class Solution:
         
         # return path
 
+        # # Using Kruskals algo:
+        # graph = defaultdict(set)
+        # edges_heap = []
+        # uf = UnionFind()
+        # for row in range(rows):
+        #     for col in range(cols):
+        #         for dr, dc in [(1, 0), (0, 1)]:
+        #             r = row+dr
+        #             c = col+dc
+        #             if 0 <= r < rows and 0 <= c < cols:
+        #                 heapq.heappush(edges_heap, (abs(heights[row][col]-heights[r][c]), (row, col), (r, c)))
+        
+        # max_weight = 0
+        # while edges_heap:
+        #     weight, u, v = heapq.heappop(edges_heap)
+        #     isUnion = uf.union(u, v)
+        #     if not isUnion:
+        #         continue
+        #     max_weight = max(max_weight, weight)
+        #     rootX = uf.find((0, 0))
+        #     rootY = uf.find((rows-1, cols-1))
+        #     if rootX == rootY:
+        #         break
+            
+        # return max_weight
+
         # Using Kruskals algo:
         graph = defaultdict(set)
         edges_heap = []
@@ -69,8 +95,8 @@ class Solution:
                     r = row+dr
                     c = col+dc
                     if 0 <= r < rows and 0 <= c < cols:
-                        heapq.heappush(edges_heap, (abs(heights[row][col]-heights[r][c]), (row, col), (r, c)))
-        
+                        edges_heap.append((abs(heights[row][col]-heights[r][c]), (row, col), (r, c)))
+        heapq.heapify(edges_heap)
         max_weight = 0
         while edges_heap:
             weight, u, v = heapq.heappop(edges_heap)
