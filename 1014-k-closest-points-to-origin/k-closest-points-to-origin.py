@@ -117,15 +117,60 @@ class Solution:
 
         # return [point for _, point in heap]
 
+        # res = []
+        # heap = []
+        # for x, y in points:
+        #     dist = x**2 + y**2
+        #     heapq.heappush(heap, (-dist, [x, y]))
+        #     if len(heap) > k:
+        #         heapq.heappop(heap)
+        
+        # return [point for dist, point in heap]
+
+        def insert(heap, val):
+            heap.append(val)
+            bubble_up(heap, len(heap)-1)
+            if len(heap) > k:
+                remove_max(heap)
+        
+        def bubble_up(heap, idx):
+            while idx > 0:
+                parent_idx = (idx-1)//2
+                if heap[parent_idx][0] >= heap[idx][0]:
+                    break
+                heap[parent_idx], heap[idx] = heap[idx], heap[parent_idx]
+                idx = parent_idx 
+        
+        def remove_max(heap):
+            heap[0], heap[-1] = heap[-1], heap[0]
+            res = heap.pop()
+            bubble_down(heap, 0)
+            return res
+        
+        def bubble_down(heap, idx):
+            while idx < len(heap):
+                largest = idx
+                left, right = (2*idx+1), (2*idx+2)
+                if left < len(heap) and heap[left][0] > heap[largest][0]:
+                    largest = left
+                if right < len(heap) and heap[right][0] > heap[largest][0]:
+                    largest = right
+                if largest == idx:
+                    break
+                heap[idx], heap[largest] = heap[largest], heap[idx]
+                idx = largest
+
         res = []
         heap = []
         for x, y in points:
             dist = x**2 + y**2
-            heapq.heappush(heap, (-dist, [x, y]))
-            if len(heap) > k:
-                heapq.heappop(heap)
+            insert(heap, (dist, [x, y]))
+            # if len(heap) > k:
+            #     heapq.heappop(heap)
         
         return [point for dist, point in heap]
+
+            
         
 
 
