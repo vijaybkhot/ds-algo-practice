@@ -59,8 +59,7 @@ class Solution:
         
         # return path
 
-        # # Using Kruskals algo:
-        # graph = defaultdict(set)
+        # # Using Kruskals algo using heap:
         # edges_heap = []
         # uf = UnionFind()
         # for row in range(rows):
@@ -80,38 +79,64 @@ class Solution:
         #     max_weight = max(max_weight, weight)
         #     rootX = uf.find((0, 0))
         #     rootY = uf.find((rows-1, cols-1))
+        ##     Break if the start and end cells are connected
         #     if rootX == rootY:
         #         break
             
         # return max_weight
 
-        # Using Kruskals algo:
-        graph = defaultdict(set)
-        edges_heap = []
-        uf = UnionFind()
-        for row in range(rows):
-            for col in range(cols):
-                for dr, dc in [(1, 0), (0, 1)]:
-                    r = row+dr
-                    c = col+dc
-                    if 0 <= r < rows and 0 <= c < cols:
-                        edges_heap.append((abs(heights[row][col]-heights[r][c]), (row, col), (r, c)))
-        edges_heap.sort()
-        max_weight = 0
-        i = 0
-        while i < len(edges_heap):
-            weight, u, v = edges_heap[i]
-            i += 1
-            isUnion = uf.union(u, v)
-            if not isUnion:
-                continue
-            max_weight = max(max_weight, weight)
-            rootX = uf.find((0, 0))
-            rootY = uf.find((rows-1, cols-1))
-            if rootX == rootY:
-                break
+        # # Using Kruskals algo using sorting:
+        # edges_heap = []
+        # uf = UnionFind()
+        # for row in range(rows):
+        #     for col in range(cols):
+        #         for dr, dc in [(1, 0), (0, 1)]:
+        #             r = row+dr
+        #             c = col+dc
+        #             if 0 <= r < rows and 0 <= c < cols:
+        #                 edges_heap.append((abs(heights[row][col]-heights[r][c]), (row, col), (r, c)))
+        # edges_heap.sort()
+        # max_weight = 0
+        # i = 0
+        # while i < len(edges_heap):
+        #     weight, u, v = edges_heap[i]
+        #     i += 1
+        #     isUnion = uf.union(u, v)
+        #     if not isUnion:
+        #         continue
+        #     max_weight = max(max_weight, weight)
+        #     rootX = uf.find((0, 0))
+        #     rootY = uf.find((rows-1, cols-1))
+        #     if rootX == rootY:
+        #         break
             
-        return max_weight
+        # return max_weight
+
+        # Using Djikstras algorithm
+        rows, cols = len(heights), len(heights[0])
+        directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
+        heap = [(0, 0, 0)]  # (effort, row, col)
+        visited = set()
+
+        while heap:
+            effort, row, col = heapq.heappop(heap)
+            if (row, col) == (rows - 1, cols - 1):
+                return effort
+            if (row, col) in visited:
+                continue
+            visited.add((row, col))
+
+            for dr, dc in directions:
+                r, c = row + dr, col + dc
+                if 0 <= r < rows and 0 <= c < cols and (r, c) not in visited:
+                    new_effort = abs(heights[row][col] - heights[r][c])
+                    heapq.heappush(heap, (max(effort, new_effort), r, c))
+
+
+        
+                        
+        
+
             
 
             
