@@ -1,9 +1,13 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
+    
         graph = defaultdict(list)
         for u, v, w in times:
             graph[u].append((v, w))
-
+        
+        for u in graph:
+            graph[u].sort(key=lambda x: x[1])  # Sort by weight
+            
         dist = {node: float("inf") for node in range(1, n + 1)}
 
 
