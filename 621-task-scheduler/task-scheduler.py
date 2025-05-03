@@ -100,12 +100,34 @@ class Solution:
 
         # return curr_time
 
-        # Mathematical solution:
-        freq = list(Counter(tasks).values())
-        max_freq = max(freq)
-        max_count = freq.count(max_freq)
+        # # Mathematical solution:
+        # freq = list(Counter(tasks).values())
+        # max_freq = max(freq)
+        # max_count = freq.count(max_freq)
 
-        return max(len(tasks), (max_freq - 1) * (n + 1) + max_count)
+        # return max(len(tasks), (max_freq - 1) * (n + 1) + max_count)
+
+        # More optimized heap approach:
+        freq = Counter(tasks)
+        max_heap = [-cnt for cnt in freq.values()]
+        heapq.heapify(max_heap)
+
+        cooldown = deque()  # (time when task is ready, frequency)
+        time = 0
+
+        while max_heap or cooldown:
+            time += 1
+
+            if max_heap:
+                cnt = heapq.heappop(max_heap) + 1  # decrement freq
+                if cnt != 0:
+                    cooldown.append((time + n, cnt))
+
+            if cooldown and cooldown[0][0] == time:
+                ready_time, ready_cnt = cooldown.popleft()
+                heapq.heappush(max_heap, ready_cnt)
+
+        return time
 
 
 
