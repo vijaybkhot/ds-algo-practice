@@ -85,12 +85,12 @@ class Solution:
 
 
 
-        pq = []
         freq_dict = defaultdict(int)
         for char in tasks:
             freq_dict[char]+=1
-        for char in freq_dict:
-            heapq.heappush(pq, (-freq_dict[char], 0, char))
+
+        pq = [(-freq_dict[char], 0, char) for char in freq_dict]
+        heapq.heapify(pq)
         
         curr_time = 0
         while pq:
