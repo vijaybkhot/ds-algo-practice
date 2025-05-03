@@ -1,25 +1,46 @@
 class Solution:
     def networkDelayTime(self, times: List[List[int]], n: int, k: int) -> int:
-    
+        # # Use DFS with pruning and shortest-time tracking to simulate Dijkstra’s behavior for finding the minimum signal delay to all nodes.
+        # graph = defaultdict(list)
+        # for u, v, w in times:
+        #     graph[u].append((v, w))
+        
+        # for u in graph:
+        #     graph[u].sort(key=lambda x: x[1])  # Sort by weight
+
+        # dist = {node: float("inf") for node in range(1, n + 1)}
+
+
+        # def dfs(src, curr_time):
+        #     if curr_time >= dist[src]:
+        #         return
+        #     dist[src] = curr_time
+        #     for nei, nei_time in graph[src]:
+        #         dfs(nei, curr_time+nei_time)
+                    
+        
+        # dfs(k, 0)
+        # res = max(dist.values())
+        # return res if res < float('inf') else -1
+
+        # Using Djikstras algorithm
         graph = defaultdict(list)
         for u, v, w in times:
             graph[u].append((v, w))
         
-        for u in graph:
-            graph[u].sort(key=lambda x: x[1])  # Sort by weight
-            
-        dist = {node: float("inf") for node in range(1, n + 1)}
+        time = {node: float("inf") for node in range(1, n + 1)}
+        time[k] = 0
+        heap = [(0, k)]
 
-
-        def dfs(src, curr_time):
-            if curr_time >= dist[src]:
-                return
-            dist[src] = curr_time
-            for nei, nei_time in graph[src]:
-                dfs(nei, curr_time+nei_time)
-                    
+        while heap:
+            curr_time, node = heapq.heappop(heap)
+            for nei, nei_time in graph[node]:
+                new_time = curr_time + nei_time
+                if time[nei] > new_time:
+                    time[nei] = new_time
+                    heapq.heappush(heap, (new_time, nei))
         
-        dfs(k, 0)
-        res = max(dist.values())
+        res = max(time.values())
         return res if res < float('inf') else -1
+        
             
