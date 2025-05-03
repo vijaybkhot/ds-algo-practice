@@ -75,37 +75,37 @@ class Solution:
         
         # return total_time
 
+        # # Simulation using heap
+        # freq_dict = defaultdict(int)
+        # for char in tasks:
+        #     freq_dict[char]+=1
 
-
-
-
-
-
-
-
-
-
-        freq_dict = defaultdict(int)
-        for char in tasks:
-            freq_dict[char]+=1
-
-        pq = [(-freq_dict[char], 0, char) for char in freq_dict]
-        heapq.heapify(pq)
+        # pq = [(-freq_dict[char], 0, char) for char in freq_dict]
+        # heapq.heapify(pq)
         
-        curr_time = 0
-        while pq:
-            curr_tasks = []
-            for i in range(n+1):
-                if pq:
-                    if pq[0][1] > curr_time:
-                        curr_time = pq[0][1]
-                    freq, task_start, char = heapq.heappop(pq)
-                    if freq < -1:
-                        heapq.heappush(curr_tasks, (freq+1, curr_time+n+1, char))
-                    curr_time += 1
-            if curr_tasks:
-                for task in curr_tasks:
-                    heapq.heappush(pq, task)
+        # curr_time = 0
+        # while pq:
+        #     curr_tasks = []
+        #     for i in range(n+1):
+        #         if pq:
+        #             if pq[0][1] > curr_time:
+        #                 curr_time = pq[0][1]
+        #             freq, task_start, char = heapq.heappop(pq)
+        #             if freq < -1:
+        #                 heapq.heappush(curr_tasks, (freq+1, curr_time+n+1, char))
+        #             curr_time += 1
+        #     if curr_tasks:
+        #         for task in curr_tasks:
+        #             heapq.heappush(pq, task)
 
-        return curr_time
+        # return curr_time
+
+        # Mathematical solution:
+        freq = list(Counter(tasks).values())
+        max_freq = max(freq)
+        max_count = freq.count(max_freq)
+
+        return max(len(tasks), (max_freq - 1) * (n + 1) + max_count)
+
+
 
