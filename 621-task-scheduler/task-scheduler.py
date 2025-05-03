@@ -53,26 +53,59 @@ class Solution:
 
         # return total_interval
 
-        # More readable solution:
-        freq_map = Counter(tasks)
-        max_heap = [-freq for freq in freq_map.values()]
-        heapq.heapify(max_heap)
+        # # More readable solution:
+        # freq_map = Counter(tasks)
+        # max_heap = [-freq for freq in freq_map.values()]
+        # heapq.heapify(max_heap)
 
-        total_time = 0
+        # total_time = 0
 
-        while max_heap:
-            temp = []
-            for i in range(n+1):
-                if max_heap:
-                    freq = heapq.heappop(max_heap)
-                    if freq + 1 < 0:
-                        temp.append(freq + 1)
-                total_time += 1
-                if not max_heap and not temp:
-                    break
-            for freq in temp:
-                heapq.heappush(max_heap, freq)
+        # while max_heap:
+        #     temp = []
+        #     for i in range(n+1):
+        #         if max_heap:
+        #             freq = heapq.heappop(max_heap)
+        #             if freq + 1 < 0:
+        #                 temp.append(freq + 1)
+        #         total_time += 1
+        #         if not max_heap and not temp:
+        #             break
+        #     for freq in temp:
+        #         heapq.heappush(max_heap, freq)
         
-        return total_time
+        # return total_time
 
+
+
+
+
+
+
+
+
+
+
+        pq = []
+        freq_dict = defaultdict(int)
+        for char in tasks:
+            freq_dict[char]+=1
+        for char in freq_dict:
+            heapq.heappush(pq, (-freq_dict[char], 0, char))
+        
+        curr_time = 0
+        while pq:
+            curr_tasks = []
+            for i in range(n+1):
+                if pq:
+                    if pq[0][1] > curr_time:
+                        curr_time = pq[0][1]
+                    freq, task_start, char = heapq.heappop(pq)
+                    if freq < -1:
+                        heapq.heappush(curr_tasks, (freq+1, curr_time+n+1, char))
+                    curr_time += 1
+            if curr_tasks:
+                for task in curr_tasks:
+                    heapq.heappush(pq, task)
+
+        return curr_time
 
