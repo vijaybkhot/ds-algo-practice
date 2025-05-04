@@ -3,7 +3,7 @@ class Solution:
         dominoes_set = [(x, y) if x <= y else (y, x) for x, y in dominoes]
         count = 0
         freq_count = defaultdict(int)
-        for idx, dom_set in enumerate(dominoes_set):
+        for dom_set in dominoes_set:
             freq_count[dom_set] += 1
 
         for key in freq_count:
