@@ -27,31 +27,62 @@ class Solution:
 
         # return res
 
-        #More readable approach
-        indexed_tasks = sorted([(et, pt, i) for i, (et, pt) in enumerate(tasks)])
-        result = []
-        min_heap = []
-        time = 0
-        i = 0
-        n = len(tasks)
+        # #More readable approach
+        # indexed_tasks = sorted([(et, pt, i) for i, (et, pt) in enumerate(tasks)])
+        # result = []
+        # min_heap = []
+        # time = 0
+        # i = 0
+        # n = len(tasks)
 
-        while i < n or min_heap:
-            while i < n and indexed_tasks[i][0] <= time:
-                enqueue, process, idx = indexed_tasks[i]
-                heapq.heappush(min_heap, (process, idx))
-                i += 1
+        # while i < n or min_heap:
+        #     while i < n and indexed_tasks[i][0] <= time:
+        #         enqueue, process, idx = indexed_tasks[i]
+        #         heapq.heappush(min_heap, (process, idx))
+        #         i += 1
             
-            # If no task is available, jump time to the next task's enqueue time
-            if not min_heap:
-                time = indexed_tasks[i][0]
-                continue
+        #     # If no task is available, jump time to the next task's enqueue time
+        #     if not min_heap:
+        #         time = indexed_tasks[i][0]
+        #         continue
             
-            # Process the next task
-            proc_time, idx = heapq.heappop(min_heap)
-            time += proc_time
-            result.append(idx)
+        #     # Process the next task
+        #     proc_time, idx = heapq.heappop(min_heap)
+        #     time += proc_time
+        #     result.append(idx)
 
-        return result
+        # return result
+
+
+
+
+        task_heap = [(enq,idx, proc) for idx, [enq, proc] in enumerate(tasks)]
+        task_heap.sort(reverse=True)
+        time = task_heap[-1][0]
+        res = []
+        available_tasks = []
+    
+        while task_heap or available_tasks:
+            if not available_tasks and time < task_heap[-1][0]:
+                time = task_heap[-1][0]
+            while task_heap and task_heap[-1][0] <= time:
+                enq, idx, proc = task_heap.pop()
+                heapq.heappush(available_tasks, (proc, idx))
+            proc, idx = heapq.heappop(available_tasks)
+            res.append(idx)
+            time += proc
+        
+        return res
+
+
+
+
+
+
+
+
+
+
 
 
 
