@@ -43,7 +43,7 @@ class Solution:
         # res = max(time.values())
         # return res if res < float('inf') else -1
         
-        # Using Bellman-Ford algorithm
+        # Using Bellman-Ford algorithm - Not as efficient as Djikstra's
         time = {node: float('inf') for node in range(1, n+1)}
         time[k] = 0
         
