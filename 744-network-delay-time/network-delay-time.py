@@ -23,24 +23,37 @@ class Solution:
         # res = max(dist.values())
         # return res if res < float('inf') else -1
 
-        # Using Djikstras algorithm
-        graph = defaultdict(list)
-        for u, v, w in times:
-            graph[u].append((v, w))
+        # # Using Djikstras algorithm
+        # graph = defaultdict(list)
+        # for u, v, w in times:
+        #     graph[u].append((v, w))
         
-        time = {node: float("inf") for node in range(1, n + 1)}
-        time[k] = 0
-        heap = [(0, k)]
+        # time = {node: float("inf") for node in range(1, n + 1)}
+        # time[k] = 0
+        # heap = [(0, k)]
 
-        while heap:
-            curr_time, node = heapq.heappop(heap)
-            for nei, nei_time in graph[node]:
-                new_time = curr_time + nei_time
-                if time[nei] > new_time:
-                    time[nei] = new_time
-                    heapq.heappush(heap, (new_time, nei))
+        # while heap:
+        #     curr_time, node = heapq.heappop(heap)
+        #     for nei, nei_time in graph[node]:
+        #         new_time = curr_time + nei_time
+        #         if time[nei] > new_time:
+        #             time[nei] = new_time
+        #             heapq.heappush(heap, (new_time, nei))
+        
+        # res = max(time.values())
+        # return res if res < float('inf') else -1
+        
+        # Using Bellman-Ford algorithm
+        time = {node: float('inf') for node in range(1, n+1)}
+        time[k] = 0
+        
+        for i in range(n-1):
+            for u, v, w in times:
+                new_time = time[u] + w
+                if new_time < time[v]:
+                    time[v] = new_time
         
         res = max(time.values())
         return res if res < float('inf') else -1
-        
+
             
