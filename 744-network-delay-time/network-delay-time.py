@@ -43,17 +43,35 @@ class Solution:
         # res = max(time.values())
         # return res if res < float('inf') else -1
         
-        # Using Bellman-Ford algorithm - Not as efficient as Djikstra's
-        time = {node: float('inf') for node in range(1, n+1)}
-        time[k] = 0
+        # # Using Bellman-Ford algorithm - Not as efficient as Djikstra's
+        # time = {node: float('inf') for node in range(1, n+1)}
+        # time[k] = 0
         
-        for i in range(n-1):
-            for u, v, w in times:
-                new_time = time[u] + w
-                if new_time < time[v]:
-                    time[v] = new_time
+        # for i in range(n-1):
+        #     for u, v, w in times:
+        #         new_time = time[u] + w
+        #         if new_time < time[v]:
+        #             time[v] = new_time
         
-        res = max(time.values())
-        return res if res < float('inf') else -1
+        # res = max(time.values())
+        # return res if res < float('inf') else -1
 
+        # Using Floyd-Warshall algorithm
+        INF = float('inf')
+        dist = [[INF]*(n+1) for i in range(n+1)]
+
+        for i in range(1, n+1):
+            dist[i][i] = 0
+        for u, v, w in times:
+            dist[u][v] = w
+        
+        for mid in range(1, n+1):
+            for i in range(1, n+1):
+                for j in range(1, n+1):
+                    if dist[i][j] > dist[i][mid]+dist[mid][j]:
+                        dist[i][j] = dist[i][mid]+dist[mid][j]
+        
+        max_dist = max(dist[k][1:])
+        return max_dist if max_dist < float('inf') else -1
+                
             
