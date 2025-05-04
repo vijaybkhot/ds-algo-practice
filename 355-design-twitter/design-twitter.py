@@ -50,21 +50,30 @@ class Twitter:
         
 
     def postTweet(self, userId: int, tweetId: int) -> None:
-        self.posts[userId].append((-self.time, tweetId))
+        self.posts[userId].append((self.time, tweetId))
         self.time += 1
         
     def getNewsFeed(self, userId: int) -> List[int]:
-        users = [userId] + [user for user in self.followers[userId]]
-        feed_posts = []
+        # users = [userId] + [user for user in self.followers[userId]]
+        # feed_posts = []
+        # for user in users:
+        #     feed_posts += self.posts[user]
+        # heapq.heapify(feed_posts)
+        # res = []
+        # for i in range(10):
+        #     if feed_posts:
+        #         post = heapq.heappop(feed_posts)[1]
+        #         res.append(post)
+        # return res
+
+        users = [userId] + list(self.followers[userId])
+        heap = []
         for user in users:
-            feed_posts += self.posts[user]
-        heapq.heapify(feed_posts)
-        res = []
-        for i in range(10):
-            if feed_posts:
-                post = heapq.heappop(feed_posts)[1]
-                res.append(post)
-        return res
+            for tweet in self.posts[user][-10:]:  # Only consider last 10
+                heapq.heappush(heap, tweet)
+                if len(heap) > 10:
+                    heapq.heappop(heap)  # Maintain heap size 10
+        return [tweetId for _, tweetId in sorted(heap, reverse=True)]
 
         
         
