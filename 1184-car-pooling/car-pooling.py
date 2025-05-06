@@ -51,7 +51,7 @@ class Solution:
         # return True
 
         capacity_arr = [0] * 1001
-        trips.sort(key=lambda x: x[1])
+        # trips.sort(key=lambda x: x[1])
 
         for num_passengers, src, dst in trips:
             for i in range(src, dst):
