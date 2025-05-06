@@ -28,26 +28,36 @@ class Solution:
             
         # return True
 
-        curr_capacity = 0
-        organized_trips = [(trip[1], trip[2],trip[0]) for trip in trips]
-        organized_trips.sort(key=lambda x: x[0])
+        # curr_capacity = 0
+        # organized_trips = [(trip[1], trip[2],trip[0]) for trip in trips]
+        # organized_trips.sort(key=lambda x: x[0])
 
-        current_trip = 0
-        last_trip = len(trips)
-        heap = []
+        # current_trip = 0
+        # last_trip = len(trips)
+        # heap = []
 
-        while current_trip < last_trip:
-            curr_start, curr_end, num_passengers = organized_trips[current_trip]
-            heapq.heappush(heap, (curr_end, num_passengers, curr_start))
-            curr_capacity += num_passengers
-            while heap and heap[0][0] <= curr_start:
-                _, passengers, _ = heapq.heappop(heap)
-                curr_capacity -= passengers
+        # while current_trip < last_trip:
+        #     curr_start, curr_end, num_passengers = organized_trips[current_trip]
+        #     heapq.heappush(heap, (curr_end, num_passengers, curr_start))
+        #     curr_capacity += num_passengers
+        #     while heap and heap[0][0] <= curr_start:
+        #         _, passengers, _ = heapq.heappop(heap)
+        #         curr_capacity -= passengers
 
-            if curr_capacity >  capacity:
-                return False
-            current_trip += 1
+        #     if curr_capacity >  capacity:
+        #         return False
+        #     current_trip += 1
         
+        # return True
+
+        capacity_arr = [0] * 1001
+        trips.sort(key=lambda x: x[1])
+
+        for num_passengers, src, dst in trips:
+            for i in range(src, dst):
+                capacity_arr[i] += num_passengers
+                if capacity_arr[i] > capacity:
+                    return False
         return True
 
 
