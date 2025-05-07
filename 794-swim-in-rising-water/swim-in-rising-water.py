@@ -41,7 +41,6 @@ class Solution:
         # return left
 
         # Using Djikstras algorithm
-
         heap = [(grid[0][0], 0, 0)]
         max_time = grid[0][0]
         visited = set()
@@ -49,13 +48,14 @@ class Solution:
         while heap:
             curr_time, row, col = heapq.heappop(heap)
             max_time = max(max_time, curr_time)
-            visited.add((row, col))
             if row == rows-1 and col == cols-1:
                 return max_time
             for dr, dc in directions:
                 r, c = row+dr, col+dc
                 if 0 <= r < rows and 0 <= c < cols and (r, c) not in visited:
                     heapq.heappush(heap, (grid[r][c], r, c))
+                    visited.add((r, c))
+
 
 
 
