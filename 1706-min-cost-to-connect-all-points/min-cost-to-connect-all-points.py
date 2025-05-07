@@ -43,8 +43,9 @@ class UnionFind:
         return self.parent[x]
     
     def union(self, x, y):
-        rootX = self.find(x)
-        rootY = self.find(y)
+        find = self.find
+        rootX = find(x)
+        rootY = find(y)
 
         if rootX == rootY:
             return False
