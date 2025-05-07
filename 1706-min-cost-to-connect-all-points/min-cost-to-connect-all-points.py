@@ -35,11 +35,12 @@ class UnionFind:
         self.rank = {}
     
     def find(self, x):
+        find = self.find
         if x not in self.parent:
             self.parent[x] = x
             self.rank[x] = 0
         if x != self.parent[x]:
-            self.parent[x] = self.find(self.parent[x])
+            self.parent[x] = find(self.parent[x])
         return self.parent[x]
     
     def union(self, x, y):
