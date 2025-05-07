@@ -5,11 +5,17 @@ class Solution:
         # Using Kruskal's algorithm
         # Calculate edge lengths between each nodes
         edges = []
+        # for i in range(len(points)):
+        #     for j in range(i+1, len(points)):
+        #         u, v = points[i], points[j]
+        #         dist_uv = abs(u[0] - v[0]) + abs(u[1] - v[1])
+        #         edges.append((dist_uv, (u[0], u[1]), (v[0], v[1])))
+
         for i in range(len(points)):
             for j in range(i+1, len(points)):
                 u, v = points[i], points[j]
                 dist_uv = abs(u[0] - v[0]) + abs(u[1] - v[1])
-                edges.append((dist_uv, (u[0], u[1]), (v[0], v[1])))
+                edges.append((dist_uv, i, j))
         
         edges.sort(key=lambda x: x[0])
         res = 0
