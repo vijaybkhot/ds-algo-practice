@@ -30,7 +30,6 @@ class Solution:
             return isPath
         
         left, right = min_grid, max_grid
-        res = max_grid
         while left <= right:
             mid = (left + right) // 2
             visited = set()
@@ -40,15 +39,6 @@ class Solution:
                 left = mid + 1
         
         return left
-
-        
-
-
-
-
-        
-
-        return min_grid
 
 
         
