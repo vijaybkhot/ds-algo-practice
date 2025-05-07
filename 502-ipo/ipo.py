@@ -22,23 +22,46 @@ class Solution:
         #         heapq.heappush(max_profit, stack.pop())
         # return w
 
-        # Using sorting 
-        projects = list(zip(capital, profits))
-        projects.sort()
+        # # Using sorting 
+        # projects = list(zip(capital, profits))
+        # projects.sort()
 
-        max_profit_heap = []
+        # max_profit_heap = []
+        # i = 0
+        # n = len(projects)
+
+        # for _ in range(k):
+        #     while i < n and projects[i][0] <= w:
+        #         heapq.heappush(max_profit_heap, -projects[i][1])
+        #         i += 1
+        #     if not max_profit_heap:
+        #         break
+        #     w += -heapq.heappop(max_profit_heap)
+
+        # return w 
+
         i = 0
+        max_heap = []
+        projects = list(zip(capital, profits))
         n = len(projects)
+        projects.sort()
 
         for _ in range(k):
             while i < n and projects[i][0] <= w:
-                heapq.heappush(max_profit_heap, -projects[i][1])
+                heapq.heappush(max_heap, -projects[i][1])
                 i += 1
-            if not max_profit_heap:
+            if not max_heap:
                 break
-            w += -heapq.heappop(max_profit_heap)
+            w += -heapq.heappop(max_heap)
+        
+        return w
 
-        return w         
+
+
+
+
+
+
 
 
 
