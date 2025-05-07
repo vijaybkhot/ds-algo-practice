@@ -35,7 +35,6 @@ class Solution:
             mid = (left + right) // 2
             visited = set()
             if dfs((0, 0), mid):
-                res = mid
                 right = mid - 1
             else:
                 left = mid + 1
