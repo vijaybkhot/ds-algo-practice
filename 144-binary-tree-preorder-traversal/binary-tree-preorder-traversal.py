@@ -32,16 +32,29 @@ class Solution:
         
         # return res
 
-        # Recursive approach:
-
-        def dfs(node):
-            if node:
-                res.append(node.val)
-                dfs(node.left)
-                dfs(node.right)
+        # # Recursive approach:
+        # def dfs(node):
+        #     if node:
+        #         res.append(node.val)
+        #         dfs(node.left)
+        #         dfs(node.right)
         
-        res = []
-        dfs(root)
+        # res = []
+        # dfs(root)
+        # return res
+
+        # Iterative approach:
+        if not root:
+            return []
+        curr, stack, res = root, [root], []
+        while stack:
+            node = stack.pop()
+            res.append(node.val)
+            if node.right:
+                stack.append(node.right)
+            if node.left:
+                stack.append(node.left)
+        
         return res
 
 
