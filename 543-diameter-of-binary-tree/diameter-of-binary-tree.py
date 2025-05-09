@@ -29,19 +29,42 @@ class Solution:
         
         # return dia
 
-        # DFS - Recursive Approach
-        self.maxDia = 0
+        # # DFS - Recursive Approach
+        # self.maxDia = 0
 
+        # def height(node):
+        #     if not node:
+        #         return 0
+            
+        #     left_height = height(node.left)
+        #     right_height = height(node.right)
+        #     self.maxDia = max(self.maxDia, left_height+right_height)
+
+        #     return 1 + max(left_height, right_height)
+        
+        # height(root)
+        # return self.maxDia
+        
+        self.maxDia = 0
         def height(node):
             if not node:
                 return 0
-            
-            left_height = height(node.left)
-            right_height = height(node.right)
-            self.maxDia = max(self.maxDia, left_height+right_height)
-
-            return 1 + max(left_height, right_height)
+            left = height(node.left)
+            right = height(node.right)
+            self.maxDia = max(self.maxDia, left+right)
+            return 1 + max(left, right)
+    
         
         height(root)
         return self.maxDia
-        
+
+
+
+
+
+
+
+
+
+
+
