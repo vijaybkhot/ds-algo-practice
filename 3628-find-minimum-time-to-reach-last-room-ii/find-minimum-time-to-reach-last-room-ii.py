@@ -2,7 +2,6 @@ class Solution:
     def minTimeToReach(self, moveTime: List[List[int]]) -> int:
         rows, cols = len(moveTime), len(moveTime[0])
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
-        time = 0
         one_sec = False
         visited = set()
         visited.add((0, 0, one_sec))
