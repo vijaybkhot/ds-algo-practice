@@ -18,8 +18,8 @@ class Solution:
         if not root and subRoot:
             return False
 
-        if not subRoot:
-            return True
+        # if not subRoot:
+        #     return True
         
         if isSameTree(root, subRoot):
             return True
