@@ -43,27 +43,39 @@ class Solution:
                 parent.right = curr.right
             return root
         else:
-            # Find the inorder successor (smallest in the right subtree)
             node_to_replace = curr.right
             right_par = curr
             while node_to_replace.left:
                 right_par = node_to_replace
                 node_to_replace = node_to_replace.left
 
-            # If successor isn't the immediate right child
             if right_par != curr:
                 right_par.left = node_to_replace.right
                 node_to_replace.right = curr.right
 
             node_to_replace.left = curr.left
-
+            
             if not parent:
                 return node_to_replace
             if key < parent.val:
                 parent.left = node_to_replace
-            else:
+            elif key > parent.val:
                 parent.right = node_to_replace
             return root
+            
+
+                
+
+
+
+
+        
+
+            
+            
+
+
+        
 
         
 
