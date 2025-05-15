@@ -3,18 +3,14 @@ class Solution:
         count = 0
         res = []
         i, j = 0, 1
-        start = False
+        if words:
+            res.append(words[i])
         while j < len(groups):
             if groups[j] != groups[i]:
-                if not start:
-                    res.append(words[i])
-                    start = True
                 res.append(words[j])
                 i = j
             j += 1
-            
-        if not res and words:
-            res.append(words[0])
+
         
         return res
         
