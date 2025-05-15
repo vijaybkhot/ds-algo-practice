@@ -7,18 +7,34 @@
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
 
-        def countGoodNodes(node, val):
-            if not node:
-                return 0
-            if not node.left and not node.right and node.val >= val:
-                return 1
-            root_count = 1 if node.val >= val else 0
-            left_count = countGoodNodes(node.left, max(node.val, val))
-            right_count = countGoodNodes(node.right, max(node.val, val))
-            return root_count + left_count + right_count
+        # # DFS:
+        # def countGoodNodes(node, val):
+        #     if not node:
+        #         return 0
+        #     if not node.left and not node.right and node.val >= val:
+        #         return 1
+        #     root_count = 1 if node.val >= val else 0
+        #     left_count = countGoodNodes(node.left, max(node.val, val))
+        #     right_count = countGoodNodes(node.right, max(node.val, val))
+        #     return root_count + left_count + right_count
 
-        return countGoodNodes(root, root.val)
-        
+        # return countGoodNodes(root, root.val)
+
+        # BFS:
+        q = deque([(root, root.val)])
+        count = 0
+
+        while q:
+            for _ in range(len(q)):
+                node, val = q.popleft()
+                if node.val >= val:
+                    count += 1
+                if node.left:
+                    q.append((node.left, max(val, node.val)))
+                if node.right:
+                    q.append((node.right, max(val, node.val)))
+        return count
+
 
 
 
