@@ -35,11 +35,24 @@ class Solution:
         #     return False
         
         arr = []
+        # def inorder(node):
+        #     if node:
+        #         inorder(node.left)
+        #         arr.append(node.val)
+        #         inorder(node.right)
+
         def inorder(node):
-            if node:
-                inorder(node.left)
-                arr.append(node.val)
-                inorder(node.right)
+            curr = node
+            stack = []
+            while curr or stack:
+                while curr:
+                    stack.append(curr)
+                    curr = curr.left
+                curr = stack.pop()
+                arr.append(curr.val)
+                curr = curr.right
+        
+                    
 
         inorder(root)
         for i in range(1, len(arr)):
