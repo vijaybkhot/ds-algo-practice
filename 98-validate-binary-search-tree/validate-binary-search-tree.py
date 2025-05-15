@@ -34,23 +34,32 @@ class Solution:
         # if root.right and get_min_in_tree(root.right) <= root.val:
         #     return False
         
-        arr = []
-        # def inorder(node):
-        #     if node:
-        #         inorder(node.left)
-        #         arr.append(node.val)
-        #         inorder(node.right)
+        def inorder(node, max_val, min_val):
+            if not node:
+                return True
 
-        def inorder(node):
-            curr = node
-            stack = []
-            while curr or stack:
-                while curr:
-                    stack.append(curr)
-                    curr = curr.left
-                curr = stack.pop()
-                arr.append(curr.val)
-                curr = curr.right
+            if not (min_val < node.val < max_val):
+                return False
+
+            return (inorder(node.left, node.val, min_val) and
+                    inorder(node.right, max_val, node.val))
+
+        # Call with initial full range
+        return inorder(root, float('inf'), float('-inf'))
+        
+
+
+
+        # def inorder(node):
+        #     curr = node
+        #     stack = []
+        #     while curr or stack:
+        #         while curr:
+        #             stack.append(curr)
+        #             curr = curr.left
+        #         curr = stack.pop()
+        #         arr.append(curr.val)
+        #         curr = curr.right
         
                     
 
