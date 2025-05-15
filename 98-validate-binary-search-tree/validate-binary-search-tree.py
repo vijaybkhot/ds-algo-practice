@@ -37,14 +37,16 @@ class Solution:
         def inorder(node, max_val, min_val):
             if not node:
                 return True
-
-            if not (min_val < node.val < max_val):
+            if not min_val < node.val < max_val:
                 return False
-
-            return (inorder(node.left, node.val, min_val) and
-                    inorder(node.right, max_val, node.val))
-
-        # Call with initial full range
+            isLeftValid = True
+            ifRightValid = True
+            if node.left:
+                isLeftValid = inorder(node.left, node.val, min_val)
+            if node.right:
+                ifRightValid = inorder(node.right, max_val, node.val)
+            return isLeftValid and ifRightValid
+        
         return inorder(root, float('inf'), float('-inf'))
         
 
