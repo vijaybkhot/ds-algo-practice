@@ -75,8 +75,8 @@ class Solution:
             mst_weight = 0
             count = 0  # Number of edges added
 
-            # for i in range(n):
-            #     uf.find(i)
+            for i in range(n):
+                uf.find(i)
 
             if forced_edge_idx is not None:
                 u, v, w, _ = edgeList[forced_edge_idx]
