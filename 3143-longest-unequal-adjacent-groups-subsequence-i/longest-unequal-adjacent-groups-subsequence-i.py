@@ -12,6 +12,7 @@ class Solution:
                 res.append(words[j])
                 i = j
             j += 1
+            
         if not res and words:
             res.append(words[0])
         
