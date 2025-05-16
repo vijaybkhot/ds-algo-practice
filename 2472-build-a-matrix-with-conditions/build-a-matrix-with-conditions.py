@@ -35,11 +35,6 @@ class Solution:
         if not row_order or not col_order:
             return []
         
-        # for i in range(1, k+1):
-        #     if i not in row_order:
-        #         row_order.append(i)
-        #     if i not in col_order:
-        #         col_order.append(i)
         row_map = {num:idx for idx, num in enumerate(row_order)}
         col_map = {num:idx for idx, num in enumerate(col_order)}
 
