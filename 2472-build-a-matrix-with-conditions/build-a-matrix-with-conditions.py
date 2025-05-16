@@ -30,35 +30,39 @@ class Solution:
 
         def topo_sort_dfs(edges):
             graph = defaultdict(set)
-            visited = {}
+            visited = set()
+            visiting = set()
             topo_order = []
 
-            for i in range(1, k + 1):
-                graph[i]  # initialize empty entry
+            for u in range(1, k+1):
+                graph[u]
 
             for u, v in edges:
                 graph[u].add(v)
 
             def dfs(node):
+                if node in visiting:
+                    return True
                 if node in visited:
-                    return visited[node]  # True if cycle
-
-                visited[node] = True  # mark as visiting
+                    return False
+                visiting.add(node)
                 for nei in graph[node]:
                     if dfs(nei):
-                        return True  # cycle detected
-
-                visited[node] = False  # mark as visited
+                        return True
+                visiting.remove(node)
+                visited.add(node)
                 topo_order.append(node)
-                return False
-
-            for node in range(1, k + 1):
+            
+            for node in range(1, k+1):
                 if node not in visited:
                     if dfs(node):
-                        return []  # cycle detected
+                        return []
+            
+            return topo_order[::-1]
 
-            return topo_order[::-1]  # reverse postorder gives topological sort
-        
+                    
+
+
         row_order = topo_sort_dfs(list(set(tuple(edge) for edge in rowConditions)))
         col_order = topo_sort_dfs(list(set(tuple(edge) for edge in colConditions)))
         
