@@ -63,8 +63,10 @@ class Solution:
                     
 
 
-        row_order = topo_sort_dfs(list(set(tuple(edge) for edge in rowConditions)))
-        col_order = topo_sort_dfs(list(set(tuple(edge) for edge in colConditions)))
+        # row_order = topo_sort_dfs(list(set(tuple(edge) for edge in rowConditions)))
+        # col_order = topo_sort_dfs(list(set(tuple(edge) for edge in colConditions)))
+        row_order = topo_sort_dfs(rowConditions)
+        col_order = topo_sort_dfs(colConditions)
         
 
         if not row_order or not col_order:
