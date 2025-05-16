@@ -2,34 +2,65 @@ class Solution:
     def buildMatrix(self, k: int, rowConditions: List[List[int]], colConditions: List[List[int]]) -> List[List[int]]:
 
         # Using topological sorting
-        def topo_sort(edge_list):
-            graph = defaultdict(set)
-            indegree = defaultdict(int)
+        # def topo_sort(edge_list):
+        #     graph = defaultdict(set)
+        #     indegree = defaultdict(int)
 
-            for i in range(1, k+1):
-                graph[i] = set()
-                indegree[i] = 0
+        #     for i in range(1, k+1):
+        #         graph[i] = set()
+        #         indegree[i] = 0
             
-            for u, v in edge_list:
-                if v not in graph[u]: 
-                    graph[u].add(v)
-                    indegree[v] += 1
+        #     for u, v in edge_list:
+        #         if v not in graph[u]: 
+        #             graph[u].add(v)
+        #             indegree[v] += 1
                     
-            q = deque([node for node in indegree if indegree[node] == 0])
+        #     q = deque([node for node in indegree if indegree[node] == 0])
 
-            topo_order = []
-            while q:
-                node = q.popleft()
-                topo_order.append(node)
-                for nei in graph[node]:
-                    indegree[nei] -= 1 
-                    if indegree[nei] == 0:
-                        q.append(nei)
+        #     topo_order = []
+        #     while q:
+        #         node = q.popleft()
+        #         topo_order.append(node)
+        #         for nei in graph[node]:
+        #             indegree[nei] -= 1 
+        #             if indegree[nei] == 0:
+        #                 q.append(nei)
             
-            return topo_order if len(topo_order) == len(indegree) else []
+        #     return topo_order if len(topo_order) == len(indegree) else []
+
+        def topo_sort_dfs(edges):
+            graph = defaultdict(set)
+            visited = {}
+            topo_order = []
+
+            for i in range(1, k + 1):
+                graph[i]  # initialize empty entry
+
+            for u, v in edges:
+                graph[u].add(v)
+
+            def dfs(node):
+                if node in visited:
+                    return visited[node]  # True if cycle
+
+                visited[node] = True  # mark as visiting
+                for nei in graph[node]:
+                    if dfs(nei):
+                        return True  # cycle detected
+
+                visited[node] = False  # mark as visited
+                topo_order.append(node)
+                return False
+
+            for node in range(1, k + 1):
+                if node not in visited:
+                    if dfs(node):
+                        return []  # cycle detected
+
+            return topo_order[::-1]  # reverse postorder gives topological sort
         
-        row_order = topo_sort(list(set(tuple(edge) for edge in rowConditions)))
-        col_order = topo_sort(list(set(tuple(edge) for edge in colConditions)))
+        row_order = topo_sort_dfs(list(set(tuple(edge) for edge in rowConditions)))
+        col_order = topo_sort_dfs(list(set(tuple(edge) for edge in colConditions)))
         
 
         if not row_order or not col_order:
