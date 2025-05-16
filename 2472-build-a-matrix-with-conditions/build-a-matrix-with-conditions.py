@@ -27,6 +27,7 @@ class Solution:
         
         row_order = topo_sort(list(set(tuple(edge) for edge in rowConditions)))
         col_order = topo_sort(list(set(tuple(edge) for edge in colConditions)))
+        
 
         if not row_order or not col_order:
             return []
@@ -36,12 +37,16 @@ class Solution:
                 row_order.append(i)
             if i not in col_order:
                 col_order.append(i)
-        
+        row_map = {num:idx for idx, num in enumerate(row_order)}
+        col_map = {num:idx for idx, num in enumerate(col_order)}
+
         res = [[0]*k for i in range(k)]
-        for i in range(len(row_order)):
-            for j in range(len(col_order)):
-                if row_order[i] == col_order[j]:
-                    res[i][j] = row_order[i]
+        # for i in range(len(row_order)):
+        #     for j in range(len(col_order)):
+        #         if row_order[i] == col_order[j]:
+        #             res[i][j] = row_order[i]
+        for num in row_map:
+            res[row_map[num]][col_map[num]] = num
         
         return res
 
