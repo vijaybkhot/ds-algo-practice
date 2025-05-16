@@ -2,31 +2,31 @@ class Solution:
     def buildMatrix(self, k: int, rowConditions: List[List[int]], colConditions: List[List[int]]) -> List[List[int]]:
 
         # Using topological sorting
-        # def topo_sort(edge_list):
-        #     graph = defaultdict(set)
-        #     indegree = defaultdict(int)
+        def topo_sort_bfs(edge_list):
+            graph = defaultdict(set)
+            indegree = defaultdict(int)
 
-        #     for i in range(1, k+1):
-        #         graph[i] = set()
-        #         indegree[i] = 0
+            for i in range(1, k+1):
+                graph[i] = set()
+                indegree[i] = 0
             
-        #     for u, v in edge_list:
-        #         if v not in graph[u]: 
-        #             graph[u].add(v)
-        #             indegree[v] += 1
+            for u, v in edge_list:
+                if v not in graph[u]: 
+                    graph[u].add(v)
+                    indegree[v] += 1
                     
-        #     q = deque([node for node in indegree if indegree[node] == 0])
+            q = deque([node for node in indegree if indegree[node] == 0])
 
-        #     topo_order = []
-        #     while q:
-        #         node = q.popleft()
-        #         topo_order.append(node)
-        #         for nei in graph[node]:
-        #             indegree[nei] -= 1 
-        #             if indegree[nei] == 0:
-        #                 q.append(nei)
+            topo_order = []
+            while q:
+                node = q.popleft()
+                topo_order.append(node)
+                for nei in graph[node]:
+                    indegree[nei] -= 1 
+                    if indegree[nei] == 0:
+                        q.append(nei)
             
-        #     return topo_order if len(topo_order) == len(indegree) else []
+            return topo_order if len(topo_order) == len(indegree) else []
 
         def topo_sort_dfs(edges):
             graph = defaultdict(set)
@@ -65,8 +65,8 @@ class Solution:
 
         # row_order = topo_sort_dfs(list(set(tuple(edge) for edge in rowConditions)))
         # col_order = topo_sort_dfs(list(set(tuple(edge) for edge in colConditions)))
-        row_order = topo_sort_dfs(rowConditions)
-        col_order = topo_sort_dfs(colConditions)
+        row_order = topo_sort_bfs(rowConditions)
+        col_order = topo_sort_bfs(colConditions)
         
 
         if not row_order or not col_order:
