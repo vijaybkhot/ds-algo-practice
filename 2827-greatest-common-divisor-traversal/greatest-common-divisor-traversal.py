@@ -60,9 +60,11 @@ class Solution:
 
         uf = UnionFind()
         for num in set(nums):
-            factors = findPrimeFactors(num)
-            for factor in factors:
-                uf.union(num, factor)
+            factors = list(findPrimeFactors(num))
+            if factors:
+                uf.union(num, factors[0])
+            for i in range(1, len(factors)):
+                uf.union(factors[i-1], factors[i])
         
         first_root = uf.find(nums[0])
         for num in nums:
