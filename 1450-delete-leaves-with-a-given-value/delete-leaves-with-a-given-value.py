@@ -7,11 +7,6 @@
 class Solution:
     def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
         def remove_leaf(node, target):
-            # if not node.right and not node.left:
-            #     if node.val == target:
-            #         return None
-            #     else:
-            #         return root
             if node.left:
                 node.left = remove_leaf(node.left, target)
             if node.right:
