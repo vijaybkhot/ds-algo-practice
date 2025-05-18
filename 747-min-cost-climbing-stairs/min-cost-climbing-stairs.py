@@ -42,14 +42,28 @@ class Solution:
         # dfs(1, 0)
         # return res
 
-        # Optimized lru cache recursion
+        # # Optimized lru cache recursion
+        # n = len(cost)
+
+        # @lru_cache(maxsize=None)
+        # def dfs(i):
+        #     if i >= n:
+        #         return 0
+        #     return cost[i] + min(dfs(i + 1), dfs(i + 2))
+
+        # return min(dfs(0), dfs(1))
+
+        # Memoization- 
+
         n = len(cost)
-        
-        @lru_cache(maxsize=None)
+        memo = [None]*(n+1)
         def dfs(i):
             if i >= n:
                 return 0
-            return cost[i] + min(dfs(i + 1), dfs(i + 2))
-
-        return min(dfs(0), dfs(1))
+            if memo[i] != None:
+                return memo[i]
+            memo[i] = cost[i] + min(dfs(i+1), dfs(i+2))
+            return memo[i]
+        
+        return min(dfs(0), dfs(1)) 
         
