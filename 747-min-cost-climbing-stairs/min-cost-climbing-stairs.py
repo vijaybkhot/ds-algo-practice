@@ -76,9 +76,9 @@ class Solution:
         # return min(dp[n-1], dp[n-2])
 
         # Space optimized dynamic programming
-        n = len(cost)
+        # n = len(cost)
         dp_1, dp_2 = cost[0], cost[1]
-        for i in range(2, n):
+        for i in range(2, len(cost)):
             dp_curr = cost[i] + min(dp_1, dp_2)
             dp_1 = dp_2
             dp_2 = dp_curr
