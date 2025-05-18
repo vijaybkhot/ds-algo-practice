@@ -1,15 +1,14 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
 
-        res = []
-        
-        @lru_cache(maxsize=None)
-        def dfs(total):
-            if total == n:
-                return 1
-            if total > n:
-                return 0
-            
-            return dfs(total + 1) + dfs(total + 2)
+        memo = [-1] * n
 
+        def dfs(i):
+            if i >= n:
+                return i == n
+            if memo[i] != -1:
+                return memo[i]
+            memo[i] = dfs(i + 1) + dfs(i + 2)
+            return memo[i]
+            
         return dfs(0)
