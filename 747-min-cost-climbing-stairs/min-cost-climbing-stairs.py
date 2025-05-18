@@ -66,12 +66,22 @@ class Solution:
         
         # return min(dfs(0), dfs(1)) 
 
-        # Dynamic programming:
-        n = len(cost)
-        dp = [0]*(n+1)
-        dp[0], dp[1] = cost[0], cost[1]
-        for i in range(2, n):
-            dp[i] = cost[i] + min(dp[i-1], dp[i-2])
+        # # Dynamic programming:
+        # n = len(cost)
+        # dp = [0]*(n+1)
+        # dp[0], dp[1] = cost[0], cost[1]
+        # for i in range(2, n):
+        #     dp[i] = cost[i] + min(dp[i-1], dp[i-2])
         
-        return min(dp[n-1], dp[n-2])
+        # return min(dp[n-1], dp[n-2])
+
+        # Space optimized dynamic programming
+        n = len(cost)
+        dp_1, dp_2 = cost[0], cost[1]
+        for i in range(2, n):
+            dp_curr = cost[i] + min(dp_1, dp_2)
+            dp_1 = dp_2
+            dp_2 = dp_curr
+        return min(dp_1, dp_2)
+
 
