@@ -15,9 +15,7 @@ class Solution:
         # return max(nums_record[n-1])
 
         # Space optimized DP
-        max_num_0 = (nums[0], 0)
         max_num_1 = (nums[1], nums[0])
-
         for i in range(2, n):
             curr_max_set = ((nums[i]+ max_num_1[1]), max(max_num_1))
             max_num_1 = curr_max_set
