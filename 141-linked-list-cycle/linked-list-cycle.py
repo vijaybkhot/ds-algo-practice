@@ -1,34 +1,19 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def hasCycle(self, head):
-        """
-        :type head: ListNode
-        :rtype: bool
-        """
-        # # Using a set to identify unique nodes. O(n) time and O(n) space complexity
-        # node_set = set()
-        # curr = head
-        # while curr:
-        #     if curr in node_set:
-        #         return True
-        #     else:
-        #         node_set.add(curr)
-        #         curr = curr.next
-        
-        # return False
-
-        # Floyd’s Cycle Detection Algorithm (Tortoise and Hare). Fast and slow pointer
-        tortoise, hare = head, head
-        while hare and hare.next:
-            tortoise = tortoise.next
-            hare = hare.next.next
-            if tortoise == hare:
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        # Using fast and slow pointer algo
+        if not head or not head.next:
+            return False
+        fast, slow = head.next, head
+        while fast and slow :
+            fast = fast.next.next if fast.next else None
+            slow = slow.next
+            if fast == slow:
                 return True
         
         return False
-        
