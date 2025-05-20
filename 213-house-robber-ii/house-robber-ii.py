@@ -5,8 +5,6 @@ class Solution:
             return 0
         if n == 1:
             return nums[0]
-        if n == 2:
-            return max(nums)
 
         def rob_normal(houses):
             if not houses:
