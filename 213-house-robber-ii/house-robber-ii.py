@@ -1,8 +1,6 @@
 class Solution:
     def rob(self, nums: List[int]) -> int:
         n = len(nums)
-        # if not nums:
-        #     return 0
         if n == 1:
             return nums[0]
 
