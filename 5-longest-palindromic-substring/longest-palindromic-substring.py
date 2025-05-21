@@ -70,20 +70,48 @@ class Solution:
         # dfs(0, len(s) - 1)
         # return self.res
 
-        n = len(s)
-        dp = [[False] * n for _ in range(n)]
-        start = 0
-        max_len = 1
+        # # Dynamic programming - bottom-up approach
+        # n = len(s)
+        # dp = [[False] * n for _ in range(n)]
+        # start = 0
+        # max_len = 1
 
-        for i in range(n):
-            dp[i][i] = True  # Single characters are palindromes
+        # for i in range(n):
+        #     dp[i][i] = True  # Single characters are palindromes
 
-        for end in range(n):
-            for start_idx in range(end):
-                if s[start_idx] == s[end]:
-                    if end - start_idx == 1 or dp[start_idx + 1][end - 1]:
-                        dp[start_idx][end] = True
-                        if end - start_idx + 1 > max_len:
-                            max_len = end - start_idx + 1
-                            start = start_idx
-        return s[start:start + max_len]
+        # for end in range(n):
+        #     for start_idx in range(end):
+        #         if s[start_idx] == s[end]:
+        #             if end - start_idx == 1 or dp[start_idx + 1][end - 1]:
+        #                 dp[start_idx][end] = True
+        #                 if end - start_idx + 1 > max_len:
+        #                     max_len = end - start_idx + 1
+        #                     start = start_idx
+        # return s[start:start + max_len]
+
+        # Expand aound center:
+        res = ""
+        res_len = 0
+
+        for i in range(len(s)):
+            # Odd length of palindrome
+            l, r = i, i
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                if r - l + 1 > res_len:
+                    res_len = r - l + 1
+                    res = s[l:r+1]
+                l -= 1
+                r += 1
+            
+            # Even length of palidrome
+            l, r = i, i+1
+            while l >= 0 and r < len(s) and  s[l] == s[r]:
+                if r - l + 1 > res_len:
+                    res_len = r - l + 1
+                    res = s[l:r+1]
+                l -= 1
+                r += 1
+        
+        return res
+            
+
