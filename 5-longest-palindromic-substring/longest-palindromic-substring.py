@@ -89,28 +89,82 @@ class Solution:
         #                     start = start_idx
         # return s[start:start + max_len]
 
-        # Expand aound center:
-        res = ""
-        res_len = 0
+        # # Expand around center:
+        # res = ""
+        # res_len = 0
 
-        for i in range(len(s)):
-            # Odd length of palindrome
-            l, r = i, i
-            while l >= 0 and r < len(s) and s[l] == s[r]:
-                if r - l + 1 > res_len:
-                    res_len = r - l + 1
-                    res = s[l:r+1]
-                l -= 1
-                r += 1
+        # for i in range(len(s)):
+        #     # Odd length of palindrome
+        #     l, r = i, i
+        #     while l >= 0 and r < len(s) and s[l] == s[r]:
+        #         if r - l + 1 > res_len:
+        #             res_len = r - l + 1
+        #             res = s[l:r+1]
+        #         l -= 1
+        #         r += 1
             
-            # Even length of palidrome
-            l, r = i, i+1
-            while l >= 0 and r < len(s) and  s[l] == s[r]:
-                if r - l + 1 > res_len:
-                    res_len = r - l + 1
-                    res = s[l:r+1]
-                l -= 1
-                r += 1
+        #     # Even length of palidrome
+        #     l, r = i, i+1
+        #     while l >= 0 and r < len(s) and  s[l] == s[r]:
+        #         if r - l + 1 > res_len:
+        #             res_len = r - l + 1
+        #             res = s[l:r+1]
+        #         l -= 1
+        #         r += 1
+        
+        # return res
+
+        # Bottom-up dynamic programming
+        n = len(s)
+        dp = [[0]*n for i in range(n)]
+        res = ""
+        max_len = 0
+
+        n = len(s)
+        dp = [[0]*n for i in range(n)]
+        res = ""
+        max_len = 0
+
+        # All substrings of length 1 are palindromes
+        for i in range(n):
+            dp[i][i] = 1
+            max_len = 1
+            res = s[i]
+
+        # Check substrings of length 2
+        for i in range(n - 1):
+            if s[i] == s[i + 1]:
+                dp[i][i + 1] = 1
+                max_len = 2
+                res = s[i:i + 2]
+
+        # for left in range(n):
+        #     for right in range(left+2, n):
+        #         if s[left] == s[right] and dp[left+1][right-1] == 1:
+        #             dp[left][right] = 1
+        #             if max_len < right-left+1:
+        #                 max_len = right-left+1
+        #                 res = s[left:right+1]
+
+        for i in range(2, n):
+            for left in range(n-i):
+                right = left + i
+                if right < n:
+                    if s[left] == s[right] and dp[left+1][right-1] == 1:
+                        dp[left][right] = 1
+                        if max_len < right-left+1:
+                            max_len = right-left+1
+                            res = s[left:right+1]
+
+
+        # for left in range(n):
+        #     for right in range(left+2, n):
+        #         if s[left] == s[right] and dp[left+1][right-1] == 1:
+        #             dp[left][right] = 1
+        #             if max_len < right-left+1:
+        #                 max_len = right-left+1
+        #                 res = s[left:right+1]
+                
         
         return res
             
