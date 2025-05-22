@@ -138,32 +138,15 @@ class Solution:
                 max_len = 2
                 res = s[i:i + 2]
 
-        # for left in range(n):
-        #     for right in range(left+2, n):
-        #         if s[left] == s[right] and dp[left+1][right-1] == 1:
-        #             dp[left][right] = 1
-        #             if max_len < right-left+1:
-        #                 max_len = right-left+1
-        #                 res = s[left:right+1]
-
         for i in range(2, n):
             for left in range(n-i):
                 right = left + i
-                if right < n:
-                    if s[left] == s[right] and dp[left+1][right-1] == 1:
-                        dp[left][right] = 1
-                        if max_len < right-left+1:
-                            max_len = right-left+1
-                            res = s[left:right+1]
+                if s[left] == s[right] and dp[left+1][right-1] == 1:
+                    dp[left][right] = 1
+                    if max_len < right-left+1:
+                        max_len = right-left+1
+                        res = s[left:right+1]
 
-
-        # for left in range(n):
-        #     for right in range(left+2, n):
-        #         if s[left] == s[right] and dp[left+1][right-1] == 1:
-        #             dp[left][right] = 1
-        #             if max_len < right-left+1:
-        #                 max_len = right-left+1
-        #                 res = s[left:right+1]
                 
         
         return res
