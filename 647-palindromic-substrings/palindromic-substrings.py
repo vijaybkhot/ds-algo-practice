@@ -35,7 +35,7 @@ class Solution:
                 dp[i][i+1] = 1
                 res += 1
         
-        # Main dp logic for palindroms of length 3 and onwards
+        # Main dp logic for palindromes of length 3 and onwards
         for i in range(2, n):
             for left in range(n-i):
                 right = left + i
