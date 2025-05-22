@@ -120,11 +120,6 @@ class Solution:
         res = ""
         max_len = 0
 
-        n = len(s)
-        dp = [[0]*n for i in range(n)]
-        res = ""
-        max_len = 0
-
         # All substrings of length 1 are palindromes
         for i in range(n):
             dp[i][i] = 1
