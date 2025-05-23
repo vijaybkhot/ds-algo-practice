@@ -1,22 +1,21 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def reorderList(self, head):
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
         """
-        :type head: Optional[ListNode]
-        :rtype: None Do not return anything, modify head in-place instead.
+        Do not return anything, modify head in-place instead.
         """
-        # Find the mid point of the list
+        # Find mid-point of the list
         slow, fast = head, head
         while fast and fast.next:
-            slow = slow.next
             fast = fast.next.next
-
-        # Reverse the second half of the list
-        prev, curr = None, slow.next
+            slow = slow.next
+        
+        # Reverse second half of the list
+        curr, prev = slow.next, None
         slow.next = None
         while curr:
             nxt = curr.next
@@ -24,13 +23,15 @@ class Solution(object):
             prev = curr
             curr = nxt
 
-        # Connect both halves of the list alternatingly
-        l1 = head
-        l2 = prev
+        l1, l2 = head, prev
         while l1 and l2:
-            tmp = l1.next
+            l1_nxt = l1.next
+            l2_nxt = l2.next
             l1.next = l2
-            l2 = l2.next
-            l1 = l1.next
-            l1.next = tmp
-            l1 = l1.next
+            l2.next = l1_nxt
+            l1 = l1_nxt
+            l2 = l2_nxt
+        return head
+
+
+        
