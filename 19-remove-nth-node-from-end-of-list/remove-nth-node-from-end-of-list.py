@@ -10,20 +10,22 @@ class Solution:
             return []
         if not head.next and n == 1:
             return None
+
+        tail = ListNode()
+        tail.next = head
         count = 0
         curr = head
         while curr:
             count += 1
             curr = curr.next
         first_half = count - n
-        curr, prev = head, None
+        curr, prev = head, tail
         for _ in range(first_half):
             prev = curr
             curr = curr.next
-        if not prev:
-            return curr.next
-        prev.next = curr.next if curr else None
+
+        prev.next = curr.next
         curr.next = None
-        return head
+        return tail.next
         
         
