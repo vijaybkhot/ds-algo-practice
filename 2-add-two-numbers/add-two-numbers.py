@@ -1,41 +1,32 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def addTwoNumbers(self, l1, l2):
-        """
-        :type l1: Optional[ListNode]
-        :type l2: Optional[ListNode]
-        :rtype: Optional[ListNode]
-        """
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        num1, num2 = 0, 0
+        power1, power2 = 0, 0
+        while l1:
+            num1 += l1.val * (10**power1)
+            power1 += 1
+            l1 = l1.next
+        while l2:
+            num2 += l2.val * (10**power2)
+            power2 += 1
+            l2 = l2.next
+
+        num = num1+num2
+        if num == 0:
+            return ListNode()
         dummy = ListNode()
         tail = dummy
-        while l1 or l2:
-            val = 0
-            if l1:
-                val += l1.val
-            if l2:
-                val += l2.val
-            remainder = 0
-            if val > 9:
-                remainder = 1
-                val = val % 10
-            if l1 and l1.next:
-                l1.next.val += remainder
-            elif l2 and l2.next:
-                l2.next.val += remainder
-            l1 = l1.next if l1 else None
-            l2 = l2.next if l2 else None
-            new_node = ListNode(val)
-            tail.next = new_node
+    
+        while num:
+            curr_val = num % 10
+            num = num // 10
+            tail.next = ListNode(curr_val)
             tail = tail.next
-            if l1 is None and l2 is None and remainder:
-                new_node = ListNode(remainder)
-                tail.next = new_node
-                tail = tail.next
-        
-        return dummy.next
 
+        return dummy.next
         
