@@ -19,6 +19,7 @@ class Solution:
         num = num1+num2
         if num == 0:
             return ListNode()
+            
         dummy = ListNode()
         tail = dummy
     
