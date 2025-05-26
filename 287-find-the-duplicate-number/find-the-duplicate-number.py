@@ -1,25 +1,12 @@
-class Solution(object):
-    def findDuplicate(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        # Using hash set - not constant extra space
+        nums_set = set()
+        for num in nums:
+            if num in nums_set:
+                return num
+            nums_set.add(num)
         
-        # # Brute force approach. Nested loop with linear search
-        # for i in range(len(nums)):
-        #     for j in range(i+1, len(nums)):
-        #         if nums[i] == nums[j]:
-        #             return nums[i]
+        
 
-        # Floyd’s Cycle Detection Algorithm
-        slow, fast =nums[0], nums[nums[0]]
-        while slow != fast:
-            slow = nums[slow]
-            fast = nums[nums[fast]]
         
-        slow2 = 0
-        while slow2 != slow:
-            slow = nums[slow]
-            slow2 = nums[slow2]
-        
-        return slow
