@@ -21,9 +21,6 @@ class Solution:
             curr = curr.next
             count += 1
         
-        if not curr:
-            return dummy.next
-        
         tail1 = prev
         head2 = curr
         prev = None
