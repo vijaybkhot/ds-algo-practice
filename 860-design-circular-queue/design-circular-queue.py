@@ -46,6 +46,7 @@
 #     def isFull(self) -> bool:
 #         return self.count == self.size
 
+# Linked list implementation
 class Node:
     def __init__(self, val):
         self.val = val
