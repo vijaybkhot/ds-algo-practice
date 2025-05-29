@@ -53,12 +53,32 @@ class Solution:
         # return self.count
 
 
-        # More clean approach using memoization
+        # # More clean approach using lru cache
+        # if not s or s[0] == "0":
+        #     return 0
+        
+        # @lru_cache(maxsize=None)
+        # def dfs(i):
+        #     if i == len(s):
+        #         return 1
+        #     if s[i] == "0":
+        #         return 0
+
+        #     count = dfs(i + 1)  # Single digit
+        #     if i + 1 < len(s) and 10 <= int(s[i:i+2]) <= 26:
+        #         count += dfs(i + 2)  # Two digits
+        #     return count
+        
+        # return dfs(0)
+        
+        # More clean approach using manual memoization
         if not s or s[0] == "0":
             return 0
         
-        @lru_cache(maxsize=None)
+        memo = {}
         def dfs(i):
+            if i in memo:
+                return memo[i]
             if i == len(s):
                 return 1
             if s[i] == "0":
@@ -67,7 +87,8 @@ class Solution:
             count = dfs(i + 1)  # Single digit
             if i + 1 < len(s) and 10 <= int(s[i:i+2]) <= 26:
                 count += dfs(i + 2)  # Two digits
-            return count
+            memo[i] = count
+            return memo[i]
         
         return dfs(0)
             
