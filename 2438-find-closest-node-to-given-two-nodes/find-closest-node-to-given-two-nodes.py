@@ -52,9 +52,11 @@ class Solution:
         
         # return -1
 
+        # Stores distances from node1 and node2 to every reachable node
         distance_1 = {}
         distance_2 = {}
 
+        # BFS queues and visited sets
         count1, count2 = 0, 0
         q1, q2 = deque(), deque()
         visited_1, visited_2 = set(), set()
@@ -62,6 +64,8 @@ class Solution:
         visited_1.add(node1)
         q2.append(node2)
         visited_2.add(node2)
+
+        # Start BFS from node1
         while q1:
             curr = q1.popleft()
             distance_1[curr] = count1
@@ -69,9 +73,8 @@ class Solution:
             if edges[curr] != -1 and edges[curr] not in visited_1:
                 q1.append(edges[curr])
                 visited_1.add(edges[curr])
-                
-
         
+        # Start BFS from node2
         while q2:
             curr = q2.popleft()
             distance_2[curr] = count2
@@ -80,14 +83,17 @@ class Solution:
                 q2.append(edges[curr])
                 visited_2.add(edges[curr])
         
+        # Compare nodes reachable from both node1 and node2
         max_dist = {}
         for node in distance_1:
             if node in distance_2:
+                # Store (max distance from either node, node index)
                 max_dist[node] = (max(distance_1[node], distance_2[node]), node)
         
         if not max_dist:
-            return -1
+            return -1   # No common reachable node
 
+        # Return the node with the smallest max distance (and smallest index in case of tie)
         _, answer_node = min(max_dist.values())
         return answer_node
 
