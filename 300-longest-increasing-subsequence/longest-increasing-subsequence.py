@@ -20,40 +20,39 @@ class Solution:
         # return self.LIS
 
 
-        # Optimized approach - using caching
+        # # Optimized approach - using memoization dictionary
         # n = len(nums)
 
         # memo = {}
-        # def dfs(i, prev_val):
+        # def dfs(i, prev_val_index):
         #     if i == n:
         #         return 0
-        #     if (i, prev_val) in memo:
-        #         return memo[(i, prev_val)]
+        #     if (i, prev_val_index) in memo:
+        #         return memo[(i, prev_val_index)]
             
         #     take = 0
-        #     if nums[i] > prev_val:
-        #         take = 1 + dfs(i + 1, nums[i])
-        #     skip = dfs(i + 1, prev_val)
-        #     memo[(i, prev_val)] = max(take, skip)
-        #     return memo[(i, prev_val)]
+        #     if prev_val_index == -1 or nums[i] > nums[prev_val_index]:
+        #         take = 1 + dfs(i + 1, i)
+        #     skip = dfs(i + 1, prev_val_index)
+        #     memo[(i, prev_val_index)] = max(take, skip)
+        #     return memo[(i, prev_val_index)]
 
-        # return dfs(0, float('-inf'))
+        # return dfs(0, -1)
 
+        # Optimized approach - using memoization table
         n = len(nums)
-        memo = [[-1] * (n + 1) for _ in range(n)]  
+        memo = [-1] * n
 
-        def dfs(i, j):
-            if i == n:
-                return 0
-            if memo[i][j + 1] != -1:
-                return memo[i][j + 1]
+        def dfs(i):
+            if memo[i] != -1:
+                return memo[i]
 
-            LIS = dfs(i + 1, j)
+            LIS = 1
+            for j in range(i + 1, n):
+                if nums[i] < nums[j]:
+                    LIS = max(LIS, 1 + dfs(j))
 
-            if j == -1 or nums[j] < nums[i]:
-                LIS = max(LIS, 1 + dfs(i + 1, i))
-
-            memo[i][j + 1] = LIS
+            memo[i] = LIS
             return LIS
 
-        return dfs(0, -1)
+        return max(dfs(i) for i in range(n))
