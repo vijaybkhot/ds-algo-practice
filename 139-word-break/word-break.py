@@ -1,19 +1,15 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        # end = 0
-        # start = 0
+
         # word_set = set(wordDict)
-        # words = []
-        # for end in range(len(s)):
+        # start = 0
+        # for end in range(1, len(s)+1):
         #     if s[start:end] in word_set:
         #         start = end
+            
 
-        # start = len(s)-1
-        # while start > -1:
-        #     if s[:start] in word_set and 
-        #     if s[start:] in word_set:
-        #         s = s[:start]
-        #     start -= 1
+        # return start == end
+
 
         wordSet = set(wordDict)
         memo = set()
@@ -32,3 +28,8 @@ class Solution:
             return False
 
         return dfs(0)
+
+
+
+
+
