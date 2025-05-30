@@ -1,0 +1,12 @@
+class Solution:
+    def maxProduct(self, nums: List[int]) -> int:
+        res = nums[0]
+        max_product = [(float('-inf'), float('-inf'))]*len(nums)
+        max_product[0] = (nums[0], nums[0])
+        for i in range(1, len(nums)):
+            max_num = max(nums[i], nums[i]*max_product[i-1][0], nums[i]*max_product[i-1][1])
+            min_num = min(nums[i], nums[i]*max_product[i-1][1], nums[i]*max_product[i-1][0])
+            max_product[i] = (max_num, min_num)
+            res = max(res, max_num)
+        
+        return res
