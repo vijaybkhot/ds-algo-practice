@@ -30,6 +30,7 @@ class LRUCache:
 
 
     def put(self, key: int, value: int) -> None:
+        # If key already exists in the cache, update the value for the key and move the node to the head 
         if key in self.dict:
             existing_node = self.dict[key]
             existing_node.val = value
