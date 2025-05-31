@@ -21,11 +21,8 @@ class LRUCache:
         if self.count == 0 or key not in self.dict:
             return -1
         node = self.dict[key]
-        prev_node, next_node = node.prev, node.next
-        prev_node.next, next_node.prev = next_node, prev_node
-        head_node = self.head.next
-        node.next, node.prev = head_node, self.head
-        self.head.next, head_node.prev = node, node
+        self.detach_node(node)
+        self.insert_at_head(node)
         return node.val
 
 
@@ -34,26 +31,27 @@ class LRUCache:
         if key in self.dict:
             existing_node = self.dict[key]
             existing_node.val = value
-            prev_node, next_node = existing_node.prev, existing_node.next
-            prev_node.next, next_node.prev = next_node, prev_node
-            head_node = self.head.next
-            self.head.next, head_node.prev = existing_node, existing_node
-            existing_node.next, existing_node.prev = head_node, self.head
+            self.detach_node(existing_node)
+            self.insert_at_head(existing_node)
             return
         # Remove the last node, if the cache is full
         if self.count == self.size:
             node_to_delete = self.tail.prev
-            node_to_delete.prev.next = self.tail
-            self.tail.prev = node_to_delete.prev
-            node_to_delete.next, node_to_delete.prev = None, None
+            self.detach_node(self.tail.prev)
             del self.dict[node_to_delete.key]
             self.count -= 1
         new_node = ListNode(key=key, val=value)
-        head_node = self.head.next
-        head_node.prev, self.head.next = new_node, new_node
-        new_node.next, new_node.prev = head_node, self.head
+        self.insert_at_head(new_node)
         self.dict[key] = new_node
         self.count += 1
+    
+    def insert_at_head(self, node):
+        head_node = self.head.next
+        self.head.next, head_node.prev = node, node
+        node.next, node.prev = head_node, self.head
+    def detach_node(self, node):
+        prev_node, next_node = node.prev, node.next
+        prev_node.next, next_node.prev = next_node, prev_node
         
 
 
