@@ -37,7 +37,7 @@ class LRUCache:
         # Remove the last node, if the cache is full
         if self.count == self.size:
             node_to_delete = self.tail.prev
-            self.detach_node(self.tail.prev)
+            self.detach_node(node_to_delete)
             del self.dict[node_to_delete.key]
             self.count -= 1
         new_node = ListNode(key=key, val=value)
