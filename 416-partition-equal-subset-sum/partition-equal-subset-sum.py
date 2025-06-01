@@ -30,12 +30,12 @@ class Solution:
         # return l_sum == r_sum
         
 
-        # # Top-down memoization approach
-        # total = sum(nums)
-        # if total % 2:
-        #     return False
-        # target = total // 2
+        total = sum(nums)
+        if total % 2:
+            return False
+        target = total // 2
 
+        # # Top-down memoization approach
         # memo = {}
         # def dfs(i, curr_sum):
         #     if (i, curr_sum) in memo:
@@ -49,26 +49,21 @@ class Solution:
         #     return memo[(i, curr_sum)]
         
         # return dfs(0, 0)
-            
-        total = sum(nums)
-        if total % 2 != 0:
-            return False
+
+        # Bottom up DP using a set to store all the sums
+        dp = set()
+        dp.add(0)
+
+        for i in range(len(nums)-1, -1, -1):
+            nextDP = set()
+            for t in dp:
+                if (t + nums[i]) == target:
+                    return True
+                nextDP.add(t+nums[i])
+                nextDP.add(t)
+            dp = nextDP
         
-        target = total // 2
-        n = len(nums)
-        memo = [[-1] * (target + 1) for _ in range(n + 1)]
-
-        def dfs(i, target):
-            if target == 0:
-                return True
-            if i >= n or target < 0:
-                return False
-            if memo[i][target] != -1:
-                return memo[i][target]
+        return False
+        
             
-            memo[i][target] = (dfs(i + 1, target) or 
-                               dfs(i + 1, target - nums[i]))
-            return memo[i][target]
-
-        return dfs(0, target)
             
