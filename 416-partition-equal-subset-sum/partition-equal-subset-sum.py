@@ -29,23 +29,46 @@ class Solution:
         #         r_sum += nums[i]
         # return l_sum == r_sum
         
-        total = sum(nums)
-        if total % 2:
-            return False
-        target = total // 2
 
-        memo = {}
-        def dfs(i, curr_sum):
-            if (i, curr_sum) in memo:
-                return memo[(i, curr_sum)]
-            if curr_sum == target:
-                return True
-            if i == len(nums) or curr_sum > target:
-                return False
+        # # Top-down memoization approach
+        # total = sum(nums)
+        # if total % 2:
+        #     return False
+        # target = total // 2
 
-            memo[(i, curr_sum)] = dfs(i + 1, curr_sum + nums[i]) or dfs(i + 1, curr_sum)
-            return memo[(i, curr_sum)]
+        # memo = {}
+        # def dfs(i, curr_sum):
+        #     if (i, curr_sum) in memo:
+        #         return memo[(i, curr_sum)]
+        #     if curr_sum == target:
+        #         return True
+        #     if i == len(nums) or curr_sum > target:
+        #         return False
+
+        #     memo[(i, curr_sum)] = dfs(i + 1, curr_sum + nums[i]) or dfs(i + 1, curr_sum)
+        #     return memo[(i, curr_sum)]
         
-        return dfs(0, 0)
+        # return dfs(0, 0)
             
+        total = sum(nums)
+        if total % 2 != 0:
+            return False
+        
+        target = total // 2
+        n = len(nums)
+        memo = [[-1] * (target + 1) for _ in range(n + 1)]
+
+        def dfs(i, target):
+            if target == 0:
+                return True
+            if i >= n or target < 0:
+                return False
+            if memo[i][target] != -1:
+                return memo[i][target]
+            
+            memo[i][target] = (dfs(i + 1, target) or 
+                               dfs(i + 1, target - nums[i]))
+            return memo[i][target]
+
+        return dfs(0, target)
             
