@@ -21,7 +21,7 @@ class Solution:
             
             if curr_sum > n:
                 return
-            
+        
             for num in squares:
                 dfs(path+1, curr_sum+num)
 
