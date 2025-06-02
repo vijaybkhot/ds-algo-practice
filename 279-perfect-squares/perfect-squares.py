@@ -1,13 +1,12 @@
 class Solution:
     def numSquares(self, n: int) -> int:
-        squares = [False]*(n+1)
+        squares = []
         i = 1
         while i*i <= n:
             square = i*i
-            squares[square] = True
+            squares.append(square)
             i += 1
         
-        squares = [idx for idx, square in enumerate(squares) if square]
         squares = squares[::-1]
 
         self.min_count = n
