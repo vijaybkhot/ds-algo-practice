@@ -74,12 +74,11 @@ class Solution:
         while pq:
             val, idx = heapq.heappop(pq)
             node = lists[idx]
-            if node:
-                tail.next = node
-                tail = tail.next
-                node = node.next
-                if node is not None:
-                    heapq.heappush(pq, (node.val, idx))
-                lists[idx] = node
+            tail.next = node
+            tail = tail.next
+            node = node.next
+            if node is not None:
+                heapq.heappush(pq, (node.val, idx))
+            lists[idx] = node
         
         return dummy.next
