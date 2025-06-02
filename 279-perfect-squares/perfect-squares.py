@@ -1,0 +1,34 @@
+class Solution:
+    def numSquares(self, n: int) -> int:
+        squares = [False]*(n+1)
+        i = 1
+        while i*i <= n:
+            square = i*i
+            squares[square] = True
+            i += 1
+        
+        squares = [idx for idx, square in enumerate(squares) if square]
+        squares = squares[::-1]
+
+        self.min_count = n
+        memo = {}
+        def dfs(path, curr_sum):
+            if curr_sum in memo and path >= memo[curr_sum]:
+                return
+            if curr_sum == n:
+                self.min_count = min(self.min_count, path)
+                return
+            
+            if curr_sum > n:
+                return
+            
+            for num in squares:
+                dfs(path+1, curr_sum+num)
+
+            memo[curr_sum] = min(memo.get(curr_sum, float('inf')), path)
+        
+        dfs(0, 0)
+        return self.min_count
+
+
+        
