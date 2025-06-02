@@ -7,31 +7,56 @@ class Solution:
     def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
         if not lists:
             return None
-        def mergeTwoLists(l1, l2):
-            dummy = ListNode()
-            tail = dummy
-            while l1 and l2:
-                if l1.val < l2.val:
-                    tail.next = l1
-                    l1 = l1.next
-                    tail = tail.next
-                else:
-                    tail.next = l2
-                    l2 = l2.next
-                    tail = tail.next
-            if l1:
-                tail.next = l1
-            if l2:
-                tail.next = l2
+        
+        # # Appraoch - I: Using a function to merge two lists and iteratively merging two lists in the lists array
+        # def mergeTwoLists(l1, l2):
+        #     dummy = ListNode()
+        #     tail = dummy
+        #     while l1 and l2:
+        #         if l1.val < l2.val:
+        #             tail.next = l1
+        #             l1 = l1.next
+        #             tail = tail.next
+        #         else:
+        #             tail.next = l2
+        #             l2 = l2.next
+        #             tail = tail.next
+        #     if l1:
+        #         tail.next = l1
+        #     if l2:
+        #         tail.next = l2
             
-            return dummy.next
+        #     return dummy.next
             
+        # dummy = ListNode()
+        # tail = dummy
+        # tail.next = lists[0]
+        # tail = tail.next
+        # for i in range(1, len(lists)):
+        #     merged_list = mergeTwoLists(tail, lists[i])
+        #     dummy.next = merged_list
+        #     tail = dummy.next
+        # return dummy.next
+
+        # Approach II: Counting the maximum length of a list and iterating that many number of times to merge all lists together
+    
         dummy = ListNode()
         tail = dummy
-        tail.next = lists[0]
-        tail = tail.next
-        for i in range(1, len(lists)):
-            merged_list = mergeTwoLists(tail, lists[i])
-            dummy.next = merged_list
-            tail = dummy.next
+
+        while any(lists):
+            # Get node with smallest value
+            holder = ListNode()
+            min_value = float('inf')
+            min_val_idx = len(lists)+1
+            for j in range(len(lists)):
+                if lists[j] and lists[j].val < min_value:
+                    min_value = lists[j].val
+                    min_val_idx = j
+            if min_val_idx < len(lists):
+                tail.next = lists[min_val_idx]
+                tail = tail.next
+                lists[min_val_idx] = lists[min_val_idx].next
+            else:
+                break
         return dummy.next
+
