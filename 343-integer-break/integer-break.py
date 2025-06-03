@@ -1,5 +1,6 @@
 class Solution:
     def integerBreak(self, n: int) -> int:
+        # Bottom-up DP - O(n^2) solution
         dp = [0]*(n+1)
         dp[1] = 1
         dp[2] = 1  # (max_product, index)
