@@ -38,23 +38,38 @@ class Solution:
         #     return "Tie"
 
 
-        # Top-down DP
+        # # Top-down DP
+        # n = len(stoneValue)
+        # dp = {}
+
+        # def dfs(i):
+        #     if i >= n:
+        #         return 0
+        #     if i in dp:
+        #         return dp[i]
+
+        #     res, total = float("-inf"), 0
+        #     for j in range(i, min(i+3, n)):
+        #         total += stoneValue[j]
+        #         res = max(res, total - dfs(j+1))
+        #     dp[i] = res
+        #     return res
+
+        # total = dfs(0)
+        # return "Alice" if total > 0 else ("Bob" if total < 0 else "Tie")
+
+        # Bottom-up DP
         n = len(stoneValue)
-        dp = {}
+        dp = [float("-inf")] * (n + 1)
+        dp[n] = 0
 
-        def dfs(i):
-            if i >= n:
-                return 0
-            if i in dp:
-                return dp[i]
-
-            res, total = float("-inf"), 0
+        for i in range(n-1, -1, -1):
+            total = 0
             for j in range(i, min(i+3, n)):
                 total += stoneValue[j]
-                res = max(res, total - dfs(j+1))
-            dp[i] = res
-            return res
-            
-        total = dfs(0)
+                dp[i] = max(dp[i], total-dp[j+1])
+        
+        total = dp[0]
         return "Alice" if total > 0 else ("Bob" if total < 0 else "Tie")
+
         
