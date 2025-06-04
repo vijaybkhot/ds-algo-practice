@@ -21,7 +21,7 @@ class Solution:
         #             obstacleGrid[i][j] = right + bottom if obstacleGrid[i][j] != -1 else 0
         # return obstacleGrid[0][0]
 
-        # Top-down DP
+        # Top-down DP - Recursion with caching
         dp = {}
         def dfs(i, j):
             if i == m-1 and j == n-1:
@@ -32,10 +32,10 @@ class Solution:
             if obstacleGrid[i][j] == -1:
                 obstacleGrid[i][j] = 0
             else:
-                right = dfs(i, j+1) if (j+1 < n and obstacleGrid[i][j+1] != -1) else 0
-                bottom = dfs(i+1, j) if (i+1 < m and obstacleGrid[i+1][j] != -1) else 0
+                right = dfs(i, j+1) if (j+1 < n) else 0
+                bottom = dfs(i+1, j) if (i+1 < m) else 0
                 obstacleGrid[i][j] = right + bottom
             dp[(i, j)] = obstacleGrid[i][j]
             return obstacleGrid[i][j]
-            
+
         return dfs(0, 0)
