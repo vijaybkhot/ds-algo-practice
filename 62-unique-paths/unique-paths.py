@@ -22,17 +22,27 @@ class Solution:
         
         # return dfs(0, 0)
 
-        # DP top down solution
-        dp = {}
-        def dfs(i, j):
-            if i == m-1 or j == n-1:
-                return 1
-            if (i, j) in dp:
-                return dp[(i, j)]
-            curr_total = dfs(i+1, j) + dfs(i, j+1)
-            dp[(i, j)] = curr_total
-            return curr_total
+        # # DP top down solution
+        # dp = {}
+        # def dfs(i, j):
+        #     if i == m-1 or j == n-1:
+        #         return 1
+        #     if (i, j) in dp:
+        #         return dp[(i, j)]
+        #     curr_total = dfs(i+1, j) + dfs(i, j+1)
+        #     dp[(i, j)] = curr_total
+        #     return curr_total
         
-        
-        return dfs(0, 0)
+        # return dfs(0, 0)
+
+        # DP - Bottom-up space optimized:
+        dp = [1]*n
+
+        for i in range(m-1):
+            newRow = [1]*n
+            for j in range(n-2, -1, -1):
+                newRow[j] = newRow[j+1]+dp[j]
+            dp = newRow
+        return dp[0]
+
             
