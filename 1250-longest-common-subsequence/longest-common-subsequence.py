@@ -1,20 +1,31 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        # Space optimized bottom-up DP
+        row = [0]*(len(text1)+1)
+        for r in range(1, len(text2)+1):
+            new_row = [0]*(len(text1)+1)
+            for c in range(1, len(text1)+1):
+                if text1[c-1] == text2[r-1]:
+                    new_row[c] = 1 + row[c-1]
+                else:
+                    new_row[c] = max(new_row[c-1], row[c])
+            row = new_row
+        return row[-1]
 
-        #  Top-Down Dynamic Programming
-        dp = {}
-        def dfs(i, j):
-            if i == len(text1) or j == len(text2):
-                return 0
-            if (i, j) in dp:
-                return dp[(i, j)]
-            if text1[i] == text2[j]:
-                return 1 + dfs(i+1, j+1)
-            lcs = max(dfs(i+1, j), dfs(i, j+1))
-            dp[(i, j)] = lcs
-            return lcs
-        
-        return dfs(0, 0)
+        # #  Top-Down Dynamic Programming
+        # dp = {}
+        # def dfs(i, j):
+        #     if i == len(text1) or j == len(text2):
+        #         return 0
+        #     if (i, j) in dp:
+        #         return dp[(i, j)]
+        #     if text1[i] == text2[j]:
+        #         return 1 + dfs(i+1, j+1)
+        #     lcs = max(dfs(i+1, j), dfs(i, j+1))
+        #     dp[(i, j)] = lcs
+        #     return lcs
+        # return dfs(0, 0)
+
         # # Recursion -
         # def dfs(i, j):
         #     if i == len(text1) or j == len(text2):
