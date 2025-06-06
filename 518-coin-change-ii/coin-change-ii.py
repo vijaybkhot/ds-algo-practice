@@ -24,8 +24,10 @@ class Solution:
         dp[0] = 1
         
         for coin in coins:
-            for i in range(coin, amount+1):
-                dp[i] += dp[i-coin]
+            for i in range(amount+1):
+                if i+coin >= amount+1:
+                    break
+                dp[i+coin] += dp[i]
     
 
         return dp[amount]
