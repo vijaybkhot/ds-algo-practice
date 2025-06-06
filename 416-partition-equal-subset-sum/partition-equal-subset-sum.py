@@ -50,20 +50,30 @@ class Solution:
         
         # return dfs(0, 0)
 
-        # Bottom up DP using a set to store all the sums
-        dp = set()
-        dp.add(0)
+        # # Bottom up DP using a set to store all the sums
+        # dp = set()
+        # dp.add(0)
 
-        for i in range(len(nums)-1, -1, -1):
-            nextDP = set()
-            for t in dp:
-                if (t + nums[i]) == target:
-                    return True
-                nextDP.add(t+nums[i])
-                nextDP.add(t)
-            dp = nextDP
+        # for i in range(len(nums)-1, -1, -1):
+        #     nextDP = set()
+        #     for t in dp:
+        #         if (t + nums[i]) == target:
+        #             return True
+        #         nextDP.add(t+nums[i])
+        #         nextDP.add(t)
+        #     dp = nextDP
         
-        return False
+        # return False
+
+        # Bottom-up DP using an array
+        dp = [False]*(target+1)
+        dp[0] = True
+        
+        for num in nums:
+            for i in range(target, num-1, -1):
+                dp[i] = dp[i] or dp[i-num]
+        
+        return dp[target]
         
             
             
