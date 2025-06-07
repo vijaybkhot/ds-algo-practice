@@ -31,16 +31,16 @@ class Solution:
         # dp[i][j] = True if s3[0:i+j] can be formed by s1[0:i] and s2[0:j]
         m, n = len(s1), len(s2)
         dp = [[False] * (n + 1) for _ in range(m + 1)]
-        dp[0][0] = True  # empty strings can form empty s3
+        dp[m][n] = True  # empty strings can form empty s3
 
-        for i in range(m + 1):
-            for j in range(n + 1):
-                if i > 0 and s1[i - 1] == s3[i + j - 1]:
-                    dp[i][j] |= dp[i - 1][j]
-                if j > 0 and s2[j - 1] == s3[i + j - 1]:
-                    dp[i][j] |= dp[i][j - 1]
+        for i in range(m, -1, -1):
+            for j in range(n, -1, -1):
+                if i < m and s1[i] == s3[i + j]:
+                    dp[i][j] |= dp[i + 1][j]
+                if j < n and s2[j] == s3[i + j]:
+                    dp[i][j] |= dp[i][j + 1]
 
-        return dp[m][n]
+        return dp[0][0]
             
         
         
