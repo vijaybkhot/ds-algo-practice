@@ -28,7 +28,7 @@ class Solution:
         if len(s1) + len(s2) != len(s3):
             return False
 
-        # dp[i][j] = True if s3[0:i+j] can be formed by s1[0:i] and s2[0:j]
+        # dp[i][j] = True if s3[i+j:] can be formed by s1[i:] and s2[j:]
         m, n = len(s1), len(s2)
         dp = [[False] * (n + 1) for _ in range(m + 1)]
         dp[m][n] = True  # empty strings can form empty s3
