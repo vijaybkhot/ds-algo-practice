@@ -68,30 +68,53 @@ class Solution:
         
         # return res
 
-        # Solution - III
-        # Bottom-up solution:   
+        # # Solution - III
+        # # Bottom-up solution:   
+        # if not prices:
+        #     return 0
+        
+        # n = len(prices)
+        # # Initialize DP states
+        # rest = [0] * n         # Max profit on day i in rest state
+        # hold = [0] * n         # Max profit on day i holding a stock
+        # sold = [0] * n         # Max profit on day i having just sold a stock
+
+        # # Base cases
+        # hold[0] = -prices[0]   # If we buy on day 0
+        # rest[0] = 0            # If we do nothing on day 0
+        # sold[0] = 0            # Cannot sell on day 0
+
+        # for i in range(1, n):
+        #     # On day i:
+        #     rest[i] = max(rest[i-1], sold[i-1])         # Either keep resting or enter rest after selling
+        #     hold[i] = max(hold[i-1], rest[i-1] - prices[i])  # Either keep holding, or buy today
+        #     sold[i] = hold[i-1] + prices[i]             # Sell today from previously holding
+
+        # # Final answer must be in rest or sold state (cannot end in hold)
+        # return max(rest[-1], sold[-1])
+
+        # Solution - IV
+        # Space optimized Bottom-up solution:   
         if not prices:
             return 0
         
         n = len(prices)
-        # Initialize DP states
-        rest = [0] * n         # Max profit on day i in rest state
-        hold = [0] * n         # Max profit on day i holding a stock
-        sold = [0] * n         # Max profit on day i having just sold a stock
 
         # Base cases
-        hold[0] = -prices[0]   # If we buy on day 0
-        rest[0] = 0            # If we do nothing on day 0
-        sold[0] = 0            # Cannot sell on day 0
+        hold = -prices[0]   # If we buy on day 0
+        rest = 0            # If we do nothing on day 0
+        sold = 0            # Cannot sell on day 0
 
         for i in range(1, n):
+            new_hold, new_rest, new_sold = 0, 0, 0
             # On day i:
-            rest[i] = max(rest[i-1], sold[i-1])         # Either keep resting or enter rest after selling
-            hold[i] = max(hold[i-1], rest[i-1] - prices[i])  # Either keep holding, or buy today
-            sold[i] = hold[i-1] + prices[i]             # Sell today from previously holding
+            new_rest = max(rest, sold)         # Either keep resting or enter rest after selling
+            new_hold = max(hold, rest - prices[i])  # Either keep holding, or buy today
+            new_sold = hold + prices[i]             # Sell today from previously holding
 
+            rest, hold, sold = new_rest, new_hold, new_sold
         # Final answer must be in rest or sold state (cannot end in hold)
-        return max(rest[-1], sold[-1])
+        return max(rest, sold)
 
                 
 
