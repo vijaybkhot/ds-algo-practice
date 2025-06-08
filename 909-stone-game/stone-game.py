@@ -1,6 +1,8 @@
 class Solution:
     def stoneGame(self, piles: List[int]) -> bool:
-        return True
+
+        # return True     # The answer is alway true
+
         dp = {}
         def dfs(i, j, alice):
             if i > j:
