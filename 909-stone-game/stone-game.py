@@ -1,7 +1,7 @@
 class Solution:
     def stoneGame(self, piles: List[int]) -> bool:
+        return True
         dp = {}
-
         def dfs(i, j, alice):
             if i > j:
                 return 0
@@ -14,6 +14,6 @@ class Solution:
                 total = max((dfs(i+1, j, not alice) - piles[i]), (dfs(i, j-1, not alice) - piles[j]))
             dp[(i, j, alice)] = total
             return total
-            
+
         return dfs(0, len(piles)-1, True) > 0
 
