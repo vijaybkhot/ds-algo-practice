@@ -3,29 +3,28 @@ class Solution:
         rows, cols = len(grid), len(grid[0])
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
         mins = 0
+        fresh = 0
 
         q = deque()
         for r in range(rows):
             for c in range(cols):
                 if grid[r][c] == 2:
                     q.append((r, c, 0))
+                elif grid[r][c] == 1:
+                    fresh += 1
         while q:
             row, col, dist = q.popleft()
             for dr, dc in directions:
                 r, c = row+dr, col+dc
                 if 0 <= r < rows and 0 <= c < cols and grid[r][c] == 1:
                     grid[r][c] = 2
+                    fresh -= 1
                     mins = max(mins, dist+1)
                     q.append((r, c,  dist+1))
 
-        # Check if there are fresh mangoes remaining
-        for r in range(rows):
-            for c in range(cols):
-                if grid[r][c] == 1:
-                    return -1
 
         
-        return mins
+        return mins if not fresh else -1
 
 
 
