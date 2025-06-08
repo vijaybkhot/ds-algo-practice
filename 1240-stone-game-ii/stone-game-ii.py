@@ -16,7 +16,6 @@ class Solution:
                 for k in range(1, 2*M+1):
                     total = min(total, (dfs(i+k, max(M, k), True)))
 
-            
             dp[(i, M, alice)] = total
             return total
         
