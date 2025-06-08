@@ -33,6 +33,8 @@ class Solution:
                 for X in range(1, 2*M+1):
                     if i + X <= n:
                         dp[i][M] = max(dp[i][M], suffix_sum[i] - dp[i + X][max(M, X)])
+                    else:
+                        break
 
         return dp[0][1]
 
