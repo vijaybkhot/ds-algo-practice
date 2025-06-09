@@ -20,13 +20,13 @@ class Solution:
         for i in range(rows):
             for j in range(cols):
                 if dp[i][j] == 0:
-                    max_from_4 = 0
-                    for dr, dc in directions:
-                        r, c = i+dr, j+dc
-                        if 0 <= r < rows and 0 <= c < cols:
-                            if matrix[r][c] > matrix[i][j]:
-                                max_from_rc = dp[r][c] if dp[r][c] != 0 else dfs(r, c)
-                                max_from_4 = max(max_from_4, max_from_rc)
-                    dp[i][j] = 1+max_from_4
-                    res = max(res, dp[i][j])
+                    # max_from_4 = 0
+                    # for dr, dc in directions:
+                    #     r, c = i+dr, j+dc
+                    #     if 0 <= r < rows and 0 <= c < cols:
+                    #         if matrix[r][c] > matrix[i][j]:
+                    #             max_from_rc = dp[r][c] if dp[r][c] != 0 else dfs(r, c)
+                    #             max_from_4 = max(max_from_4, max_from_rc)
+                    dfs(i, j)
+                res = max(res, dp[i][j])
         return res
