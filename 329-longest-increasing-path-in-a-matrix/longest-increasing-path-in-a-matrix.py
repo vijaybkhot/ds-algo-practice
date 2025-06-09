@@ -1,7 +1,7 @@
 class Solution:
     def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
 
-        # Bottom-up DP: First attempt - Correct solution - 1.5hours
+        # Top-down DP: First attempt - Correct solution - 1.5hours
         rows, cols = len(matrix), len(matrix[0])
         directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
 
