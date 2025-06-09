@@ -5,14 +5,21 @@ class Solution:
         """
         rows, cols = len(board), len(board[0])
         directions = [(1,0), (0,1), (-1,0), (0,-1)]
-        visited = set()
         q = deque()
+
+        def dfs(r, c):
+            board[r][c] = "N"
+            for dr, dc in directions:
+                row, col = r+dr, c+dc
+                if 0 <= row < rows and 0 <= col < cols and board[row][col] == "O":
+                    dfs(row, col)
+
         
         for i in range(rows):
             for j in range(cols):
                 if board[i][j] == "O":
                     if i == 0 or j == 0 or i == (rows-1) or j == (cols-1):
-                        q.append((i, j))
+                        dfs(i, j)
         
         while q:
             r, c = q.popleft()
