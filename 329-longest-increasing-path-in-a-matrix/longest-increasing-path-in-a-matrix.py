@@ -11,12 +11,12 @@ class Solution:
             max_from_4 = 0
             for dr, dc in directions:
                 r, c = i+dr, j+dc
-                if 0 <= r < rows and 0 <= c < cols:
-                    if matrix[r][c] > matrix[i][j]:
-                        max_from_rc = dp[r][c] if dp[r][c] != 0 else dfs(r, c)
-                        max_from_4 = max(max_from_4, max_from_rc)
+                if 0 <= r < rows and 0 <= c < cols and matrix[r][c] > matrix[i][j]:
+                    max_from_rc = dp[r][c] if dp[r][c] != 0 else dfs(r, c)
+                    max_from_4 = max(max_from_4, max_from_rc)
             dp[i][j] = 1+max_from_4
             return dp[i][j]
+
         res = 1
         for i in range(rows):
             for j in range(cols):
