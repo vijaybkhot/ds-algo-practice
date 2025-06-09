@@ -7,6 +7,7 @@ class Solution:
         directions = [(1,0), (0,1), (-1,0), (0,-1)]
         q = deque()
 
+        # DFS
         def dfs(r, c):
             board[r][c] = "N"
             for dr, dc in directions:
@@ -21,6 +22,7 @@ class Solution:
                     if i == 0 or j == 0 or i == (rows-1) or j == (cols-1):
                         dfs(i, j)
         
+        # BFS 
         while q:
             r, c = q.popleft()
             board[r][c] = "N"
@@ -33,11 +35,10 @@ class Solution:
             for j in range(cols):
                 if board[i][j] == "O":
                      board[i][j] = "X"
-        
-        for i in range(rows):
-            for j in range(cols):
-                if board[i][j] == "N":
+                elif board[i][j] == "N":
                      board[i][j] = "O"
+
+    
 
                 
      
