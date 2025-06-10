@@ -29,16 +29,12 @@ class Solution:
         # Top Down Solution: - Caching and recursion
         dp = {}
         def dfs(i, j):
+            # If word1 is exhausted, we need to insert the rest of word2[j:] → len(word2) - j operations.
             if i >= len(word1):
-                if j < len(word2):
-                    return len(word2) - j
-                else:
-                    return 0
+                return len(word2) - j
             if j >= len(word2):
-                if i < len(word1):
-                    return len(word1) - i
-                else:
-                    return 1
+                # If word2 is exhausted, we need to delete the rest of word1[i:] → len(word1) - i operations.
+                return len(word1) - i
             if (i, j) in dp:
                 return dp[(i, j)]
 
