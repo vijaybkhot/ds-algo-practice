@@ -5,7 +5,7 @@ class Solution:
         m, n = len(word2), len(word1)
 
         dp = [[0]*(n+1) for _ in range(m+1)]
-        # Base case - increment number of operations to for an empty string
+        # Base case - increment number of operations to form an empty string
         for i in range(1, n+1):
             dp[0][i] = 1 + dp[0][i-1]
 
