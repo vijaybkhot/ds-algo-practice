@@ -50,28 +50,64 @@ class Solution:
             return adjacent
         
         deadends_set = set(deadends)
+
+
         if '0000' in deadends_set or target in deadends_set:
             return -1
-        q = deque()
-        q.append('0000')
-        visited = set()
-        level = 0
+        
+        # Multi- source dfs
+        left, right = deque(), deque()
+        left.append('0000')
+        right.append(target)
+        left_level, right_level = 0, 0
+        visited_left = set(['0000'])
+        visited_right = set([target])
 
-        while q:
-            for _ in range(len(q)):
-                curr_node = q.popleft()
-                if curr_node == target:
-                    return level
+        while left and right:
+            if len(right) < len(left):
+                left, right = right, left
+                left_level, right_level = right_level, left_level
+                visited_left, visited_right = visited_right, visited_left
+
+            for _ in range(len(left)):
+                curr_node = left.popleft()
+                if curr_node in visited_right:
+                    return left_level+right_level
                 adjacents = get_adjacents(curr_node)
                 for new_node in adjacents:
-                    if new_node == target:
-                        return level + 1
-                    if new_node not in visited and new_node not in deadends_set:
-                        visited.add(new_node)
-                        q.append(new_node)
-            level += 1
-
+                    if new_node in visited_right:
+                        return left_level+right_level+1
+                    elif new_node not in visited_left and new_node not in deadends_set:
+                        visited_left.add(new_node)
+                        left.append(new_node)
+            left_level += 1
+        
         return -1
+
+
+
+
+        # #Single source BFS
+        # q = deque()
+        # q.append('0000')
+        # visited = set()
+
+        # level = 0
+        # while q:
+        #     for _ in range(len(q)):
+        #         curr_node = q.popleft()
+        #         if curr_node == target:
+        #             return level
+        #         adjacents = get_adjacents(curr_node)
+        #         for new_node in adjacents:
+        #             if new_node == target:
+        #                 return level + 1
+        #             if new_node not in visited and new_node not in deadends_set:
+        #                 visited.add(new_node)
+        #                 q.append(new_node)
+        #     level += 1
+
+        # return -1
 
 
 
