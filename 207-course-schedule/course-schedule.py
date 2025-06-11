@@ -7,40 +7,53 @@ class Solution:
         for v, u in prerequisites:
             graph[u].add(v)
             indegree[v] += 1
+
+        # DFS Cycle detection
+        rec_stack = [False]*numCourses
+        visited = [False]*numCourses
+        def dfs(node):
+            visited[node] = True
+            rec_stack[node] = True
+            for nei in graph[node]:
+                if rec_stack[nei]:
+                    return False
+                if not visited[nei]:
+                    if not dfs(nei):
+                        return False
+            rec_stack[node] = False
+            return True
+            
         
-        visited = set()
-        q = deque()
-        total = numCourses
-        # start with 0 indegree
-        for u in range(numCourses):
-            if indegree[u] == 0:
-                q.append(u)
-                total -= 1
+        for i in range(numCourses):
+            if not visited[i]:
+                if not dfs(i):
+                    return False
         
-        while q:
-            curr_node = q.popleft()
-            for nei in graph[curr_node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    del indegree[nei]
-                    q.append(nei)
-                    total -= 1
+        return True
         
-        return total==0
 
 
+        
+        # # Kahn's BSF algorithm to detect a cycle
+        # q = deque()
+        # total = numCourses
 
-
-
-
-
-
-
-
-
-
-
-
+        # # start with 0 indegree
+        # for u in range(numCourses):
+        #     if indegree[u] == 0:
+        #         q.append(u)
+        #         total -= 1
+        
+        # while q:
+        #     curr_node = q.popleft()
+        #     for nei in graph[curr_node]:
+        #         indegree[nei] -= 1
+        #         if indegree[nei] == 0:
+        #             del indegree[nei]
+        #             q.append(nei)
+        #             total -= 1
+        
+        # return total==0
 
 
         # # Create graph
