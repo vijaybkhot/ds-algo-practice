@@ -23,26 +23,43 @@ class Solution:
         #     rec_stack[node] = False
         #     return True
 
-        visited = set()
-        rec_stack = set()
+        # visited = set()
+        # rec_stack = set()
 
-        def dfs(node):
-            visited.add(node)
-            rec_stack.add(node)
+        # def dfs(node):
+        #     visited.add(node)
+        #     rec_stack.add(node)
             
+        #     for nei in graph[node]:
+        #         if nei in rec_stack:
+        #             return False
+        #         if nei not in visited:
+        #             if not dfs(nei):
+        #                 return False
+
+        #     rec_stack.remove(node)
+        #     return True
+
+
+        # Color Node:
+        color = ['white']*numCourses
+        def dfs(node):
+            color[node] = 'grey'
+
             for nei in graph[node]:
-                if nei in rec_stack:
+                if color[nei] == 'grey':
                     return False
-                if nei not in visited:
+                if color[nei] == 'white':
                     if not dfs(nei):
                         return False
 
-            rec_stack.remove(node)
+            color[node] = 'black'
             return True
-            
+
+
         
         for i in range(numCourses):
-            if i not in visited:
+            if color[i] == 'white':
                 if not dfs(i):
                     return False
         
