@@ -8,24 +8,41 @@ class Solution:
             graph[u].add(v)
             indegree[v] += 1
 
-        # DFS Cycle detection
-        rec_stack = [False]*numCourses
-        visited = [False]*numCourses
+        # # DFS Cycle detection - Boolean List
+        # rec_stack = [False]*numCourses
+        # visited = [False]*numCourses
+        # def dfs(node):
+        #     visited[node] = True
+        #     rec_stack[node] = True
+        #     for nei in graph[node]:
+        #         if rec_stack[nei]:
+        #             return False
+        #         if not visited[nei]:
+        #             if not dfs(nei):
+        #                 return False
+        #     rec_stack[node] = False
+        #     return True
+
+        visited = set()
+        rec_stack = set()
+
         def dfs(node):
-            visited[node] = True
-            rec_stack[node] = True
+            visited.add(node)
+            rec_stack.add(node)
+            
             for nei in graph[node]:
-                if rec_stack[nei]:
+                if nei in rec_stack:
                     return False
-                if not visited[nei]:
+                if nei not in visited:
                     if not dfs(nei):
                         return False
-            rec_stack[node] = False
+
+            rec_stack.remove(node)
             return True
             
         
         for i in range(numCourses):
-            if not visited[i]:
+            if i not in visited:
                 if not dfs(i):
                     return False
         
