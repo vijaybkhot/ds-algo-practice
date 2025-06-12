@@ -6,7 +6,7 @@ class Solution:
         for v, u in prerequisites:
             graph[u].add(v)
             indegree[v] += 1
-        # DFS approach
+        # DFS approach with cycle detection:
         visited = set()
         rev_topo = []
         recursion_stack = [False]*numCourses
