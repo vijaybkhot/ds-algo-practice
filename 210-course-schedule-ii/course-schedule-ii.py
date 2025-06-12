@@ -6,23 +6,53 @@ class Solution:
         for v, u in prerequisites:
             graph[u].add(v)
             indegree[v] += 1
+        # DFS approach
+        visited = set()
+        rev_topo = []
+        recursion_stack = [False]*numCourses
+        visited = [False]*numCourses
+        def dfs(node):
+            recursion_stack[node] = True
+            nonlocal rev_topo
+            for nei in graph[node]:
+                if recursion_stack[nei]:
+                    return False
+                if not visited[nei]:
+                    visited[nei] = True
+                    if not dfs(nei):
+                        return False
+
+            rev_topo.append(node)
+            recursion_stack[node] = False
+            return True
         
-        topo = []
-        q = deque()
-        # start with 0 indegree nodes
         for i in range(numCourses):
-            if indegree[i] == 0:
-                q.append(i)
+            if not visited[i]:
+                visited[i] = True
+                if not dfs(i):
+                    return []
         
-        while q:
-            curr_node = q.popleft()
-            topo.append(curr_node)
-            for nei in graph[curr_node]:
-                indegree[nei] -= 1
-                if indegree[nei] == 0:
-                    q.append(nei)
+        return rev_topo[::-1]
+
+
+
+        ## Kahns Algorithm
+        # topo = []
+        # q = deque()
+        # # start with 0 indegree nodes
+        # for i in range(numCourses):
+        #     if indegree[i] == 0:
+        #         q.append(i)
         
-        return [] if len(topo)!= numCourses else topo
+        # while q:
+        #     curr_node = q.popleft()
+        #     topo.append(curr_node)
+        #     for nei in graph[curr_node]:
+        #         indegree[nei] -= 1
+        #         if indegree[nei] == 0:
+        #             q.append(nei)
+        
+        # return [] if len(topo)!= numCourses else topo
 
 
 
