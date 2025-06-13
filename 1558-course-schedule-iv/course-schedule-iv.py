@@ -9,24 +9,43 @@ class Solution:
             graph[u].add(v)
             indegree[v] += 1
         
-        def dfs(node, target):
-            if node == target:
-                return True
-            visited = set()
-            def helper_dfs(curr):
-                visited.add(curr)
-                for nei in graph[curr]:
-                    if nei == target:
-                        return True
-                    if nei not in visited:
-                        if helper_dfs(nei):
-                            return True
-                return False
-            return helper_dfs(node)
+        # # Inefficient approach dfs for each query
+        # def dfs(node, target):
+        #     if node == target:
+        #         return True
+        #     visited = set()
+        #     def helper_dfs(curr):
+        #         visited.add(curr)
+        #         for nei in graph[curr]:
+        #             if nei == target:
+        #                 return True
+        #             if nei not in visited:
+        #                 if helper_dfs(nei):
+        #                     return True
+        #         return False
+        #     return helper_dfs(node)
+
+        # return [dfs(u, v) for u, v in queries]
+        prereq = defaultdict(set)
+        visited = set()
+        def dfs(node):
+            if node in visited:
+                return
+
+            visited.add(node)
+            
+            for nei in graph[node]:
+                dfs(nei)
+                prereq[node].add(nei)
+                prereq[node].update(prereq[nei])
+            
+        for i in range(numCourses):
+            dfs(i)
+
+        return [True if v in prereq[u] else False for u, v in queries]
 
 
-        return [dfs(u, v) for u, v in queries]
-        
+
 
 
 
