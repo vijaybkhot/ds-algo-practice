@@ -90,6 +90,8 @@ class Solution:
         # Union Find approach
         uf = UnionFind()
         email_name_map = defaultdict(str)
+        
+        # Union all emails in same index
         for idx, account in enumerate(accounts):
             name = account[0]
             first_email = account[1]
@@ -98,13 +100,6 @@ class Solution:
                 email_name_map[email] = name
                 uf.union(first_email, email)
 
-        # Union all emails in same index
-        # for key_email in email_index_map:
-        #     uf.find(key_email)
-        #     for idx in email_index_map[key_email]:
-        #         emails = accounts[idx][1:]
-        #         for email in emails:
-        #             uf.union(key_email, email)
         parent_email_map = defaultdict(list)
 
         for email in uf.parent:
