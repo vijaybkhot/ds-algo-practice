@@ -25,6 +25,7 @@ class UnionFind:
             self.rank[rootY] += 1
         
         return True
+        
     # def __init__(self, size):
     #     self.parent = [-1]*(size+1)
     
@@ -51,23 +52,59 @@ class UnionFind:
 
 class Solution:
     def accountsMerge(self, accounts: List[List[str]]) -> List[List[str]]:
-        email_index_map = defaultdict(set)
+        # # Union Find approach
+        # email_index_map = defaultdict(set)
+        # email_name_map = defaultdict(str)
+        # for idx, account in enumerate(accounts):
+        #     name = account[0]
+        #     emails = account[1:]
+        #     for email in emails:
+        #         email_index_map[email].add(idx)
+        #         email_name_map[email] = name
+
+        # uf = UnionFind()
+        # # Union all emails in same index
+        # for key_email in email_index_map:
+        #     uf.find(key_email)
+        #     for idx in email_index_map[key_email]:
+        #         emails = accounts[idx][1:]
+        #         for email in emails:
+        #             uf.union(key_email, email)
+        # parent_email_map = defaultdict(list)
+
+        # for email in uf.parent:
+        #     parent_email = uf.find(email)
+        #     parent_email_map[parent_email].append(email)
+        
+        # res = []
+
+        # for parent_email in parent_email_map:
+        #     parent_name = email_name_map[parent_email]
+        #     emails = parent_email_map[parent_email]
+        #     curr_account = [parent_name, *sorted(emails)]
+        #     res.append(curr_account)
+        
+        # return res
+
+
+        # Union Find approach
+        uf = UnionFind()
         email_name_map = defaultdict(str)
         for idx, account in enumerate(accounts):
             name = account[0]
+            first_email = account[1]
             emails = account[1:]
             for email in emails:
-                email_index_map[email].add(idx)
                 email_name_map[email] = name
+                uf.union(first_email, email)
 
-        uf = UnionFind()
         # Union all emails in same index
-        for key_email in email_index_map:
-            uf.find(key_email)
-            for idx in email_index_map[key_email]:
-                emails = accounts[idx][1:]
-                for email in emails:
-                    uf.union(key_email, email)
+        # for key_email in email_index_map:
+        #     uf.find(key_email)
+        #     for idx in email_index_map[key_email]:
+        #         emails = accounts[idx][1:]
+        #         for email in emails:
+        #             uf.union(key_email, email)
         parent_email_map = defaultdict(list)
 
         for email in uf.parent:
