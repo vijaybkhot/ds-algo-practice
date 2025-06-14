@@ -43,7 +43,7 @@ class Solution:
         for equation in equations:
             var_1, sign_1, sign_2, var_2 = equation
             root_1, root_2 = uf.find(var_1), uf.find(var_2)
-            if sign_1 == sign_2 and root_1 != root_2 or sign_1 != sign_2 and root_1 == root_2:
+            if (sign_1 == sign_2 and root_1 != root_2) or (sign_1 != sign_2 and root_1 == root_2):
                 return False
         
         return True
