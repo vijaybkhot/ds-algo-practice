@@ -17,6 +17,8 @@ class Solution:
             dp[i] = min(nums[i], nums[i]+dp[i+1])
 
         wrap_max = sum(nums) - min(dp)
+
+        # # Edge case: all elements negative
         if non_wrap_max < 0:
             return max_num
 
