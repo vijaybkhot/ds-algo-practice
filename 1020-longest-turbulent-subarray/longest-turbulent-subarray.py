@@ -32,6 +32,7 @@ class Solution:
         #     left += 1
 
         # return max_len
+        
         # Using a signs array:
         signs = []
         for i in range(1,  len(arr)):
@@ -41,8 +42,7 @@ class Solution:
                 signs.append('<')
             else:
                 signs.append('=')
-        # if len(signs) <= 1:
-        #     return len(signs)+1
+    
         
         res = 1 if signs[0] != '=' else 0
         curr_count = 1 if signs[0] != '=' else 0
