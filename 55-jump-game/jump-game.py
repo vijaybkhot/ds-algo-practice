@@ -1,33 +1,18 @@
 class Solution:
     def canJump(self, nums: List[int]) -> bool:
-        # # Dynamic Programming approach:
-        # dp = {}
-        # def dfs(i):
-        #     if i >= len(nums)-1:
-        #         return True
-        #     if nums[i] == 0:
-        #         return False
-        #     if i in dp:
-        #         return dp[i]
+        max_jump, i = 0, 0
+        while i < len(nums):
 
-        #     can_reach = False
-        #     for j in range(nums[i], 0, -1):
-        #         if dfs(i+j):
-        #             can_reach = True
-        #             break
+            max_jump = max(max_jump, nums[i]+i)
 
-        #     dp[i] = can_reach
-        #     return can_reach
+            if max_jump >= len(nums)-1:
+                return True
+
+            elif i+1 <= max_jump:
+                i += 1
+
+            else:
+                return False
+
+        return True
         
-        # return dfs(0)
-
-        # Greedy Approach:
-        i = len(nums)-2
-        last = len(nums)-1
-        while last > -1 and i > -1:
-            while i >= 0 and i + nums[i] < last:
-                i -= 1
-            if i >= 0:
-                last = i
-                i -= 1
-        return last <= 0
