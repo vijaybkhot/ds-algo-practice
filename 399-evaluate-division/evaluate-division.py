@@ -8,7 +8,6 @@ class Solution:
             graph[u].add((v, val))
             graph[v].add((u, 1/val))
         
-       
 
         def bfs(node, dest):
             if node not in graph or dest not in graph:
@@ -24,19 +23,15 @@ class Solution:
             res = 1
             while q:
                 curr, curr_dist = q.popleft()
+                if curr == dest:
+                    return curr_dist
                 
                 for nei, dist in graph[curr]:
                     if nei not in visited:
                         visited.add(nei)
-                        if nei == dest:
-                            isPath = True
-                            res = dist * curr_dist
-                            q = []
-                            break
-                        else:
-                            q.append((nei, curr_dist*dist))
+                        q.append((nei, curr_dist*dist))
             
-            return res if isPath else -1
+            return -1
         
         return [bfs(u, v) for u, v in queries]
 
