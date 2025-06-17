@@ -19,8 +19,6 @@ class Solution:
             q.append((node, 1))
             visited = set()
             visited.add(node)
-            isPath = False
-            res = 1
             while q:
                 curr, curr_dist = q.popleft()
                 if curr == dest:
