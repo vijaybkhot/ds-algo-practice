@@ -42,11 +42,15 @@ class Solution:
 
             # Cut the list
             prev.next = None
-            l1 = merge_sort_list(l)
-            l2 = merge_sort_list(slow)
-            dummy = ListNode()
-            dummy.next = merge(l1, l2)
-            return dummy.next
+            # # We have ou
+            # l1 = merge_sort_list(l)
+            # l2 = merge_sort_list(slow)
+            # dummy = ListNode()
+            # dummy.next = merge(merge_sort_list(l), merge_sort_list(slow))
+            # return dummy.next
+
+            return merge(merge_sort_list(l), merge_sort_list(slow))
+
 
         def merge(l1, l2):
             dummy = ListNode()
