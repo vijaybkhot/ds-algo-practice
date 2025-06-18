@@ -21,24 +21,39 @@ class Solution:
 
         # return True                
 
-        # Using BFS
-        q = deque()
-        q.append(0)
-        farthest = 0
+        # # Using BFS
+        # q = deque()
+        # q.append(0)
+        # farthest = 0
 
-        while q:
-            curr = q.popleft()
-            if curr >= n-1:
-                return True
-            start = max(curr+minJump, farthest + 1)
-            for j in range(start, min(curr + maxJump + 1, n)):
-                if j < n and s[j] == '0':
-                    q.append(j)
+        # while q:
+        #     curr = q.popleft()
+        #     if curr >= n-1:
+        #         return True
+        #     start = max(curr+minJump, farthest + 1)
+        #     for j in range(start, min(curr + maxJump + 1, n)):
+        #         if j < n and s[j] == '0':
+        #             q.append(j)
                 
-            farthest = curr + maxJump
+        #     farthest = curr + maxJump
         
-        return False
+        # return False
 
+        # DP two pointer approach
+        dp = [False]*n
+        dp[0] = True
+        j = 0
+        for i in range(n):
+            if not dp[i]:
+                continue
+            
+            j = max(j, i+minJump)
+            while j < min(i+maxJump+1, n):
+                if s[j] == '0':
+                    dp[j] = True
+                j += 1
+        
+        return dp[n-1]
                 
 
 
