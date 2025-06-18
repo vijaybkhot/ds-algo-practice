@@ -41,7 +41,8 @@ class Solution:
             
             for _ in range(len(left)):
                 curr_word = left.popleft()
-                for nei in graph[curr_word]:
+                adjacents = get_neighbors(curr_word, wordListSet)
+                for nei in adjacents:
                     if nei in visited_right:
                         return level + 1
                     if nei not in visited_left:
@@ -50,21 +51,6 @@ class Solution:
             level += 1
         
         return 0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
