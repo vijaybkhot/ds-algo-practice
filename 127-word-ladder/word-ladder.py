@@ -9,7 +9,7 @@ class Solution:
         graph = defaultdict(set)
 
         def get_neighbors(word, wordListSet):
-            neighbors = []
+            neighbors = set()
             for i in range(len(word)):
                 for c in 'abcdefghijklmnopqrstuvwxyz':
                     if c != word[i]:
@@ -17,14 +17,8 @@ class Solution:
                         new_word[i] = c            
                         new_word = ''.join(new_word)  
                         if new_word in wordListSet:
-                            neighbors.append(new_word)
-            return neighbors
-
-        wordList.append(beginWord)
-        for word in wordList:
-            adjacents = get_neighbors(word, wordListSet)
-            graph[word] = adjacents
-        
+                            neighbors.add(new_word)
+            return neighbors    
         
         left, right = deque(), deque()
         left.append(beginWord)
