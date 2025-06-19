@@ -1,22 +1,15 @@
-class Solution(object):
-    def mySqrt(self, x):
-        """
-        :type x: int
-        :rtype: int
-        """
-        if x == 0 or x == 1:
-            return x
+class Solution:
+    def mySqrt(self, x: int) -> int:
 
-        left, right = 0, x
-
-        while left <= right:
-            mid = (left + right) // 2
-            if (mid * mid) == x:
+        l, r = 1, x
+        while l <= r:
+            mid = (l+r) // 2
+            curr_num_square = mid*mid
+            if curr_num_square == x:
                 return mid
-            elif (mid * mid) < x:
-                left = mid + 1
+            elif curr_num_square < x:
+                l = mid + 1
             else:
-                right = mid - 1
-        
-        return right
+                r = mid - 1
+        return r
         
