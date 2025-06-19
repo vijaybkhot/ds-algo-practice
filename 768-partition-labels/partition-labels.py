@@ -14,7 +14,8 @@ class Solution:
                 res.append(end-start+1)
                 start = end + 1
                 end = max_idx_map[s[start]] if start < len(s) else len(s)-1
-            end = max(end, max_idx_map[s[i]])
+            else:
+                end = max(end, max_idx_map[s[i]])
             i += 1
         
         return res
