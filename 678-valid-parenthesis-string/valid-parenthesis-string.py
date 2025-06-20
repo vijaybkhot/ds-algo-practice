@@ -35,30 +35,46 @@ class Solution:
         #         return False
 
         # return True
-        self.isPossible = False
-        target = len(s)//2
-
-        dp = {}
-        def dfs(i, left):
-            if (i, left) in dp:
-                return dp[(i, left)]
-            if left < 0:
-                return False
-            if i >= len(s):
-                return left == 0
+        
+        # # Top-down DP solution
+        # dp = {}
+        # def dfs(i, left):
+        #     if (i, left) in dp:
+        #         return dp[(i, left)]
+        #     if left < 0:
+        #         return False
+        #     if i >= len(s):
+        #         return left == 0
             
-            if self.isPossible:
-                return
+        #     if self.isPossible:
+        #         return.
+        #     if s[i] == '(':
+        #         dp[(i, left)] = dfs(i+1, left+1)
+        #     elif s[i] == ")":
+        #         dp[(i, left)] = dfs(i+1, left-1)
+        #     else:
+        #         dp[(i, left)] = (dfs(i+1, left) or
+        #         dfs(i+1, left+1) or
+        #         dfs(i+1, left-1))
+        #     return dp[(i, left)]
 
-            if s[i] == '(':
-                dp[(i, left)] = dfs(i+1, left+1)
-            elif s[i] == ")":
-                dp[(i, left)] = dfs(i+1, left-1)
+        # return dfs(0, 0)
+
+        # Greedy solution - maintaining two left open values, minLeft and maxLeft
+        minLeft, maxLeft = 0, 0
+        for char in s:
+            if char == '(':
+                minLeft, maxLeft = minLeft + 1, maxLeft + 1
+            elif char == ')':
+                minLeft, maxLeft = minLeft - 1, maxLeft - 1
             else:
-                dp[(i, left)] = (dfs(i+1, left) or
-                dfs(i+1, left+1) or
-                dfs(i+1, left-1))
-            return dp[(i, left)]
+                minLeft, maxLeft = minLeft - 1, maxLeft + 1
+            
+            if maxLeft < 0:
+                return False
+            if minLeft < 0:
+                minLeft = 0
+        
+        return minLeft == 0
 
-        return dfs(0, 0)
         
