@@ -38,27 +38,27 @@ class Solution:
         self.isPossible = False
         target = len(s)//2
 
-        @lru_cache(None)
+        dp = {}
         def dfs(i, left):
+            if (i, left) in dp:
+                return dp[(i, left)]
             if left < 0:
-                return
+                return False
             if i >= len(s):
-                if not self.isPossible and left == 0:
-                    self.isPossible = True
-                return
+                return left == 0
             
             if self.isPossible:
                 return
 
             if s[i] == '(':
-                return dfs(i+1, left+1)
+                dp[(i, left)] = dfs(i+1, left+1)
             elif s[i] == ")":
-                return dfs(i+1, left-1)
+                dp[(i, left)] = dfs(i+1, left-1)
             else:
-                dfs(i+1, left)
-                dfs(i+1, left+1)
-                dfs(i+1, left-1)
+                dp[(i, left)] = (dfs(i+1, left) or
+                dfs(i+1, left+1) or
+                dfs(i+1, left-1))
+            return dp[(i, left)]
 
-        dfs(0, 0)
-        return self.isPossible
+        return dfs(0, 0)
         
