@@ -60,21 +60,47 @@ class Solution:
 
         # return dfs(0, 0)
 
-        # Greedy solution - maintaining two left open values, minLeft and maxLeft
-        minLeft, maxLeft = 0, 0
-        for char in s:
-            if char == '(':
-                minLeft, maxLeft = minLeft + 1, maxLeft + 1
-            elif char == ')':
-                minLeft, maxLeft = minLeft - 1, maxLeft - 1
-            else:
-                minLeft, maxLeft = minLeft - 1, maxLeft + 1
+        # # Greedy solution - maintaining two left open values, minLeft and maxLeft
+        # # The two values are the range of possible open left parens
+        # # If the maximum range, i.e. maxLeft falls below 0, we return False
+        # # If min Range falls below zero, we set it to 0 and continue. This keeps our total possible range Greater than zero
+        # # In the end if 0 is part of the range, we return True, else False
+        # minLeft, maxLeft = 0, 0
+        # for char in s:
+        #     if char == '(':
+        #         minLeft, maxLeft = minLeft + 1, maxLeft + 1
+        #     elif char == ')':
+        #         minLeft, maxLeft = minLeft - 1, maxLeft - 1
+        #     else:
+        #         minLeft, maxLeft = minLeft - 1, maxLeft + 1
             
-            if maxLeft < 0:
-                return False
-            if minLeft < 0:
-                minLeft = 0
+        #     if maxLeft < 0:
+        #         return False
+        #     if minLeft < 0:
+        #         minLeft = 0
         
-        return minLeft == 0
+        # return minLeft == 0
+
+        # Stack solution
+
+        left, star = [], []
+        for i, c in enumerate(s):
+            if c == "(":
+                left.append(i)
+            elif c == "*":
+                star.append(i)
+            else:
+                if not left and not star:
+                    return False
+                if left:
+                    left.pop()
+                else:
+                    star.pop()
+        
+        while left and star:
+            if left.pop() > star.pop():
+                return False
+        
+        return not left
 
         
