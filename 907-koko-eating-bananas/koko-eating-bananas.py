@@ -7,7 +7,6 @@ class Solution:
             return hours <= h
         
         l, r = 1, sum(piles)
-        res = h
         while l <= r:
             mid = (l+r)//2
             if canFinish(mid):
