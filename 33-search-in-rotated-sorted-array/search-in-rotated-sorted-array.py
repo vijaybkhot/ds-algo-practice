@@ -10,20 +10,13 @@ class Solution:
                 l = mid + 1
             else:
                 r = mid
+        pivot = l
+        # since we have pivot, we find the target in correct portions
+        if nums[pivot] <= target <= nums[n - 1]:
+            left, right = pivot, n - 1
+        else:
+            left, right = 0, pivot - 1
 
-        # since we have pivot, we find the target in both portions
-        # left portion
-        left, right = 0, l-1
-        while left <= right:
-            mid = (left+right)//2
-            if nums[mid] == target:
-                return mid
-            elif nums[mid] < target:
-                left = mid + 1
-            else:
-                right = mid - 1
-        # if not found, binary search also on right portion
-        left, right = l, n-1
         while left <= right:
             mid = (left+right)//2
             if nums[mid] == target:
