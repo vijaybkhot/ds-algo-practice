@@ -6,7 +6,7 @@ class Solution:
                 hours += math.ceil(bananas / bananas_per_hr)
             return hours <= h
         
-        l, r = 1, sum(piles)
+        l, r = 1, max(piles)
         while l <= r:
             mid = (l+r)//2
             if canFinish(mid):
