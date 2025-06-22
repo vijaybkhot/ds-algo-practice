@@ -31,7 +31,7 @@ class Solution:
         # return res
             
 
-        # More readable solution
+        # More readable solution O(n) time and O(1) space. O(n) for output list
         res = []
         for i in range(len(intervals)):
             if newInterval[1] < intervals[i][0]:
