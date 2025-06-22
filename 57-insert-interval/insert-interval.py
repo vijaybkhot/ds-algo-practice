@@ -1,0 +1,34 @@
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        if not intervals:
+            return [newInterval]
+        temp, res = [], []
+        new_start, new_end = newInterval
+        hasAppended = False
+        curr_start, curr_end = intervals[0] if intervals[0][0] < newInterval[0] else newInterval
+
+
+        for start, end in intervals:
+            if start < new_start or hasAppended:
+                temp.append([start, end])
+            else:
+                temp.append([new_start, new_end])
+                temp.append([start, end])
+                hasAppended = True
+        if not hasAppended:
+            temp.append(newInterval)
+
+        res.append(temp[0])
+        # merge overlapping intervals
+        for i in range(1, len(temp)):
+            prev = res[-1]
+            curr = temp[i]
+            if prev[1] >= curr[0]:
+                res.pop()
+                res.append([min(prev[0], curr[0]), max(prev[1], curr[1])])
+            else:
+                res.append([curr[0], curr[1]])
+        
+        return res
+            
+
