@@ -6,8 +6,6 @@ class Solution:
         new_start, new_end = newInterval
         hasAppended = False
         curr_start, curr_end = intervals[0] if intervals[0][0] < newInterval[0] else newInterval
-
-
         for start, end in intervals:
             if start < new_start or hasAppended:
                 temp.append([start, end])
