@@ -1,46 +1,42 @@
-class Solution(object):
-    def splitArray(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        def isValidSubArraysForSum(sum_to_check, array, k):
-            if k > len(array):
-                return False
+class Solution:
+    def splitArray(self, nums: List[int], k: int) -> int:
+
+        if k == 1 or len(nums) == 1:
+            return sum(nums)
+        if k >= len(nums):
+            return max(nums)
+
+        n = len(nums)
+        prefix_arr = [nums[0]] * n
+        for i in range(1, n):
+            prefix_arr[i] = nums[i] + prefix_arr[i-1]
+
+        def can_split(nums, k, max_sum):
+            count = 1  # at least one subarray
             current_sum = 0
-            subarray_count = 1  # Start with the first subarray
-
-            for num in array:
-                if current_sum + num > sum_to_check:
-                    # If adding this num would exceed sum_to_check, start a new subarray
-                    subarray_count += 1
-                    current_sum = num
-                    # If we have more than k subarrays, return False
-                    if subarray_count > k:
-                        return False
-                else:
-                    # Otherwise, add num to the current subarray sum
+            for num in nums:
+                if num > max_sum:
+                    return False  # single element is too big
+                if current_sum + num <= max_sum:
                     current_sum += num
+                else:
+                    count += 1
+                    current_sum = num
 
-            # If we used exactly k subarrays or less, return True, else return False
-            return subarray_count <= k
+            return count <= k
 
-        largest_sum = sum(nums)
-        low, high = max(nums), sum(nums)
-        while low <= high:
-            mid = (low + high) // 2
-            if isValidSubArraysForSum(mid, nums, k):
-                largest_sum = mid
-                high = mid - 1
+        left, right = max(nums), sum(nums)
+        res = right
+        while left <= right:
+            mid = (left+right) // 2
+            if can_split(nums, k, mid):
+                res = min(res, mid)
+                right = mid - 1
             else:
-                low = mid + 1
+                left = mid + 1
         
-        return largest_sum
+        return res
 
 
-                    
-
-
-                    
             
+        
