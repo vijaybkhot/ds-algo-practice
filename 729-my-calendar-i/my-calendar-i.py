@@ -9,22 +9,29 @@ class MyCalendar:
             self.bookings.append([startTime, endTime])
             return True
         else:
-            booking_heap =[]
-            temp = self.bookings.copy()
-            temp.append([startTime, endTime])
-            temp.sort()
-            booking_heap.append(temp[0][1])
-            heapq.heapify(booking_heap)
-            
-            for start, end in temp[1:]:
-                if start >= booking_heap[0]:
-                    heapq.heappop(booking_heap)
-                heapq.heappush(booking_heap, end)
-                if len(booking_heap) > 1:
+            # Linear solution:
+            for start, end in self.bookings:
+                if startTime < end and start < endTime:
                     return False
-                
-            self.bookings = temp
+            self.bookings.append([startTime, endTime])
             return True
+            ## Heap Solution:
+            # booking_heap =[]
+            # temp = self.bookings.copy()
+            # temp.append([startTime, endTime])
+            # temp.sort()
+            # booking_heap.append(temp[0][1])
+            # heapq.heapify(booking_heap)
+            
+            # for start, end in temp[1:]:
+            #     if start >= booking_heap[0]:
+            #         heapq.heappop(booking_heap)
+            #     heapq.heappush(booking_heap, end)
+            #     if len(booking_heap) > 1:
+            #         return False
+                
+            # self.bookings = temp
+            # return True
         
 
 
