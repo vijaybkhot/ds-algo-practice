@@ -1,5 +1,33 @@
 class Solution:
     def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
+        meetings.sort()
+        ongoing_meetings = [] # (end_time, room_idx)
+        available_rooms = [i for i in range(n)]
+        heapq.heapify(available_rooms)
+        room_usage = [0]*n
+
+        for start, end in meetings:
+            while ongoing_meetings and ongoing_meetings[0][0] <= start:
+                end_time, room_idx = heapq.heappop(ongoing_meetings)
+                heapq.heappush(available_rooms, room_idx)
+            
+            if available_rooms:
+                room_idx = heapq.heappop(available_rooms)
+                heapq.heappush(ongoing_meetings, (end, room_idx))
+                room_usage[room_idx] += 1
+            else:
+                # Delayed start
+                end_time, room_idx = heapq.heappop(ongoing_meetings)
+                delayed_start = end_time + end - start
+                heapq.heappush(ongoing_meetings, (delayed_start, room_idx))
+                room_usage[room_idx] += 1
+        
+        return room_usage.index(max(room_usage))
+        
+
+
+                
+
 
         # # First attempt - Partially Correct:
         # heapq.heapify(meetings)
@@ -29,39 +57,39 @@ class Solution:
         
         # return meeting_rooms[0][2]
 
-        # Improved approach
+        # Improved approach - Use two separate heaps to hold ongoing meetings and available_rooms
 
-        meetings.sort()
+        # meetings.sort()
         
-        available_rooms = list(range(n))  # room indices
-        heapq.heapify(available_rooms)
+        # available_rooms = list(range(n))  # room indices
+        # heapq.heapify(available_rooms)
         
-        ongoing_meetings = []  # (end_time, room_idx)
-        room_usage = [0] * n
+        # ongoing_meetings = []  # (end_time, room_idx)
+        # room_usage = [0] * n
         
-        for start, end in meetings:
-            # Free up rooms
-            while ongoing_meetings and ongoing_meetings[0][0] <= start:
-                _, room = heapq.heappop(ongoing_meetings)
-                heapq.heappush(available_rooms, room)
+        # for start, end in meetings:
+        #     # Free up rooms
+        #     while ongoing_meetings and ongoing_meetings[0][0] <= start:
+        #         _, room = heapq.heappop(ongoing_meetings)
+        #         heapq.heappush(available_rooms, room)
             
-            if available_rooms:
-                room = heapq.heappop(available_rooms)
-                heapq.heappush(ongoing_meetings, (end, room))
-                room_usage[room] += 1
-            else:
-                # Wait until the next room is free
-                next_end, room = heapq.heappop(ongoing_meetings)
-                duration = end - start
-                new_end = next_end + duration
-                heapq.heappush(ongoing_meetings, (new_end, room))
-                room_usage[room] += 1
+        #     if available_rooms:
+        #         room = heapq.heappop(available_rooms)
+        #         heapq.heappush(ongoing_meetings, (end, room))
+        #         room_usage[room] += 1
+        #     else:
+        #         # Wait until the next room is free
+        #         next_end, room = heapq.heappop(ongoing_meetings)
+        #         duration = end - start
+        #         new_end = next_end + duration
+        #         heapq.heappush(ongoing_meetings, (new_end, room))
+        #         room_usage[room] += 1
         
-        # Return the room with max meetings, break ties by room number
-        max_meetings = max(room_usage)
-        for i in range(n):
-            if room_usage[i] == max_meetings:
-                return i
+        # # Return the room with max meetings, break ties by room number
+        # max_meetings = max(room_usage)
+        # for i in range(n):
+        #     if room_usage[i] == max_meetings:
+        #         return i
 
                 
 
