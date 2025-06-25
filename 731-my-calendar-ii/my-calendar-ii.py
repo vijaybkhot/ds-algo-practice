@@ -9,36 +9,43 @@ class MyCalendarTwo:
             self.bookings.sort()
             return True
         else:
-            temp = []
-            temp.append([startTime, endTime])
-            for start, end in self.bookings:
-                if startTime < end and start < endTime:
-                    temp.append([start, end])
+            # # Using extra memory to store temporary bookings
+            # temp = []
+            # temp.append([startTime, endTime])
+            # for start, end in self.bookings:
+            #     if startTime < end and start < endTime:
+            #         temp.append([start, end])
             
-            temp.sort()
+            # temp.sort()
+            # booking_heap = []
+            # heapq.heappush(booking_heap, temp[0][1])
+            # for start, end in temp[1:]:
+            #     if booking_heap[0] <= start:
+            #         heapq.heappop(booking_heap)
+            #     heapq.heappush(booking_heap, end)
+            #     if len(booking_heap) > 2:
+            #         return False
+                
+            # self.bookings.append([startTime, endTime])
+            # return True
+
+
+            # No extra memory
+            self.bookings.append([startTime, endTime])
+            self.bookings.sort()
             booking_heap = []
-            heapq.heappush(booking_heap, temp[0][1])
-            for start, end in temp[1:]:
+            heapq.heappush(booking_heap, self.bookings[0][1])
+
+            for start, end in self.bookings[1:]:
                 if booking_heap[0] <= start:
                     heapq.heappop(booking_heap)
                 heapq.heappush(booking_heap, end)
                 if len(booking_heap) > 2:
+                    self.bookings.remove([startTime, endTime])
                     return False
-                
-            self.bookings.append([startTime, endTime])
             return True
 
-
-            # count = 0
-            # for start, end in self.bookings:
-            #     if startTime < end and start < endTime:
-            #         count += 1
-            #         if count >= 2:
-            #             return False
             
-            # self.bookings.append([startTime, endTime])
-            # self.bookings.sort()
-            # return True
 
 
         
