@@ -19,6 +19,7 @@ class Solution:
                 continue
             elif mid == n-1:
                 right = mid-1
+                continue
             left_val = mountainArr.get(mid-1)
             mid_val = mountainArr.get(mid)
             right_val = mountainArr.get(mid+1)
