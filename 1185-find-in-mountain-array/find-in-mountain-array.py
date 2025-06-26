@@ -2,60 +2,62 @@
 # This is MountainArray's API interface.
 # You should not implement it, or speculate about its implementation
 # """
-#class MountainArray(object):
-#    def get(self, index):
-#        """
-#        :type index: int
-#        :rtype int
-#        """
-#
-#    def length(self):
-#        """
-#        :rtype int
-#        """
+#class MountainArray:
+#    def get(self, index: int) -> int:
+#    def length(self) -> int:
 
-class Solution(object):
-    def findInMountainArray(self, target, mountainArr):
-        """
-        :type target: integer
-        :type mountain_arr: MountainArray
-        :rtype: integer
-        """
-
-        def findMax():
-            left, right = 0, mountainArr.length() - 1
-            while left < right:
-                mid = (left + right) // 2
-                if mountainArr.get(mid) < mountainArr.get(mid + 1):
-                    left = mid + 1
-                else:
-                    right = mid
-            return left 
-        
-        
-        max_index = findMax()
-        # Now we have the max index, we can apply binary search twice in the left mountain and the right mountain to find the target
-
-        left, right = 0, max_index
+class Solution:
+    def findInMountainArray(self, target: int, mountainArr: 'MountainArray') -> int:
+        # Find the pivot
+        n = mountainArr.length()
+        left, right = 0, mountainArr.length()-1
+        max_idx = right
         while left <= right:
             mid = (left+right) // 2
-            if mountainArr.get(mid) < target:
+            if mid == 0:
+                left = mid+1
+                continue
+            elif mid == n-1:
+                right = mid-1
+            left_val = mountainArr.get(mid-1)
+            mid_val = mountainArr.get(mid)
+            right_val = mountainArr.get(mid+1)
+            if left_val < mid_val > right_val:
+                max_idx = mid
+                break
+            elif mountainArr.get(mid-1) < mid_val < right_val:
                 left = mid + 1
-            elif mountainArr.get(mid) > target:
-                right = mid - 1
             else:
-                return mid
-        # Binary search in the reverse sorted array
-        left, right = max_index + 1, mountainArr.length() - 1
+                right = mid-1
+        
+        left, right = 0, max_idx
         while left <= right:
             mid = (left+right) // 2
-            if mountainArr.get(mid) > target:
-                left = mid + 1
-            elif mountainArr.get(mid) < target:
-                right = mid - 1
-            else:
+            mid_val = mountainArr.get(mid)
+            if mid_val == target:
                 return mid
+            elif mid_val < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        
+        left, right = max_idx+1, mountainArr.length()-1
+        while left <= right:
+            mid = (left+right) // 2
+            mid_val = mountainArr.get(mid)
+            if mid_val == target:
+                return mid
+            elif mid_val > target:
+                left = mid + 1
+            else:
+                right = mid - 1
         
         return -1
-                
+        
+
+
+               
+
+
+
         
