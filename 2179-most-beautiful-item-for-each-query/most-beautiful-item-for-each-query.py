@@ -1,6 +1,5 @@
 class Solution:
     def maximumBeauty(self, items: List[List[int]], queries: List[int]) -> List[int]:
-
         items.sort()
         indexed_queries = [(query, idx)for idx, query in enumerate(queries)]
         indexed_queries.sort()
