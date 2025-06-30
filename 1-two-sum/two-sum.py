@@ -5,12 +5,19 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        # Brute force:
-        for i in range(len(nums)):
-            for j in range(i+1, len(nums)):
-                if nums[i] + nums[j] == target:
-                    return [i, j]
+        # # Brute force:
+        # for i in range(len(nums)):
+        #     for j in range(i+1, len(nums)):
+        #         if nums[i] + nums[j] == target:
+        #             return [i, j]
 
+        # Optimized approach using a hash map
+        diff_dict = defaultdict(int)
+        for i in range(len(nums)):
+            if nums[i] in diff_dict:
+                return [diff_dict[nums[i]], i]
+            else:
+                diff_dict[target-nums[i]] = i
 
 
 
