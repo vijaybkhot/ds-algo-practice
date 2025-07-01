@@ -1,42 +1,37 @@
-class Solution(object):
-    def maxArea(self, height):
-        """
-        :type height: List[int]
-        :rtype: int
-        """
-        # First attempt, partially correct solution.
-        # left, right = 0, len(height)-1
-        # max_area = min(height[left], height[right]) * (right - left)
-        # while left < right:
-        #     left += 1
-        #     if left == right:
-        #         break
-        #     curr_max_area = min(height[left], height[right]) * (right - left)
-        #     if curr_max_area > max_area:
-        #         max_area = curr_max_area
-        #     right -= 1
-        #     if left == right:
-        #         break
-        #     curr_max_area = min(height[left], height[right]) * (right - left)
-        #     if curr_max_area > max_area:
-        #         max_area = curr_max_area
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height)-1
+        res = 0
 
-        # return max_area
-
-        # Improved solution - Greedy approach to moving pointer
-        left, right = 0, len(height)-1
-        max_area = min(height[left], height[right]) * (right - left)
-        while left < right:
-            if height[left] < height[right]:
-                left += 1
+        while l < r:
+            res = max(res, (min(height[l], height[r]) * (r-l)))
+            if height[l] < height[r]:
+                l += 1
             else:
-                right -= 1
-            curr_max_area = min(height[left], height[right]) * (right - left)
-            if curr_max_area > max_area:
-                max_area = curr_max_area
-        
-        return max_area
+                r -= 1
+        return res
+
+        # # Brute Force solution:
+        # for i in range(len(height)):
+        #     for j in range(i+1, len(height)):
+        #         res = max(res, min(height[i], height[j])*(j-i))
+        # return res
+
+        # Dynamic programming:
+        # dp = {}
+        # def dfs(i, j):
+        #     if (i, j) in dp:
+        #         return dp[(i, j)]
+        #     if i >= j or i >= len(height) or j < 0:
+        #         return 0
             
 
+        #     dp[(i, j)] = max((min(height[i], height[j])*(j-i)), dfs(i+1, j), dfs(i, j-1))
 
+        #     return dp[(i, j)]
+        
+        # return dfs(0, len(height)-1)
 
+        # 
+    
+        
