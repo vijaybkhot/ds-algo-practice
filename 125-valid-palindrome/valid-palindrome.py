@@ -9,7 +9,7 @@ class Solution:
         #     r -= 1
         
         # return True
-        s = s.lower()
+        # s = s.lower()
         l, r = 0, len(s)-1
         while l <= r:
             while l< r and s[l].lower() not in "abcdefghijklmnopqrstuvwxyz0123456789":
