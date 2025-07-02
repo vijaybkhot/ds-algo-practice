@@ -6,22 +6,47 @@
 #         self.right = right
 class Solution:
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
-        # # Recursive
-        # def dfs(node, arr):
-        #     if node:
-        #         arr.append(node.val)
-        #         dfs(node.left, arr)
-        #         dfs(node.right, arr)
-        #     return arr
+        # # # Recursive
+        # # def dfs(node, arr):
+        # #     if node:
+        # #         arr.append(node.val)
+        # #         dfs(node.left, arr)
+        # #         dfs(node.right, arr)
+        # #     return arr
         
-        # return dfs(root, [])
+        # # return dfs(root, [])
 
-        # # Iterative
+        # # # Iterative
+        # # if not root:
+        # #     return []
+            
+        # # stack = [root]
+        # # res = []
+        # # while stack:
+        # #     node = stack.pop()
+        # #     res.append(node.val)
+        # #     if node.right:
+        # #         stack.append(node.right)
+        # #     if node.left:
+        # #         stack.append(node.left)
+        
+        # # return res
+
+        # # # Recursive approach:
+        # # def dfs(node):
+        # #     if node:
+        # #         res.append(node.val)
+        # #         dfs(node.left)
+        # #         dfs(node.right)
+        
+        # # res = []
+        # # dfs(root)
+        # # return res
+
+        # # Iterative approach:
         # if not root:
         #     return []
-            
-        # stack = [root]
-        # res = []
+        # curr, stack, res = root, [root], []
         # while stack:
         #     node = stack.pop()
         #     res.append(node.val)
@@ -32,31 +57,41 @@ class Solution:
         
         # return res
 
-        # # Recursive approach:
-        # def dfs(node):
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # res = []
+        # def preorder(node):
         #     if node:
         #         res.append(node.val)
-        #         dfs(node.left)
-        #         dfs(node.right)
+        #         preorder(node.left)
+        #         preorder(node.right)
         
-        # res = []
-        # dfs(root)
+        # preorder(root)
         # return res
-
-        # Iterative approach:
         if not root:
             return []
-        curr, stack, res = root, [root], []
+        stack, res = [root], []
+
         while stack:
-            node = stack.pop()
-            res.append(node.val)
-            if node.right:
-                stack.append(node.right)
-            if node.left:
-                stack.append(node.left)
+            curr = stack.pop()
+            res.append(curr.val)
+            if curr.right:
+                stack.append(curr.right)
+            if curr.left:
+                stack.append(curr.left)
         
         return res
-
 
 
 
