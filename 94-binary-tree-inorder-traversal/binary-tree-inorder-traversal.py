@@ -16,13 +16,24 @@ class Solution:
         # dfs(root)
         # return res
 
-        # Iterative approach
+        # # Iterative approach
+        # curr, stack, res = root, [], []
+        # while curr or stack:
+        #     while curr:
+        #         stack.append(curr)
+        #         curr = curr.left
+
+        #     curr = stack.pop()
+        #     res.append(curr.val)
+        #     curr = curr.right
+        
+        # return res
+            
         curr, stack, res = root, [], []
         while curr or stack:
             while curr:
                 stack.append(curr)
                 curr = curr.left
-
             curr = stack.pop()
             res.append(curr.val)
             curr = curr.right
@@ -30,7 +41,5 @@ class Solution:
         return res
             
             
-            
-        return res
 
         
