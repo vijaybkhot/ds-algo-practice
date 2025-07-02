@@ -1,46 +1,40 @@
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
-class Solution(object):
-    def rotateRight(self, head, k):
-        """
-        :type head: Optional[ListNode]
-        :type k: int
-        :rtype: Optional[ListNode]
-        """
-        if not head or head.next is None:
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        
+        if not head or not head.next:
             return head
 
-        dummy = ListNode()
-        dummy.next = head
-        tail = dummy
         list_len = 0
-        while tail.next:
+        curr = head
+        while curr:
             list_len += 1
-            tail = tail.next
+            curr = curr.next
         
-        if k > list_len and list_len > 0:
-            k = k % list_len
+        k = k%list_len
+        if k == 0:
+            return head
         
-        left_section = head
-        # Get last k nodes:
-        start_len = list_len - k
-        tail = dummy
-        for _ in range(start_len):
-            tail = tail.next
-        left_section = dummy.next
-        dummy.next = tail.next
-        tail = dummy
+        fast = head
         for _ in range(k):
-            tail = tail.next
-        tail.next = left_section
-        for _ in range(start_len):
-            tail = tail.next
-        tail.next = None
-        return dummy.next
-
-
-
+            fast = fast.next if fast else None
+            
         
+        slow = head
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+        dummy = ListNode()
+        dummy.next = slow.next
+        curr= slow.next
+        slow.next = None
+
+        while curr and curr.next:
+            curr = curr.next
+        if curr:
+            curr.next = head
+        return dummy.next
