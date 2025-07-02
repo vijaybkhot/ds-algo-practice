@@ -1,35 +1,69 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
 
-        self.res= []
+        self.res = []
+
+        def dfs(open, close, path):
+            if open == 0 and close == 0:
+                self.res.append(path)
+                return
+            
+            if open > 0 and open >= close:
+                dfs(open-1, close, path+"(")
+            else:
+                if open > 0:
+                    dfs(open-1, close, path+"(")
+                if close > 0:
+                    dfs(open, close-1, path+")")
+            
+        dfs(n, n, "")
+        return self.res
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # self.res= []
+        # # def dfs(i, j, path):
+        # #     if i == 0 and j == 0:
+        # #         self.res.append(path)
+        # #         return
+            
+        # #     if i > 0 and i >= j:
+        # #         dfs(i-1, j, path+"(")
+        
+        # #     else:
+        # #         if i > 0:
+        # #             dfs(i-1, j, path+"(")
+        # #         if j > 0:
+        # #             dfs(i, j-1, path+")")
+        
+
         # def dfs(i, j, path):
         #     if i == 0 and j == 0:
         #         self.res.append(path)
         #         return
             
-        #     if i > 0 and i >= j:
+        #     if i > 0:
         #         dfs(i-1, j, path+"(")
-        
-        #     else:
-        #         if i > 0:
-        #             dfs(i-1, j, path+"(")
-        #         if j > 0:
-        #             dfs(i, j-1, path+")")
-        
-
-        def dfs(i, j, path):
-            if i == 0 and j == 0:
-                self.res.append(path)
-                return
-            
-            if i > 0:
-                dfs(i-1, j, path+"(")
-            if j > i:
-                dfs(i, j-1, path+")")
+        #     if j > i:
+        #         dfs(i, j-1, path+")")
 
 
-        dfs(n, n, "")
-        return self.res
+        # dfs(n, n, "")
+        # return self.res
 
 
 
