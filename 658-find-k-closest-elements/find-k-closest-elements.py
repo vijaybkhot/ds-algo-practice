@@ -1,22 +1,12 @@
-class Solution(object):
-    def findClosestElements(self, arr, k, x):
-        """
-        :type arr: List[int]
-        :type k: int
-        :type x: int
-        :rtype: List[int]
-        """
-        # Using fixed length sliding window approach
-        # Initializing a window
-        left = 0
-        for right in range(k, len(arr)):
-            if abs(arr[right] - x) >= abs(arr[left] - x):
-                continue
-            else:
-                # Remove left from window
-                left = right-k+1
+class Solution:
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        heap = []
+        for num in arr:
+            heapq.heappush(heap, (abs(x-num), num))
         
-        return arr[left:left+k]
-            
-
-        
+        res = []
+        for i in range(k):
+            _, num = heapq.heappop(heap)
+            res.append(num)
+        res.sort()
+        return res
