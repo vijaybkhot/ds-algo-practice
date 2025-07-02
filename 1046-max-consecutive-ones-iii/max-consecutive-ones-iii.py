@@ -1,21 +1,14 @@
-class Solution(object):
-    def longestOnes(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        one_count = 0
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        counter = defaultdict(int)
         left = 0
-        max_ones = 0
+        res = 0
         for right in range(len(nums)):
-            # add right
-            if nums[right] == 1:
-                one_count += 1
-            while (right - left + 1) - one_count > k:
-                if nums[left] == 1:
-                    one_count -= 1
+            counter[nums[right]] += 1
+            while left <= right and counter[0] > k:
+                counter[nums[left]] -= 1
                 left += 1
-            max_ones = max(max_ones, (right - left + 1))
+            
+            res = max(res, right-left+1)
         
-        return max_ones
+        return res
