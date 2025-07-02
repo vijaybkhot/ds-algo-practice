@@ -15,14 +15,12 @@ class Solution:
         q = deque()
 
         q.append(root)
-        res = []
         while q:
             curr_q = deque()
             for _ in range(len(q)):
                 node = q.popleft()
                 if q:
                     node.next = q[0]
-                res.append(node)
                 if node.left:
                     curr_q.append(node.left)
                 if node.right:
