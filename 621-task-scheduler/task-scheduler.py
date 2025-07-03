@@ -107,27 +107,57 @@ class Solution:
 
         # return max(len(tasks), (max_freq - 1) * (n + 1) + max_count)
 
-        # More optimized heap approach:
-        freq = Counter(tasks)
-        max_heap = [-cnt for cnt in freq.values()]
+        # # More optimized heap approach:
+        # freq = Counter(tasks)
+        # max_heap = [-cnt for cnt in freq.values()]
+        # heapq.heapify(max_heap)
+
+        # cooldown = deque()  # (time when task is ready, frequency)
+        # time = 0
+
+        # while max_heap or cooldown:
+        #     time += 1
+
+        #     if max_heap:
+        #         cnt = heapq.heappop(max_heap) + 1  # decrement freq
+        #         if cnt != 0:
+        #             cooldown.append((time + n, cnt))
+
+        #     if cooldown and cooldown[0][0] == time:
+        #         ready_time, ready_cnt = cooldown.popleft()
+        #         heapq.heappush(max_heap, ready_cnt)
+
+        # return time
+
+
+        # 
+        counter = Counter(tasks)
+        max_heap = [(-freq, char) for char, freq in counter.items()]
         heapq.heapify(max_heap)
-
-        cooldown = deque()  # (time when task is ready, frequency)
+        cooldown = []
         time = 0
-
         while max_heap or cooldown:
             time += 1
-
+            # Fast forward time if no task is ready but cooldown exists
+            if not max_heap and cooldown and time < cooldown[0][0]:
+                time = cooldown[0][0]
+                
+            while cooldown and cooldown[0][0] <= time:
+                _, count, char = heapq.heappop(cooldown)
+                heapq.heappush(max_heap, (count, char))
             if max_heap:
-                cnt = heapq.heappop(max_heap) + 1  # decrement freq
-                if cnt != 0:
-                    cooldown.append((time + n, cnt))
-
-            if cooldown and cooldown[0][0] == time:
-                ready_time, ready_cnt = cooldown.popleft()
-                heapq.heappush(max_heap, ready_cnt)
-
+                count, char = heapq.heappop(max_heap)
+                if count < -1:
+                    heapq.heappush(cooldown, (time+n+1, count+1, char))
+        
         return time
+            
+            
+
+
+
+
+
 
 
 
