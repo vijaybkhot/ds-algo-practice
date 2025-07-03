@@ -10,14 +10,13 @@ class Solution:
                 return dp[(i, curr_sum)]
             if curr_sum == target_sum:
                 return True
-            if i == len(nums):
+            if i == len(nums) or curr_sum > target_sum:
                 return False
             
             dp[(i, curr_sum)] =  dfs(i+1, curr_sum+nums[i]) or dfs(i+1, curr_sum)
             return dp[(i, curr_sum)]
         
         return dfs(0, 0)
-        return self.possible
 
 
         # # # First attempt
