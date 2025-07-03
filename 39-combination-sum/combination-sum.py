@@ -2,7 +2,7 @@ class Solution:
     def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
 
         res = []
-        candidates.sort()
+        # candidates.sort()
         def dfs(start, path):
             if sum(path) == target:
                 res.append(path[::])
