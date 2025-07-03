@@ -13,9 +13,8 @@ class Solution:
                 self.possible = True
                 return True
             if i == len(nums):
-                return 0
-            if self.possible:
-                return True
+                return False
+            
             dp[(i, curr_sum)] =  dfs(i+1, curr_sum+nums[i]) or dfs(i+1, curr_sum)
             return dp[(i, curr_sum)]
         
