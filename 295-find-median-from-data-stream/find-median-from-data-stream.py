@@ -27,9 +27,6 @@ class MedianFinder:
         if not self.min_heap and not self.max_heap:
             return None
         
-        if not self.min_heap:
-            return -self.max_heap[0]
-        
         if len(self.max_heap) > len(self.min_heap):
             return -self.max_heap[0]
 
