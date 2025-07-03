@@ -5,23 +5,34 @@ class Solution:
             return nums[0]
         res = 0
         dp = {}
-        def dfs(i, prev):
-            if (i, prev) in dp:
-                return dp[i, prev]
+        # def dfs(i, prev):
+        #     if (i, prev) in dp:
+        #         return dp[i, prev]
 
-            if i == len(nums):
+        #     if i == len(nums):
+        #         return 0
+            
+        #     total = 0
+        #     if prev == i-1:
+        #         total = dfs(i+1, prev)
+        #     else:
+        #         total = max(nums[i]+dfs(i+1, i), dfs(i+1, prev))
+            
+        #     dp[i, prev]= total
+        #     return dp[i, prev]
+        # return dfs(0, None)
+
+        def dfs(i):
+            if i in dp:
+                return dp[i]
+            if i >= len(nums):
                 return 0
             
-            total = 0
-            if prev == i-1:
-                total = dfs(i+1, prev)
-            else:
-                total = max(nums[i]+dfs(i+1, i), dfs(i+1, prev))
-            
-            dp[i, prev]= total
-            return dp[i, prev]
-        return dfs(0, None)
-                
+            rob = nums[i] + dfs(i+2)
+            skip = dfs(i+1)
+            dp[i] =  max(rob, skip)
+            return dp[i]
+        return dfs(0)
 
         
         # # # Bottom-up Dynamic programming approach
