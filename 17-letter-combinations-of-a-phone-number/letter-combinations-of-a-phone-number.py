@@ -12,6 +12,24 @@ class Solution:
             '9': ['w', 'x', 'y', 'z']
         }
 
+        if not digits:
+            return []
+        res = []
+        def dfs(start, path):
+            if start == len(digits):
+                if len(path) == len(digits):
+                    res.append(path[::])
+                    return
+            
+            for i in range(start, len(digits)):
+                curr_chars = num_to_char_map[digits[i]]
+                for char in curr_chars:
+                    dfs(i+1, path+char)
+
+        
+        dfs(0, "")
+        return res
+
         # # # Attempt I
         # # res = []
         # # def backtrack(start, path):
@@ -48,19 +66,19 @@ class Solution:
         # backtrack(0, [])
         # return res
 
-        res = []
+        # res = []
 
-        def dfs(start, path):
-            if start == len(digits):
-                res.append(''.join(path[:]))
-                return
-            curr_digit_chars = num_to_char_map[digits[start]]
-            for char in curr_digit_chars:
-                path.append(char)
-                dfs(start+1, path)
-                path.pop()
+        # def dfs(start, path):
+        #     if start == len(digits):
+        #         res.append(''.join(path[:]))
+        #         return
+        #     curr_digit_chars = num_to_char_map[digits[start]]
+        #     for char in curr_digit_chars:
+        #         path.append(char)
+        #         dfs(start+1, path)
+        #         path.pop()
         
-        dfs(0, [])
-        return res if digits else []
+        # dfs(0, [])
+        # return res if digits else []
 
         
