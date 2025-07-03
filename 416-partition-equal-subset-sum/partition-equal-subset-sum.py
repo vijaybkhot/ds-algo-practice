@@ -4,13 +4,11 @@ class Solution:
         if total%2:
             return False
         target_sum = total//2
-        self.possible = False
         dp = {}
         def dfs(i, curr_sum):
             if (i, curr_sum) in dp:
                 return dp[(i, curr_sum)]
-            if curr_sum == target_sum or self.possible:
-                self.possible = True
+            if curr_sum == target_sum:
                 return True
             if i == len(nums):
                 return False
@@ -18,7 +16,7 @@ class Solution:
             dp[(i, curr_sum)] =  dfs(i+1, curr_sum+nums[i]) or dfs(i+1, curr_sum)
             return dp[(i, curr_sum)]
         
-        dfs(0, 0)
+        return dfs(0, 0)
         return self.possible
 
 
