@@ -22,17 +22,6 @@ class Solution:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
         ## Brute Force approach
         # result = []
         # def dfs(curr_index, curr_combination, total):
