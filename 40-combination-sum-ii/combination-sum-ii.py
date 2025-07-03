@@ -1,5 +1,38 @@
 class Solution:
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        res = []
+
+        def dfs(start, path, curr_sum):
+            if curr_sum == target:
+                res.append(path[::])
+                return
+            if curr_sum > target or start == len(candidates):
+                return
+            
+            for i in range(start, len(candidates)):
+                if i > start and candidates[i] == candidates[i-1]:
+                    continue
+                path.append(candidates[i])
+                dfs(i+1, path, curr_sum+candidates[i])
+                path.pop()
+        
+        dfs(0, [], 0)
+        return res
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         ## Brute Force approach
         # result = []
         # def dfs(curr_index, curr_combination, total):
@@ -74,24 +107,24 @@ class Solution:
 
 
         
-        result = []
-        candidates.sort()
+        # result = []
+        # candidates.sort()
 
-        def dfs(start,  path, total):
-            if total == target:
-                result.append(path[:])
-                return
-            if total > target or start >= len(candidates):
-                return
+        # def dfs(start,  path, total):
+        #     if total == target:
+        #         result.append(path[:])
+        #         return
+        #     if total > target or start >= len(candidates):
+        #         return
             
-            for i in range(start, len(candidates)):
-                if candidates[i] > target:
-                    break
-                if i > start and candidates[i] == candidates[i-1]:
-                    continue
-                path.append(candidates[i])
-                dfs(i+1, path, total+candidates[i])
-                path.pop()
+        #     for i in range(start, len(candidates)):
+        #         if candidates[i] > target:
+        #             break
+        #         if i > start and candidates[i] == candidates[i-1]:
+        #             continue
+        #         path.append(candidates[i])
+        #         dfs(i+1, path, total+candidates[i])
+        #         path.pop()
         
-        dfs(0, [], 0)
-        return result
+        # dfs(0, [], 0)
+        # return result
