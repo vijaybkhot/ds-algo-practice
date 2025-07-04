@@ -6,7 +6,6 @@ class Solution:
         heapq.heapify(available)
         occupied = []
         meeting_count = [0]*n
-        time = 0
         for start, end in meetings:
             while occupied and occupied[0][0] <= start:
                 _, room_idx = heapq.heappop(occupied)
