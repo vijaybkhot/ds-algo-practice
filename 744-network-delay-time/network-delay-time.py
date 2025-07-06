@@ -56,22 +56,47 @@ class Solution:
         # res = max(time.values())
         # return res if res < float('inf') else -1
 
-        # Using Floyd-Warshall algorithm
-        INF = float('inf')
-        dist = [[INF]*(n+1) for i in range(n+1)]
+        # # Using Floyd-Warshall algorithm
+        # INF = float('inf')
+        # dist = [[INF]*(n+1) for i in range(n+1)]
 
-        for i in range(1, n+1):
-            dist[i][i] = 0
+        # for i in range(1, n+1):
+        #     dist[i][i] = 0
+        # for u, v, w in times:
+        #     dist[u][v] = w
+        
+        # for mid in range(1, n+1):
+        #     for i in range(1, n+1):
+        #         for j in range(1, n+1):
+        #             if dist[i][j] > dist[i][mid]+dist[mid][j]:
+        #                 dist[i][j] = dist[i][mid]+dist[mid][j]
+        
+        # max_dist = max(dist[k][1:])
+        # return max_dist if max_dist < float('inf') else -1
+
+        # Djikstras algorithm
+
+        graph = defaultdict(set)
+
         for u, v, w in times:
-            dist[u][v] = w
+            graph[u].add((v, w))
         
-        for mid in range(1, n+1):
-            for i in range(1, n+1):
-                for j in range(1, n+1):
-                    if dist[i][j] > dist[i][mid]+dist[mid][j]:
-                        dist[i][j] = dist[i][mid]+dist[mid][j]
-        
-        max_dist = max(dist[k][1:])
-        return max_dist if max_dist < float('inf') else -1
-                
+        heap = []
+        heapq.heappush(heap, (0, k)) # arrival_time, node
+
+        distances = [float('inf')]*(n+1)
+        distances[k] = 0
+
+        while heap:
+            arrival_time, node = heapq.heappop(heap)
+            if arrival_time > distances[node]:
+                continue
+            
+            for dst, travel_time in graph[node]:
+                dst_arrival_time = arrival_time+travel_time
+                if dst_arrival_time < distances[dst]:
+                    heapq.heappush(heap, (dst_arrival_time, dst))
+                    distances[dst] = dst_arrival_time
+
+        return -1 if max(distances[1:]) == float('inf') else max(distances[1:])                
             
