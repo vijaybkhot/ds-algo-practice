@@ -3,6 +3,7 @@ class Solution:
         jobs = sorted(zip(startTime, endTime, profit))
         starts = [job[0] for job in jobs]
         n = len(jobs)
+        next_indices = [bisect_left(starts, jobs[curr_index][1]) for curr_index in range(n)]
 
         dp = {}
         def dfs(i):
@@ -10,7 +11,7 @@ class Solution:
                 return 0
             if i in dp:
                 return dp[i]
-            next_idx = bisect_left(starts, jobs[i][1])
+            next_idx = next_indices[i]
             include = jobs[i][2] + dfs(next_idx)
             exclude = dfs(i + 1)
             dp[i] = max(include, exclude)
