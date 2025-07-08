@@ -36,6 +36,8 @@ class Solution:
                 return -1
 
         dp = {}
+        # Assume events is sorted by start time
+        start_times = [event[0] for event in events]
         def dfs(i, count):
             if (i, count) in dp:
                 return dp[(i, count)]
@@ -43,7 +45,8 @@ class Solution:
                 return 0
             
             # include and find next event idx
-            next_idx = find_next_event(i+1, events[i][1]+1)
+            # next_idx = find_next_event(i+1, events[i][1]+1)
+            next_idx = bisect_right(start_times, events[i][1])
             if next_idx > -1:
                 include = events[i][2] + dfs(next_idx, count+1)
             else:
@@ -54,7 +57,5 @@ class Solution:
 
             dp[(i, count)] = max(include, exclude)
             return dp[(i, count)]
-        
+
         return dfs(0, 0)
-
-
