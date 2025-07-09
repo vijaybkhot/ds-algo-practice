@@ -74,23 +74,23 @@ class Solution:
 
         # # return dfs(0, -1)
 
-        # # Optimized approach - using memoization array
-        n = len(nums)
-        memo = [-1] * n
+        # # # Optimized approach - using memoization array
+        # n = len(nums)
+        # memo = [-1] * n
 
-        def dfs(i):
-            if memo[i] != -1:
-                return memo[i]
+        # def dfs(i):
+        #     if memo[i] != -1:
+        #         return memo[i]
 
-            LIS = 1
-            for j in range(i + 1, n):
-                if nums[i] < nums[j]:
-                    LIS = max(LIS, 1 + dfs(j))
+        #     LIS = 1
+        #     for j in range(i + 1, n):
+        #         if nums[i] < nums[j]:
+        #             LIS = max(LIS, 1 + dfs(j))
 
-            memo[i] = LIS
-            return LIS
+        #     memo[i] = LIS
+        #     return LIS
 
-        return max(dfs(i) for i in range(n))
+        # return max(dfs(i) for i in range(n))
 
 
         # # # # Bottom up DP
@@ -113,3 +113,16 @@ class Solution:
         #             LIS[i] = max(LIS[i], 1+LIS[j])
         
         # return max(LIS)
+
+        # Lazy sorting - Patience sorting
+
+        LIS = []
+
+        for num in nums:
+            if not LIS or LIS[-1] < num:
+                LIS.append(num)
+            else:
+                insert_idx = bisect_left(LIS, num)
+                LIS[insert_idx] = num
+        
+        return len(LIS)
