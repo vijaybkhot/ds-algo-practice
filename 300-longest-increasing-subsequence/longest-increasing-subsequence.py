@@ -74,23 +74,23 @@ class Solution:
 
         # # return dfs(0, -1)
 
-        # # # Optimized approach - using memoization array
-        # n = len(nums)
-        # memo = [-1] * n
+        # # Optimized approach - using memoization array
+        n = len(nums)
+        memo = [-1] * n
 
-        # def dfs(i):
-        #     if memo[i] != -1:
-        #         return memo[i]
+        def dfs(i):
+            if memo[i] != -1:
+                return memo[i]
 
-        #     LIS = 1
-        #     for j in range(i + 1, n):
-        #         if nums[i] < nums[j]:
-        #             LIS = max(LIS, 1 + dfs(j))
+            LIS = 1
+            for j in range(i + 1, n):
+                if nums[i] < nums[j]:
+                    LIS = max(LIS, 1 + dfs(j))
 
-        #     memo[i] = LIS
-        #     return LIS
+            memo[i] = LIS
+            return LIS
 
-        # return max(dfs(i) for i in range(n))
+        return max(dfs(i) for i in range(n))
 
 
         # # # # Bottom up DP
@@ -102,28 +102,14 @@ class Solution:
         #             LIS[i] = max(LIS[i], 1 + LIS[j])
         # return max(LIS)
 
-        # # # Using Binary Search to find the next highest number
+    
+
+        # # using DP array
         # n = len(nums)
-        # next_indices = [bisect_left(nums, nums[i]+1) for i in range(n)]
-
-        # def dfs(i):
-        #     if i == n:
-        #         return 0
-            
-        #     next_idx = next_indices[i]
-        #     take = 1 + dfs(next_idx)
-        #     skip = dfs(i+1)
-
-        #     return max(take, skip)
+        # LIS = [1]*n
+        # for i in range(n-2, -1, -1):
+        #     for j in range(i+1, n):
+        #         if nums[j] > nums[i]:
+        #             LIS[i] = max(LIS[i], 1+LIS[j])
         
-        # return dfs(0)
-
-        # using DP array
-        n = len(nums)
-        LIS = [1]*n
-        for i in range(n-2, -1, -1):
-            for j in range(i+1, n):
-                if nums[j] > nums[i]:
-                    LIS[i] = max(LIS[i], 1+LIS[j])
-        
-        return max(LIS)
+        # return max(LIS)
