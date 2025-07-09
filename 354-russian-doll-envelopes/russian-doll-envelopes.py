@@ -9,10 +9,11 @@ class Solution:
 
         lis = []
         for h in heights:
-            idx = bisect_left(lis, h)
-            if idx == len(lis):
+            
+            if lis and lis[-1] < h or (not lis):
                 lis.append(h)
             else:
+                idx = bisect_left(lis, h)
                 lis[idx] = h
         return len(lis)
 
