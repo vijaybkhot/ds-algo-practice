@@ -1,22 +1,36 @@
-class Solution(object):
-    def longestCommonPrefix(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: str
-        """
-        output = ""
-        if len(strs) == 0:
-            return output
-        if len(strs) == 1: 
-            return strs[0]
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.count = 0
+        self.endOfWord = False
 
-        sorted_strs = sorted(strs)
-        min_range = min (len(sorted_strs[0]), len(sorted_strs[-1]))
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        if not strs:
+            return ""
         
-        for i in range(min_range):
-            if sorted_strs[0][i] == sorted_strs[-1][i]:
-                output = output + sorted_strs[0][i]
-            else:
-                break
+        trie = TrieNode()
 
-        return output
+        # Build the Trie
+        for word in strs:
+            if not word:
+                return ""  # If any word is empty, no common prefix
+            curr = trie
+            for c in word:
+                if c not in curr.children:
+                    curr.children[c] = TrieNode()
+                curr = curr.children[c]
+                curr.count += 1
+            curr.endOfWord = True
+
+        # Traverse the Trie to find common prefix
+        res = ""
+        curr = trie
+        while len(curr.children) == 1:
+            char, next_node = next(iter(curr.children.items()))
+            if next_node.count < len(strs):
+                break
+            res += char
+            curr = next_node
+
+        return res
