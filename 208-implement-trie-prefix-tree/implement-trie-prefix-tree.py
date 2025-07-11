@@ -10,7 +10,6 @@ class Trie:
         
 
     def insert(self, word: str) -> None:
-        if not self.search(word):
             i = 0
             curr_trie = self.trie
             for c in word:
