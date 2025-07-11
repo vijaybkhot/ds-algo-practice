@@ -33,32 +33,43 @@ class Trie:
 
 class Solution:
     def minExtraChar(self, s: str, dictionary: List[str]) -> int:
-        # trie = TrieNode()
-        # extra_chars = 0
+        trie = TrieNode()
+        extra_chars = float('inf')
 
-        # def insert(word: str, node: TrieNode)-> None:
-        #     curr = node
-        #     for c in word:
-        #         if c not in curr.children:
-        #             curr.children[c] = TrieNode()
-        #         curr = curr.children[c]
-        #     curr.endOfWord = True
+        def insert(word: str, node: TrieNode)-> None:
+            curr = node
+            for c in word:
+                if c not in curr.children:
+                    curr.children[c] = TrieNode()
+                curr = curr.children[c]
+            curr.endOfWord = True
         
-        # for word in dictionary:
-        #     insert(word, trie)
+        for word in dictionary:
+            insert(word, trie)
         
-        # curr = trie
-        # for char in s:
-        #     if char not in curr.children:
-        #         curr = trie
-        #         extra_chars += 1
-        #     else:
-        #         curr = curr.children[char]
-        #         if curr.endOfWord:
-        #             curr = trie
+        # # Simple DFS
+        # dict_set = set(dictionary)
+        # dp = {}
+        # def dfs(i):
+        #     if i == len(s):
+        #         return 0
+            
+        #     if i in dp:
+        #         return dp[i]
+            
+        #     # skip
+        #     res = 1 + dfs(i+1)
+
+        #     for j in range(i, len(s)):
+        #         if s[i:j+1] in dict_set:
+        #             res = min(res, dfs(j+1))
+
+        #     dp[i] = res
+        #     return res
         
-        # return extra_chars
-        dict_set = set(dictionary)
+        # return dfs(0)
+        
+        #  DFS Using trie
         dp = {}
         def dfs(i):
             if i == len(s):
@@ -66,12 +77,15 @@ class Solution:
             
             if i in dp:
                 return dp[i]
-            
             # skip
             res = 1 + dfs(i+1)
 
+            curr = trie
             for j in range(i, len(s)):
-                if s[i:j+1] in dict_set:
+                if s[j] not in curr.children:
+                    break
+                curr = curr.children[s[j]]
+                if curr.endOfWord:
                     res = min(res, dfs(j+1))
 
             dp[i] = res
