@@ -72,19 +72,54 @@ class Solution:
         # return res
 
 
-        # Trie solution 
+        # # Trie solution  -  Solved without any external help
+        # trie = Trie()
+        # trie.insertAll(words)
+        # max_len = max(len(word) for word in words)
+        # visited = set()
+        # res = set()
+
+        # def dfs(r, c, path, node):
+        #     if len(path) > max_len:
+        #         return 
+        #     if node.endOfWord:
+        #         word = ''.join(path)
+        #         res.add(word)
+                
+        #     for dr, dc in directions:
+        #             row, col = r+dr, c+dc
+        #             if 0<= row < rows and 0 <= col < cols and (row, col) not in visited:
+        #                 curr_char = board[row][col]
+        #                 if curr_char not in node.children:
+        #                     continue
+        #                 path.append(curr_char)
+        #                 visited.add((row, col))
+        #                 dfs(row, col, path, node.children[curr_char])
+        #                 path.pop()
+        #                 visited.remove((row, col))
+        
+        # for r in range(rows):
+        #     for c in range(cols):
+        #         node = trie.root
+        #         char = board[r][c]
+        #         if char in node.children:
+        #             visited.add((r, c))
+        #             dfs(r, c, [board[r][c]], node.children[char])
+        #             visited.remove((r, c))
+        # return list(res)
+
+        # Trie solution  - Optimizations
         trie = Trie()
         trie.insertAll(words)
-        max_len = max(len(word) for word in words)
         visited = set()
-        res = set()
+        # res = set()
+        res = []
 
         def dfs(r, c, path, node):
-            if len(path) > max_len:
-                return 
             if node.endOfWord:
                 word = ''.join(path)
-                res.add(word)
+                res.append(word)
+                node.endOfWord = False
                 
             for dr, dc in directions:
                     row, col = r+dr, c+dc
@@ -106,7 +141,7 @@ class Solution:
                     visited.add((r, c))
                     dfs(r, c, [board[r][c]], node.children[char])
                     visited.remove((r, c))
-        return list(res)
+        return res
 
        
 
