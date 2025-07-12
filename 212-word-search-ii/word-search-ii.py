@@ -117,8 +117,8 @@ class Solution:
 
         def dfs(r, c, path, node):
             if node.endOfWord:
-                word = ''.join(path)
-                res.append(word)
+                # word = ''.join(path)
+                res.append(path)
                 node.endOfWord = False
                 
             for dr, dc in directions:
@@ -127,10 +127,10 @@ class Solution:
                         curr_char = board[row][col]
                         if curr_char not in node.children:
                             continue
-                        path.append(curr_char)
+                        # path.append(curr_char)
                         visited.add((row, col))
-                        dfs(row, col, path, node.children[curr_char])
-                        path.pop()
+                        dfs(row, col, path+curr_char, node.children[curr_char])
+                        # path.pop()
                         visited.remove((row, col))
         
         for r in range(rows):
@@ -139,7 +139,8 @@ class Solution:
                 char = board[r][c]
                 if char in node.children:
                     visited.add((r, c))
-                    dfs(r, c, [board[r][c]], node.children[char])
+                    # dfs(r, c, [board[r][c]], node.children[char])
+                    dfs(r, c, board[r][c], node.children[char])
                     visited.remove((r, c))
         return res
 
