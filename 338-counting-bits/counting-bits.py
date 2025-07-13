@@ -15,13 +15,12 @@ class Solution:
         #     res.append(binary(i).count(1))
         
         # return res
-
         res = []
-
         for i in range(n+1):
             count = 0
-            while i != 0:
-                i = i&(i-1)
+            x = i  # ✅ temp copy to preserve `i`
+            while x != 0:
+                x = x & (x - 1)
                 count += 1
             res.append(count)
         
