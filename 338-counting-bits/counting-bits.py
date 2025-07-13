@@ -18,7 +18,7 @@ class Solution:
         res = []
         for i in range(n+1):
             count = 0
-            x = i  # ✅ temp copy to preserve `i`
+            x = i 
             while x != 0:
                 x = x & (x - 1)
                 count += 1
