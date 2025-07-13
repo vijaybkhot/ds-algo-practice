@@ -18,21 +18,17 @@ class Solution:
         # return res
 
         # Using count sort
-        count = [0]*(max(citations)+1)
+        n = len(citations)
+        count = [0] * (n + 1)
+        for c in citations:
+            if c >= n:
+                count[n] += 1
+            else:
+                count[c] += 1
 
-        for citation in citations:
-            count[citation] += 1
-        
-        remaining = len(citations)
-        res = 0
-        for i in range(len(count)):
-            if remaining < i:
-                break
-            res = i
-            if count[i] > 0:
-                remaining -= count[i]
-            
-        
-        return res
-
-            
+        total = 0
+        for i in range(n, -1, -1): 
+            total += count[i]
+            if total >= i:
+                return i
+        return 0
