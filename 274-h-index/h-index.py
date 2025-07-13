@@ -26,10 +26,12 @@ class Solution:
         remaining = len(citations)
         res = 0
         for i in range(len(count)):
-            if remaining >= i:
-                res = i
+            if remaining < i:
+                break
+            res = i
             if count[i] > 0:
                 remaining -= count[i]
+            
         
         return res
 
