@@ -47,34 +47,22 @@ class Solution:
                 all_odd += 1
         
         # Alternate even odd
-        isEven = True
-        even_odd = 0
-        i = 0
-        while i < n:
-            if isEven:
-                if nums[i]%2:
-                    even_odd += 1
-                    isEven = not isEven
-            else:
-                if not nums[i]%2:
-                    even_odd += 1
-                    isEven = not isEven
-            i += 1
+        def get_alternate_even_odd_len(isEven):
+            sub_len = 0
+            for i in range(n):
+                if isEven:
+                    if nums[i]%2:
+                        sub_len += 1
+                        isEven = not isEven
+                else:
+                    if not nums[i]%2:
+                        sub_len += 1
+                        isEven = not isEven
+            return sub_len
         
-        # Alternate even odd
-        isEven = False
-        odd_even = 0
-        i = 0
-        while i < n:
-            if isEven:
-                if nums[i]%2:
-                    odd_even += 1
-                    isEven = not isEven
-            else:
-                if not nums[i]%2:
-                    odd_even += 1
-                    isEven = not isEven
-            i += 1
+        even_odd = get_alternate_even_odd_len(isEven=True)
+        odd_even = get_alternate_even_odd_len(isEven=False)
+        
         
         return max(all_even, all_odd, even_odd, odd_even)
 
