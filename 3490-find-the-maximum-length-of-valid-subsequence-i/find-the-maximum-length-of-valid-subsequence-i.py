@@ -38,14 +38,6 @@ class Solution:
         # return max(max(dp_even), max(dp_odd))
 
         # All Even, all_odd, even_odd, odd_even
-        all_even = 0
-        all_odd = 0
-        for num in nums:
-            if num%2:
-                all_even += 1
-            else:
-                all_odd += 1
-        
         # Alternate even odd
         def get_alternate_even_odd_len(isEven):
             sub_len = 0
@@ -59,6 +51,15 @@ class Solution:
                         sub_len += 1
                         isEven = not isEven
             return sub_len
+    
+        all_even = 0
+        all_odd = 0
+        for num in nums:
+            if num%2:
+                all_even += 1
+            else:
+                all_odd += 1
+        
         
         even_odd = get_alternate_even_odd_len(isEven=True)
         odd_even = get_alternate_even_odd_len(isEven=False)
