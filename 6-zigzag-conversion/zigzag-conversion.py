@@ -4,9 +4,8 @@ class Solution:
             return s
         rows = defaultdict(str)
         i = 0
-        curr_row = 0
-        down = True
         while i < len(s):
+            curr_row = 0
             while i < len(s) and curr_row < numRows:
                 rows[curr_row] += s[i]
                 curr_row += 1
