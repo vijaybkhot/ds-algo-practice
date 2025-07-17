@@ -2,9 +2,6 @@ class Solution:
     def convert(self, s: str, numRows: int) -> str:
         if numRows == 1:
             return s
-        # rows = [[] for _ in range(numRows)]
-        # rows[0].append(s[0])
-        # j = 1
         rows = defaultdict(str)
         i = 0
         curr_row = 0
