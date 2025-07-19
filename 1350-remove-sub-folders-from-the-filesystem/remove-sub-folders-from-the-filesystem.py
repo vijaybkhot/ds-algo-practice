@@ -64,6 +64,23 @@ class Solution:
         #         res.append(subfolder)
             
         # return res
+        parent_set = set()
+        for subfolder in folder:
+            i = len(subfolder)-1
+            while i >= 0:
+                while i >= 0 and subfolder[i] != '/':
+                    i -= 1
+                parent_folder = subfolder[:i]
+                # if trie.search(parent_folder):
+                if parent_folder in parent_set:
+                    break
+                i -= 1
+            if i < 0:    
+                trie.insert(subfolder)
+                res.append(subfolder)
+                parent_set.add(subfolder)
+            
+        return res
 
         # # Optimized approach - Insert in trie only if no prefix is found
         # for subfolder in folder:
@@ -72,6 +89,8 @@ class Solution:
         #         res.append(subfolder)
         
         # return res
+
+        
 
         # Sorting and startswith
         res.append(folder[0])
