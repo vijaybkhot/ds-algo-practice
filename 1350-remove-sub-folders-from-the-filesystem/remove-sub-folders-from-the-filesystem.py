@@ -65,12 +65,21 @@ class Solution:
             
         # return res
 
-        # Optimized approach
-        for subfolder in folder:
-            parts = subfolder.split('/')[1:]
-            if trie.insertIfNoPrefix(parts):
-                res.append(subfolder)
+        # # Optimized approach - Insert in trie only if no prefix is found
+        # for subfolder in folder:
+        #     parts = subfolder.split('/')[1:]
+        #     if trie.insertIfNoPrefix(parts):
+        #         res.append(subfolder)
         
+        # return res
+
+        # Sorting and startswith
+        res.append(folder[0])
+        for subfolder in folder[1:]:
+            parent = res[-1]+'/'
+            if subfolder.startswith(parent):
+                continue
+            res.append(subfolder)
         return res
 
             
