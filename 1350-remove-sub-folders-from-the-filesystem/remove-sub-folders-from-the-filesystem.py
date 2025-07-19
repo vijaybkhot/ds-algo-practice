@@ -64,6 +64,8 @@ class Solution:
         #         res.append(subfolder)
             
         # return res
+
+        # Using a set to store parent and check each parent of the folder if it already exists
         parent_set = set()
         for subfolder in folder:
             i = len(subfolder)-1
