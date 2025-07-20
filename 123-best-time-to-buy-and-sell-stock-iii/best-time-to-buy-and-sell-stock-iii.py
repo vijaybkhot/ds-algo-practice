@@ -40,4 +40,4 @@ class Solution:
         for i in range(1, n):
             max_profit = max(max_profit, left_profit[i-1]+right_profit[i])
         
-        return max(max_profit, left_profit[-1])
+        return max(max_profit, left_profit[-1]) # ensure one transaction max is considered too
