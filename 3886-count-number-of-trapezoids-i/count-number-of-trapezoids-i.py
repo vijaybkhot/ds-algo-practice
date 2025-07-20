@@ -8,7 +8,7 @@ class Solution:
         for x, y in points:
             y_map[y] += 1
         
-        y_count_list = [count * (count - 1) // 2 for _, count in y_map.items() if count > 1]
+        y_count_list = [comb(count, 2) for _, count in y_map.items() if count > 1]
         res = 0
         # for i in range(len(y_count_list)):
         #     for j in range(i+1, len(y_count_list)):
