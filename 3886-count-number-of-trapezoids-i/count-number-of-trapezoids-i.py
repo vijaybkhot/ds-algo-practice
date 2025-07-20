@@ -1,18 +1,21 @@
 class Solution:
     def countTrapezoids(self, points: List[List[int]]) -> int:
         MOD = 10**9 + 7
-        
         def comb(n, r):
-            return math.comb(n, r) if n >= r else 0
-
+            return math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
+        
         y_map = defaultdict(int)
         for x, y in points:
             y_map[y] += 1
         
-        pair_counts = [comb(count, 2) for count in y_map.values() if count >= 2]
+        y_count_list = [count * (count - 1) // 2 for _, count in y_map.items() if count > 1]
+        res = 0
+        # for i in range(len(y_count_list)):
+        #     for j in range(i+1, len(y_count_list)):
+        #         res += y_count_list[i]*y_count_list[j]
         
-        total = sum(pair_counts)
-        total_sq = sum(x * x for x in pair_counts)
+        total = sum(y_count_list)
+        total_sq = sum(x * x for x in y_count_list)
         
         res = ((total * total - total_sq) // 2) % MOD
         return res
