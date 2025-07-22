@@ -1,22 +1,16 @@
-class Solution(object):
-    def removeDuplicates(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if len(nums) < 2:
-            return len(nums)
-        n = len(nums)
-        insert_pos = 1
-        element_finder = insert_pos
-        while element_finder < n and insert_pos < n:
-            if nums[element_finder] == nums[insert_pos-1]:
-                element_finder += 1
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        insert = 1
+        prev = nums[0]
+        
+        for i in range(1, len(nums)):
+            if nums[i] == prev:
+                continue
             else:
-                nums[insert_pos] = nums[element_finder]
-                insert_pos += 1
-                element_finder += 1
-        return insert_pos
-        
+                nums[insert] = nums[i]
+                insert += 1
+                prev = nums[i]
+                
+        return insert
+            
 
-        
