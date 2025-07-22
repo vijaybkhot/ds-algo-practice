@@ -1,122 +1,17 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-
-        self.res = []
-
-        def dfs(open, close, path):
-            if open == 0 and close == 0:
-                self.res.append(path)
+        res = []
+        def dfs(left, right, path):
+            if len(path) == 2*n:
+                res.append(path)
                 return
             
-            if open > 0 and open >= close:
-                dfs(open-1, close, path+"(")
-            else:
-                if open > 0:
-                    dfs(open-1, close, path+"(")
-                if close > 0:
-                    dfs(open, close-1, path+")")
+            if left < n:
+                dfs(left+1, right, path+"(")
             
-        dfs(n, n, "")
-        return self.res
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # self.res= []
-        # # def dfs(i, j, path):
-        # #     if i == 0 and j == 0:
-        # #         self.res.append(path)
-        # #         return
-            
-        # #     if i > 0 and i >= j:
-        # #         dfs(i-1, j, path+"(")
+            if right < n and right < left:
+                dfs(left, right+1, path+")")
         
-        # #     else:
-        # #         if i > 0:
-        # #             dfs(i-1, j, path+"(")
-        # #         if j > 0:
-        # #             dfs(i, j-1, path+")")
-        
-
-        # def dfs(i, j, path):
-        #     if i == 0 and j == 0:
-        #         self.res.append(path)
-        #         return
+        dfs(0, 0, "")
+        return res
             
-        #     if i > 0:
-        #         dfs(i-1, j, path+"(")
-        #     if j > i:
-        #         dfs(i, j-1, path+")")
-
-
-        # dfs(n, n, "")
-        # return self.res
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # res = []
-
-        # def dfs(open_paren, closed_paren, path):
-        #     if len(path) == 2*n:
-                
-        #         res.append(''.join(path[:]))
-        #         return
-        
-
-        #     if open_paren == n:
-        #         path.append('(')
-        #         dfs(open_paren-1, closed_paren, path)
-        #         path.pop()
-            
-        #     elif open_paren == 0:
-        #         path.append(')')
-        #         dfs(open_paren, closed_paren-1, path)
-        #         path.pop()
-
-        #     elif (open_paren <= closed_paren) and (open_paren > 0):
-        #         path.append('(')
-        #         dfs(open_paren-1, closed_paren, path)
-        #         path.pop()
-
-        #         path.append(')')
-        #         dfs(open_paren, closed_paren-1, path)
-        #         path.pop()
-            
-
-            
-
-        # dfs(n, n, [])
-
-        # return res
-
-    
-                
-            
-
-        
