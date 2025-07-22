@@ -39,21 +39,21 @@ class Solution:
 
         # Base case for day 0
         for t in range(1, k + 1):
-            dp[0][t][0] = 0                    # not holding
-            dp[0][t][1] = -prices[0]           # bought stock on day 0
+            dp[0][t][0] = 0                    # skip
+            dp[0][t][1] = -prices[0]           # buy on day 0
         
         # Fill the table
         for day in range(1, n):
             for t in range(1, k + 1):
                 # Not holding
                 dp[day][t][0] = max(
-                    dp[day - 1][t][0],            # do nothing
-                    dp[day - 1][t][1] + prices[day]  # sell today
+                    dp[day - 1][t][0],            # skip
+                    dp[day - 1][t][1] + prices[day]  # sell
                 )
                 # Holding
                 dp[day][t][1] = max(
-                    dp[day - 1][t][1],            # do nothing
-                    dp[day - 1][t - 1][0] - prices[day]  # buy today
+                    dp[day - 1][t][1],            # skip
+                    dp[day - 1][t - 1][0] - prices[day]  # buy
                 )
 
         # Max profit is not holding any stock on last day
