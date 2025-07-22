@@ -11,19 +11,28 @@ class Solution:
 
         
         # return profit
-        dp = {}
-        def dfs(i, hold):
-            if (i, hold) in dp:
-                return dp[(i, hold)]
-            if i == len(prices):
-                return 0
+        # dp = {}
+        # def dfs(i, hold):
+        #     if (i, hold) in dp:
+        #         return dp[(i, hold)]
+        #     if i == len(prices):
+        #         return 0
             
-            if not hold:
-                dp[(i, hold)] = max((dfs(i+1, True)-prices[i]), dfs(i+1, False))
-            else:
-                dp[(i, hold)] = max(prices[i], dfs(i+1, True))
+        #     if not hold:
+        #         dp[(i, hold)] = max((dfs(i+1, True)-prices[i]), dfs(i+1, False))
+        #     else:
+        #         dp[(i, hold)] = max(prices[i], dfs(i+1, True))
             
-            return dp[(i, hold)]
+        #     return dp[(i, hold)]
         
-        return dfs(0, False)
+        # return dfs(0, False)
 
+
+        min_stock = prices[0]
+        max_profit = 0
+
+        for price in prices:
+            max_profit = max(max_profit, price-min_stock)
+            min_stock = min(price, min_stock)
+        
+        return max_profit
