@@ -1,6 +1,9 @@
 class Solution:
     def maxProfit(self, k: int, prices: List[int]) -> int:
         n = len(prices)
+
+        if 2*k >= n: 
+            return sum(max(0, prices[i]-prices[i-1]) for i in range(1, n))
         # Dynamic programming - memoization approach
         dp = {}
         def dfs(i, hold, count):
