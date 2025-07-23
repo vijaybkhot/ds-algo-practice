@@ -9,7 +9,6 @@ class Solution:
             while i < len(chars) and chars[i] == curr_char:
                 repeat += 1
                 i += 1
-            
             chars[insert] = curr_char
             insert += 1
             if repeat:
