@@ -5,14 +5,14 @@ class Solution:
         while i < len(chars):
             curr_char = chars[i]
             i += 1
-            repeat = 0
+            repeat = 1
             while i < len(chars) and chars[i] == curr_char:
                 repeat += 1
                 i += 1
             chars[insert] = curr_char
             insert += 1
-            if repeat:
-                repeat = str(repeat+1)
+            if repeat > 1:
+                repeat = str(repeat)
                 for char in repeat:
                     chars[insert] = char
                     insert += 1
