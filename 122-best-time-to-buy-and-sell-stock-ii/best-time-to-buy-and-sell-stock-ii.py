@@ -1,52 +1,22 @@
-class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        # # First attempt - Efficient by unreadable
-        # if len(prices) == 1:
-        #     return 0
-
-        # if len(prices) == 2:
-        #     if (prices[1] - prices[0]) > 0:
-        #         return prices[1] - prices[0]
-        #     else:
-        #         return 0
-
-        # prices.append(-1)
-
-        # profit = 0
-        # curr_profit = 0
-        # curr_stock = 0
-
-        # for i in range(len(prices) - 1):
-        #     if i == len(prices) - 2 and curr_stock > 0 and curr_profit > 0:
-        #         if (prices[i + 1] - prices[i] + curr_profit) > curr_profit:
-        #             curr_profit += prices[i + 1] - prices[i]
-        #             profit += curr_profit
-        #             curr_stock, curr_profit = 0, 0
-
-        #     if (prices[i + 1] - prices[i] + curr_profit) > curr_profit:
-        #         if curr_stock == 0:
-        #             curr_stock = prices[i]
-        #         curr_profit += prices[i + 1] - prices[i]
-        #     else:
-        #         if curr_profit > 0:
-        #             curr_stock = 0
-        #             profit += curr_profit
-        #             curr_profit = 0
-        #         else:
-        #             continue
-        # return profit
-
-        # More readable solution
-        profit = 0
-        for i in range(1, len(prices)):
-            if prices[i] - prices[i-1] > 0:
-                profit += prices[i] - prices[i-1]
-        
-        return profit
-
-
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        dp = {}
+        def dfs(i, hold):
+            if i == n:
+                return 0
+            if (i, hold) in dp:
+                return dp[(i, hold)]
+            profit = 0
+            skip = dfs(i+1, hold)
+            if hold:
+                sell = prices[i] + dfs(i+1, not hold)
+                profit = max(sell, skip)
+            else:
+                buy = -prices[i] + dfs(i+1, not hold)
+                profit = max(buy, skip)
             
+            dp[(i, hold)] = profit
+            return profit
+        
+        return dfs(0, False)
