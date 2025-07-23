@@ -14,8 +14,6 @@ class Solution:
                     new_stack.pop()
                     new_stack.pop()
                     score += gain
-            
-                
             return [new_stack[::-1], score]
 
 
