@@ -12,4 +12,5 @@ class Solution:
             if ratings[i] > ratings[i+1]:
                 if candies[i] <= candies[i+1]:
                     candies[i] = candies[i+1]+1
+                    
         return sum(candies)
