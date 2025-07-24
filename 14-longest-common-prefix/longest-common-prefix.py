@@ -27,10 +27,15 @@ class Solution:
         res = ""
         curr = trie
         while len(curr.children) == 1:
-            char, next_node = next(iter(curr.children.items()))
-            if next_node.count < len(strs):
+            for char in curr.children:
+                next_node = curr.children[char]
+                if next_node.count < len(strs):
+                    return res
+                res += char
+                curr = next_node
                 break
-            res += char
-            curr = next_node
+            # char, next_node = next(iter(curr.children.items()))
+           
+          
 
         return res
