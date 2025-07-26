@@ -4,22 +4,23 @@ class Solution:
         nums.sort()
         n = len(nums)
         res = []
-        for i in range(len(nums)-2):
+
+        for i in range(len(nums)):
+            num_i = nums[i]
             if i > 0 and nums[i] == nums[i-1]:
                 continue
-            target = -nums[i]
-            j, k = i+1, n-1
+            j, k = i+1, len(nums)-1
+            target = 0 - num_i
             while j < k:
-                curr_sum = nums[j] + nums[k]
-                
+                num_j, num_k = nums[j], nums[k]
+                curr_sum = num_j + num_k
                 if curr_sum == target:
-                    res.append([nums[i], nums[j], nums[k]])
+                    res.append([num_i, num_j, num_k])
                     j += 1
                     k -= 1
-                    # skip duplicates for nums[j] and nums[k]
-                    while j < k and nums[j] == nums[j - 1]:
+                    while j < k and nums[j] == nums[j-1]:
                         j += 1
-                    while j < k and nums[k] == nums[k + 1]:
+                    while j < k and nums[k] == nums[k+1]:
                         k -= 1
                 elif curr_sum < target:
                     j += 1
@@ -27,3 +28,6 @@ class Solution:
                     k -= 1
         
         return res
+
+
+        
