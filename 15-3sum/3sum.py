@@ -6,6 +6,8 @@ class Solution:
         res = []
 
         for i in range(len(nums)):
+            if nums[i] > 0:
+                break
             num_i = nums[i]
             if i > 0 and nums[i] == nums[i-1]:
                 continue
