@@ -35,29 +35,55 @@ class Solution:
                 
         if not s or not words:
             return []
-        
-        words_map = Counter(words)
+
         word_len = len(words[0])
+        total_len = len(words) * word_len
+        words_map = Counter(words)
         res = []
 
-        for i in range(len(s) - len(words) * word_len + 1):
-            curr_word = s[i:i+word_len]
+        for i in range(word_len):  # Try all possible alignments
+            left = i
             curr_count = Counter()
-            if curr_word in words_map:
-                is_valid = True
-                for j in range(i, i+(len(words)*word_len), word_len):
-                    word = s[j:j+word_len]
-                    if word not in words_map:
-                        is_valid = False
-                        break
-                    else:
-                        curr_count[word] += 1
-                    
-                if not is_valid:
-                    continue
-                if curr_count == words_map:
-                    res.append(i)
+            for j in range(i, len(s) - word_len + 1, word_len):
+                word = s[j:j+word_len]
+                if word in words_map:
+                    curr_count[word] += 1
+                    # Shrink the window if word count exceeds
+                    while curr_count[word] > words_map[word]:
+                        left_word = s[left:left+word_len]
+                        curr_count[left_word] -= 1
+                        left += word_len
+                    # Check if window matches
+                    if (j + word_len - left) == total_len:
+                        res.append(left)
+                else:
+                    curr_count.clear()
+                    left = j + word_len
         return res
+        
+        # Brute Force approach
+        # words_map = Counter(words)
+        # word_len = len(words[0])
+        # res = []
+
+        # for i in range(len(s) - len(words) * word_len + 1):
+        #     curr_word = s[i:i+word_len]
+        #     curr_count = Counter()
+        #     if curr_word in words_map:
+        #         is_valid = True
+        #         for j in range(i, i+(len(words)*word_len), word_len):
+        #             word = s[j:j+word_len]
+        #             if word not in words_map:
+        #                 is_valid = False
+        #                 break
+        #             else:
+        #                 curr_count[word] += 1
+                    
+        #         if not is_valid:
+        #             continue
+        #         if curr_count == words_map:
+        #             res.append(i)
+        # return res
 
 
 
