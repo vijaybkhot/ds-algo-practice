@@ -1,38 +1,28 @@
-class Solution(object):
-    def minWindow(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
-        if t == "":
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        if len(t) > len(s):
             return ""
-        window = {}
-        t_map = {}
-        for char in t:
-            t_map[char] = t_map.get(char, 0) + 1
+        t_set = set(t)
         
-        need = len(t_map)
-        have = 0
-        res, resLen = [-1, -1], float("infinity")
+        
+        t_map = Counter(t)
+
+        res = ""
+        len_res = float('inf')
         left = 0
-
+        curr_map = Counter()
         for right in range(len(s)):
-            char = s[right]
-            window[char] = window.get(char, 0) + 1
-            if char in t_map and window[char] == t_map[char]:
-                have += 1
-            while have == need:
-                if (right - left + 1) < resLen:
-                    resLen = right - left + 1
-                    res = [left, right]
-                left_char = s[left]
-                window[left_char] = window.get(left_char) - 1
-                left += 1
-                if left_char in t_map and window[left_char] < t_map[left_char]:
-                    have -= 1
-        
-        return s[res[0]:res[1]+1]
-        
-                
+            curr_char = s[right]
+            if curr_char in t_set:
+                curr_map[curr_char] += 1
+            while all(curr_map[c] >= t_map[c] for c in t_map) and left <= right:
+                if (right - left + 1) < len_res:
+                    res = s[left:right+1]
+                    len_res = right - left + 1
 
+                left_char = s[left]
+                if left_char in curr_map:
+                    curr_map[left_char] -= 1
+                left += 1
+        
+        return res
