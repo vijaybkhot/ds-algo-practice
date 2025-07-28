@@ -14,9 +14,7 @@ class Solution:
                     return 1
                 else:
                     return 0
-            
             total_subs = 0
-
             total_subs += dfs(i+1, currOr | nums[i])
             total_subs += dfs(i+1, currOr)
 
