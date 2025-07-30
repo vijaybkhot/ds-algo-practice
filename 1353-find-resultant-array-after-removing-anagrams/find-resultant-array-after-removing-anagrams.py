@@ -13,7 +13,7 @@ class Solution:
         res = []
         prev_freq = None
         for word in words:
-            curr_freq = tuple(sorted(Counter(word).items()))  # Could also use a fixed 26-letter array
+            curr_freq = tuple(sorted(Counter(word).items())) 
             if curr_freq != prev_freq:
                 res.append(word)
                 prev_freq = curr_freq
