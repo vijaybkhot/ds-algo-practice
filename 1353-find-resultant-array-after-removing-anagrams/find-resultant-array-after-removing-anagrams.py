@@ -10,11 +10,22 @@ class Solution:
         # res.append(words[0])
         # return res[::-1]
             
+        # res = []
+        # prev_freq = None
+        # for word in words:
+        #     curr_freq = tuple(sorted(Counter(word).items())) 
+        #     if curr_freq != prev_freq:
+        #         res.append(word)
+        #         prev_freq = curr_freq
+        # return res
+
         res = []
         prev_freq = None
         for word in words:
-            curr_freq = tuple(sorted(Counter(word).items())) 
-            if curr_freq != prev_freq:
+            freq = [0] * 26
+            for char in word:
+                freq[ord(char) - ord('a')] += 1
+            if freq != prev_freq:
                 res.append(word)
-                prev_freq = curr_freq
+                prev_freq = freq
         return res
