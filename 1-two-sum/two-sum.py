@@ -5,39 +5,11 @@ class Solution(object):
         :type target: int
         :rtype: List[int]
         """
-        # # Brute force:
-        # for i in range(len(nums)):
-        #     for j in range(i+1, len(nums)):
-        #         if nums[i] + nums[j] == target:
-        #             return [i, j]
+        complement_map = dict()
 
-        # Optimized approach using a hash map
-        diff_dict = defaultdict(int)
-        for i in range(len(nums)):
-            if nums[i] in diff_dict:
-                return [diff_dict[nums[i]], i]
+        for idx, num in enumerate(nums):
+            complement = target - num
+            if complement in complement_map:
+                return [idx, complement_map[complement]]
             else:
-                diff_dict[target-nums[i]] = i
-
-
-
-
-
-
-
-
-        # # # Brute force solution:
-        # # for i in range(len(nums)):
-        # #     for j in range(i+1, len(nums)):
-        # #         if nums[i] + nums[j] == target:
-        # #             return [i, j]
-
-        # # More optimal solution:
-        # complement_index_map = {}
-        # for i in range(len(nums)):
-        #     complement = target - nums[i]
-        #     if nums[i] in complement_index_map:
-        #         return [complement_index_map[nums[i]] , i]
-        #     else:
-        #         complement_index_map[complement] = i
-        
+                complement_map[num] = idx
