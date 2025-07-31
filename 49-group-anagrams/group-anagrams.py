@@ -7,4 +7,5 @@ class Solution:
             anagram = ''.join(sorted(word))
             anagram_map[anagram].append(word)
         
-        return [list(anagrams) for anagrams in anagram_map.values()]
+        # return [list(anagrams) for anagrams in anagram_map.values()]
+        return list(anagram_map.values())
