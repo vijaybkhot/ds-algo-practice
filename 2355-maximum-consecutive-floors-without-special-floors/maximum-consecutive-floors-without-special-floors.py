@@ -9,10 +9,7 @@ class Solution:
         for i in range(1, len(special)):
             curr_bottom = special[i-1]+1
             curr_top = special[i]-1
-            print(res)
             res = max(res, curr_top-curr_bottom+1)
-        print(res)
         res = max(res, top - special[-1])
-        print(res)
     
         return res
