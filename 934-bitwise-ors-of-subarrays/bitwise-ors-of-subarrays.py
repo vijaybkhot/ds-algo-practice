@@ -1,8 +1,13 @@
-class Solution(object):
-    def subarrayBitwiseORs(self, A):
-        ans = set()
-        cur = {0}
-        for x in A:
-            cur = {x | y for y in cur} | {x}
-            ans |= cur
-        return len(ans)
+class Solution:
+    def subarrayBitwiseORs(self, arr: List[int]) -> int:
+        prev = set()
+        res = set()
+
+        for num in arr:
+            curr = {num}
+            for p in prev: 
+                curr.add(num | p)
+            res.update(curr)
+            prev = curr
+        
+        return len(res)
