@@ -17,9 +17,8 @@ class Solution:
         res = [intervals[0]]
         for start, end in intervals[1:]:
             prev_start, prev_end = res[-1]
-            if start <= prev_end and end >= prev_start:
-                res.pop()
-                res.append([min(start, prev_start), max(end, prev_end)])
+            if start <= prev_end and end >= prev_start:    
+                res[-1] = ([min(start, prev_start), max(end, prev_end)])
             else:
                 res.append([start, end])
         
