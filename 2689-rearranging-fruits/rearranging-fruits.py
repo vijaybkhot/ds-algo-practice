@@ -18,4 +18,5 @@ class Solution:
         if not merge:
             return 0
         merge.sort()
-        return sum(min(2 * m, x) for x in merge[: len(merge) // 2])
+        thresh_idx = min(bisect_right(merge, 2 * m), len(merge) // 2)
+        return sum(merge[:thresh_idx]) + ((len(merge) // 2 - thresh_idx) * (2 * m))
