@@ -8,6 +8,7 @@ class Solution:
 
         for right in range(n):
             total += fruits[right][1]
+
             while left <= right:
                 left_pos = fruits[left][0]
                 right_pos = fruits[right][0]
@@ -17,9 +18,10 @@ class Solution:
 
                 if min(left_first, right_first) <= k:
                     break
-                
+
                 total -= fruits[left][1]
                 left += 1
+            
             maxF = max(maxF, total)
         
         return maxF
