@@ -4,8 +4,8 @@ class Solution:
 
         for token in tokens:
             if token in "+-/*":
-                num1 = int(stack.pop())
-                num2 = int(stack.pop())
+                num1 = stack.pop()
+                num2 = stack.pop()
                 if token == "+":
                     stack.append(num1+num2)
                 elif token == "-":
@@ -16,6 +16,6 @@ class Solution:
                     stack.append(num1*num2)
             else:
         
-                stack.append(token)
+                stack.append(int(token))
         
-        return int(stack[0])
+        return stack[0]
