@@ -1,11 +1,8 @@
 class Solution:
     def totalFruit(self, fruits: List[int]) -> int:
-        res = 0 # 4
-        #           l
-        # [3, 3, 3, 1, 2, 1, 1, 2, 3, 3, 4]
-        #              r
+        res = 0 
         left = 0
-        curr_dict = dict()    # {1, 2}
+        curr_dict = dict()    
         for right in range(len(fruits)):
             curr_dict[fruits[right]] = curr_dict.get(fruits[right], 0) + 1
             while left < right and len(curr_dict) > 2:
