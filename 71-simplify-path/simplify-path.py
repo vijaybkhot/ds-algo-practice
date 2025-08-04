@@ -1,19 +1,19 @@
-class Solution(object):
-    def simplifyPath(self, path):
-        """
-        :type path: str
-        :rtype: str
-        """
+class Solution:
+    def simplifyPath(self, path: str) -> str:
         stack = []
-        path_array = path.split('/')
-        for path_str in path_array:
-            if path_str == "" or path_str == ".":
+        path_list = path.split("/")
+        for name in path_list:
+            if not name or name == ".":
                 continue
-            elif path_str == "..":
+            if name == "..":
                 if stack:
                     stack.pop()
-                continue
             else:
-                stack.append(path_str)
-        return "/" + "/".join(stack)
+                stack.append(name)
         
+        res = ""
+
+        for name in stack:
+            res += '/' + name
+
+        return "/" + res if not res else res
