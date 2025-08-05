@@ -20,7 +20,7 @@ class Solution:
         
         # return unplaced
 
-        # Modifying the heap basket
+        # Modifying the basket
         count = 0
         n = len(baskets)
         for fruit in fruits:
