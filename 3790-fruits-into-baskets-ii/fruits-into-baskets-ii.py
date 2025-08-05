@@ -1,5 +1,6 @@
 class Solution:
     def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
+        # Using Heap Simulation
         # basket_heap = [(idx, capacity) for idx, capacity in enumerate(baskets)]
         # heapq.heapify(basket_heap)
         # i, j, = 0, 0
@@ -19,6 +20,7 @@ class Solution:
         
         # return unplaced
 
+        # Modifying the heap basket
         count = 0
         n = len(baskets)
         for fruit in fruits:
