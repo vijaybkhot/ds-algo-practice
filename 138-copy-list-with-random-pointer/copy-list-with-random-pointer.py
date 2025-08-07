@@ -11,19 +11,18 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None
-        curr = head
-        list_map = {}
+        
+        node_map = dict()
 
-        while curr:
-            list_map[curr] = ListNode(val=curr.val)
-            curr = curr.next
         curr = head
         while curr:
-            node = list_map[curr]
-            node.next = list_map[curr.next] if curr.next else None
-            node.random = list_map[curr.random] if curr.random else None
+            node_map[curr] = ListNode(curr.val)
             curr = curr.next
         
-        return list_map[head]
-
+        curr = head
+        while curr:
+            node_map[curr].next = node_map[curr.next] if curr.next in node_map else None
+            node_map[curr].random = node_map[curr.random] if curr.random in node_map else None
+            curr = curr.next
         
+        return node_map[head]
