@@ -7,8 +7,10 @@ class Solution:
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
         if not head or left == right:
             return head
-
-        
+        #   p    tail
+        #  [0] -> 3 -> 5
+        #  None      None  <- 3  <-  5    <-  [0]
+        #              
         dummy = ListNode(0)
         dummy.next = head
         prev = dummy
