@@ -28,5 +28,8 @@ class Solution:
         prev.next = tail.next
         more.next = None
         return dummy.next
-
-      
+        
+        # more -> 4 -> 3 -> 5
+        #                   more
+        # dummy -> 1  ->  2  ->     2
+        #                           prev            curr 
