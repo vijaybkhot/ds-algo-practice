@@ -1,60 +1,63 @@
 class ListNode:
-    def __init__(self, key=0, val=0, nxt=None, prev=None):
+    def __init__(self, key=0, val=0, next=None, prev=None):
         self.key = key
         self.val = val
-        self.next = nxt 
+        self.next = next
         self.prev = prev
-
+       
 class LRUCache:
-
     def __init__(self, capacity: int):
         self.size = capacity
-        self.count = 0
-        self.dict = {}
+        self.num_nodes = 0
         self.head = ListNode()
         self.tail = ListNode()
         self.head.next = self.tail
         self.tail.prev = self.head
+        self.map = dict()
         
-
     def get(self, key: int) -> int:
-        if self.count == 0 or key not in self.dict:
+        if key in self.map:
+            node = self.map[key]
+            self.remove_from_list(node)
+            self.insert_at_head(node)
+            return node.val
+        else:
             return -1
-        node = self.dict[key]
-        self.detach_node(node)
-        self.insert_at_head(node)
-        return node.val
-
-
+       
     def put(self, key: int, value: int) -> None:
-        # If key already exists in the cache, update the value for the key and move the node to the head 
-        if key in self.dict:
-            existing_node = self.dict[key]
-            existing_node.val = value
-            self.detach_node(existing_node)
-            self.insert_at_head(existing_node)
+        if key in self.map:
+            node = self.map[key]
+            node.val = value
+            self.remove_from_list(node)
+            self.insert_at_head(node)
             return
-        # Remove the last node, if the cache is full
-        if self.count == self.size:
-            node_to_delete = self.tail.prev
-            self.detach_node(node_to_delete)
-            del self.dict[node_to_delete.key]
-            self.count -= 1
-        new_node = ListNode(key=key, val=value)
-        self.insert_at_head(new_node)
-        self.dict[key] = new_node
-        self.count += 1
-    
+        else:
+            if self.num_nodes == self.size:
+                # Evict last Node
+                last_node = self.tail.prev
+                last_node_key = last_node.key
+                # delete from the map
+                del self.map[last_node_key]
+                # remove from list
+                self.remove_from_list(last_node)
+                self.num_nodes -= 1
+            
+            new_node = ListNode(key=key, val=value)
+            self.insert_at_head(new_node)
+            self.num_nodes += 1
+            self.map[key] = new_node
+
     def insert_at_head(self, node):
-        head_node = self.head.next
-        self.head.next, head_node.prev = node, node
-        node.next, node.prev = head_node, self.head
-    def detach_node(self, node):
-        prev_node, next_node = node.prev, node.next
-        prev_node.next, next_node.prev = next_node, prev_node
+        node.next, node.prev = self.head.next, self.head
+        self.head.next.prev, self.head.next = node, node
+    
+    def remove_from_list(self, node):
+        prev_node, nxt_node = node.prev, node.next
+        prev_node.next, nxt_node.prev = nxt_node, prev_node
+
         
-
-
+    
+  
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
