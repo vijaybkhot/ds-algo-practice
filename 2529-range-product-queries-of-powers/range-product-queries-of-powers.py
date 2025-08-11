@@ -7,7 +7,6 @@ class Solution:
             prefix[i] = powers[i]*prefix[i-1]
 
         res = []
-
         for start, end in queries:
             product = prefix[end] / prefix[start-1] if start > 0 else prefix[end]
             res.append(int(product)% (10**9 + 7))
