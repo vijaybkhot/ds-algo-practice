@@ -8,7 +8,7 @@ class Solution:
 
         res = []
         for start, end in queries:
-            product = prefix[end] / prefix[start-1] if start > 0 else prefix[end]
-            res.append(int(product)% (10**9 + 7))
+            product = prefix[end] // prefix[start-1] if start > 0 else prefix[end]
+            res.append(product% (10**9 + 7))
         
         return res
