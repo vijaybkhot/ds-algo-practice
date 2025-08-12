@@ -8,18 +8,16 @@ class Solution:
     def sumNumbers(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        res = 0
-
-        q = deque()
-        q.append((root, root.val))
-
+        total = 0
+        q = deque([(root, root.val)])
         while q:
             node, curr_sum = q.popleft()
-            if not node.right and not node.left:
-                res += curr_sum
+            if not node.left and not node.right:
+                total += curr_sum
             if node.left:
                 q.append((node.left, (curr_sum*10)+node.left.val))
             
             if node.right:
                 q.append((node.right, (curr_sum*10)+node.right.val))
-        return res
+        
+        return total
