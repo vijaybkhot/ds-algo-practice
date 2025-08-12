@@ -9,62 +9,23 @@ class Solution:
             """
             Do not return anything, modify root in-place instead.
             """
-            # # Recursive DFS Approach:
-            # def dfs(node):
-            #     if node is None:
-            #         return None
-            #     if node.left:
-            #         left_tree = node.left
-            #         right_tree = node.right
-            #         node.left = None
-            #         node.right = dfs(left_tree)
-            #         if node.right:
-            #             curr = node.right
-            #             while curr.right:
-            #                 curr = curr.right
-            #             curr.right = dfs(right_tree)
-            #     elif node.right:
-            #         node.right = dfs(node.right)
-            #     return node
-                        
-            # dfs(root)
+            if not root:
+                return root
+            stack = [root]
 
-            # # Recursive without a helper function
-            # if root is None:
-            #     return None
-            # if root.left:
-            #     left_tree = root.left
-            #     right_tree = root.right
-            #     root.left = None
-            #     root.right = self.flatten(left_tree)
-            #     if root.right:
-            #         curr = root.right
-            #         while curr.right:
-            #             curr = curr.right
-            #         curr.right = self.flatten(right_tree)
-            # elif root.right:
-            #     root.right = self.flatten(root.right)
-            
-            # return root
+            dummy = TreeNode()
+            curr = dummy
 
-            # # Iterative approach - More space optimal because no stack calls
-            # curr = root
-            # while curr:
-            #     if curr.left:
-            #         pre = curr.left
-            #         while pre.right:
-            #             pre = pre.right
-            #         pre.right = curr.right
-            #         curr.right = curr.left
-            #         curr.left = None
-            #     curr = curr.right
+            while stack:
+                node = stack.pop()
+                curr.right = node
+                curr.left = None
+                curr = curr.right
+
+                if node.right:
+                    stack.append(node.right)
+                if node.left:
+                    stack.append(node.left)
             
-            while root:
-                if root.left:
-                    pre = root.left
-                    while pre.right:
-                        pre = pre.right
-                    pre.right = root.right
-                    root.right = root.left
-                    root.left = None
-                root = root.right
+            return dummy.right
+
