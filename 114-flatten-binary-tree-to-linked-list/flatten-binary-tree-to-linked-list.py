@@ -11,21 +11,40 @@ class Solution:
             """
             if not root:
                 return root
-            stack = [root]
+
+            # stack = [root]
 
             dummy = TreeNode()
-            curr = dummy
+            self.curr = dummy
 
-            while stack:
-                node = stack.pop()
-                curr.right = node
-                curr.left = None
-                curr = curr.right
+            # while stack:
+            #     node = stack.pop()
+            #     curr.right = node
+            #     curr.left = None
+            #     curr = curr.right
 
-                if node.right:
-                    stack.append(node.right)
-                if node.left:
-                    stack.append(node.left)
+            #     if node.right:
+            #         stack.append(node.right)
+            #     if node.left:
+            #         stack.append(node.left)
             
-            return dummy.right
+            # return dummy.right
 
+
+            def preorder(node):
+                if node:
+                    # Attach node to the right of curr
+                    self.curr.right = node
+                    self.curr = node  # move curr forward
+
+                    # Save original right before overwriting left
+                    left, right = node.left, node.right
+
+                    # Clear the left pointer to meet the "linked list" requirement
+                    node.left = None
+
+                    preorder(left)
+                    preorder(right)
+
+            preorder(root)
+            return dummy.right
