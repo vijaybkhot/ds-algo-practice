@@ -6,15 +6,16 @@
 #         self.right = right
 class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
-        self.pre_idx = 0
-        inorder_map = {num:idx for idx, num in enumerate(inorder)}
+        inorder_map = {val:idx for idx, val in enumerate(inorder)}
+        self.preorder_idx = 0
 
         def dfs(left, right):
             if left > right:
                 return None
-            root_val = preorder[self.pre_idx]
-            self.pre_idx += 1
+            
+            root_val = preorder[self.preorder_idx]
             root = TreeNode(root_val)
+            self.preorder_idx += 1
 
             inorder_idx = inorder_map[root_val]
             root.left = dfs(left, inorder_idx-1)
@@ -24,37 +25,3 @@ class Solution:
         
         return dfs(0, len(preorder)-1)
 
-
-
-
-
-
-
-
-
-
-
-
-#         self.pre_idx = 0
-#         inorder_map = {num:index for index, num in enumerate(inorder)}
-        
-#         def dfs(left, right):
-#             if left > right:
-#                 return None
-#             root_val = preorder[self.pre_idx]
-#             self.pre_idx += 1
-#             root = TreeNode(root_val)
-
-#             inorder_index = inorder_map[root_val]
-#             root.left = dfs(left, inorder_index - 1)
-#             root.right = dfs(inorder_index + 1, right)
-
-#             return root
-            
-#         return dfs(0, len(preorder)-1)
-
-
-        
-
-
-        
