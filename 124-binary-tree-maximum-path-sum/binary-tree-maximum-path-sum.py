@@ -9,25 +9,46 @@ class Solution:
 
         self.max_sum = float('-inf')
         @lru_cache(maxsize=None)
+        # def dfs(node):
+        #     if node:
+        #         center = node.val
+        #         left, right, left_and_right = float('-inf'), float('-inf'), float('-inf')
+                
+        #         if node.left:
+        #             left = node.val+dfs(node.left)
+                
+        #         if node.right:
+        #             right = node.val+dfs(node.right)
+                
+        #         if node.left and node.right:
+        #             left_and_right = node.val+dfs(node.right)+dfs(node.left)
+                
+        #         self.max_sum = max(self.max_sum, left, right, left_and_right, center)
+                
+        #         return max(center, left, right)
+        #     else:
+        #         return float('-inf')
+
         def dfs(node):
             if node:
                 center = node.val
                 left, right, left_and_right = float('-inf'), float('-inf'), float('-inf')
                 
                 if node.left:
-                    left = node.val+dfs(node.left)
+                    left = dfs(node.left)
                 
                 if node.right:
-                    right = node.val+dfs(node.right)
+                    right = dfs(node.right)
                 
                 if node.left and node.right:
-                    left_and_right = node.val+dfs(node.right)+dfs(node.left)
+                    left_and_right = node.val+left+right
                 
-                self.max_sum = max(self.max_sum, left, right, left_and_right, center)
+                self.max_sum = max(self.max_sum, node.val+left, node.val+right, left_and_right, center)
                 
-                return max(center, left, right)
+                return max(center, node.val+left, node.val+right)
             else:
                 return float('-inf')
+        
         
         dfs(root)
 
