@@ -28,7 +28,7 @@ class Solution:
         #         return max(center, left, right)
         #     else:
         #         return float('-inf')
-        @lru_cache(maxsize=None)
+        # @lru_cache(maxsize=None)
         def dfs(node):
             if node:
                 center = node.val
