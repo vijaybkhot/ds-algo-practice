@@ -9,7 +9,6 @@ class Solution:
         if not root:
             return 0
         count = 0
-
         next_level = True
         q = deque([root])
 
