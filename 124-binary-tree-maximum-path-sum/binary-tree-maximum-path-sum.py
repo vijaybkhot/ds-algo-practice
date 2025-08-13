@@ -30,26 +30,17 @@ class Solution:
         #         return float('-inf')
         # @lru_cache(maxsize=None)
         def dfs(node):
-            if node:
-                center = node.val
-                left, right, left_and_right = float('-inf'), float('-inf'), float('-inf')
-                
-                if node.left:
-                    left = dfs(node.left)
-                
-                if node.right:
-                    right = dfs(node.right)
-                
-                if node.left and node.right:
-                    left_and_right = node.val+left+right
-                
-                self.max_sum = max(self.max_sum, node.val+left, node.val+right, left_and_right, center)
-                
-                return max(center, node.val+left, node.val+right)
-            else:
-                return float('-inf')
-        
-        
-        dfs(root)
+            if not node:
+                return 0
 
+            left = max(dfs(node.left), 0)   # ignore negative paths
+            right = max(dfs(node.right), 0)
+
+            # update max_sum with the best path through this node
+            self.max_sum = max(self.max_sum, node.val + left + right)
+
+            # return max downward path
+            return node.val + max(left, right)
+
+        dfs(root)
         return self.max_sum
