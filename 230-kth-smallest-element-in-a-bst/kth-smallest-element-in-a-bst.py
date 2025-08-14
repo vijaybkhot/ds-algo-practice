@@ -9,6 +9,7 @@ class Solution:
         heap = []
 
         stack = []
+        res = []
 
         curr = root
 
@@ -18,10 +19,11 @@ class Solution:
                 curr = curr.left
             
             curr = stack.pop()
-            heapq.heappush(heap, -curr.val)
-            if len(heap) > k:
-                heapq.heappop(heap)
-            
+            # heapq.heappush(heap, -curr.val)
+            # if len(heap) > k:
+            #     heapq.heappop(heap)
+            res.append(curr.val)
             curr = curr.right
         
-        return -heap[0]
+        # return -heap[0]
+        return res[k-1]
