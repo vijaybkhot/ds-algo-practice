@@ -7,14 +7,29 @@
 class Solution:
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
         min_diff = float('inf')
-        stack = []
-        def inorder(node):
-            if node:
-                inorder(node.left)
-                stack.append(node.val)
-                inorder(node.right)
+        # stack = []
+        # def inorder(node):
+        #     if node:
+        #         inorder(node.left)
+        #         stack.append(node.val)
+        #         inorder(node.right)
         
-        inorder(root)
-        for i in range(1, len(stack)):
-            min_diff = min(min_diff, abs(stack[i]-stack[i-1]))
+        # inorder(root)
+        # for i in range(1, len(stack)):
+        #     min_diff = min(min_diff, abs(stack[i]-stack[i-1]))
+        # return min_diff
+
+        prev = None
+        stack = []
+        curr = root
+        while curr or stack:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            if prev is not None:
+                min_diff = min(min_diff, abs(curr.val-prev))
+            prev = curr.val
+            curr = curr.right
+        
         return min_diff
