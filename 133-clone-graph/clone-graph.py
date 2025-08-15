@@ -9,62 +9,28 @@ class Node:
 from typing import Optional
 class Solution:
     def cloneGraph(self, node: Optional['Node']) -> Optional['Node']:
+        node_map = defaultdict(list)
+        visited = set()
+        # {1,  2, 3, 4}
+        # { 4: 4, 3: 3, 2: 2, 1:1}
+        # ^
+        # 1 <-> 2 <-> 3 <-> 4 <- >1
+        # 1  <->   2  <->  3 <-> 4     <-> 1
+
         if not node:
             return None
-        visited = set()
-        graph_dict = {}
 
-        def dfs(vertex):
-            new_node = Node(val=vertex.val)
-            graph_dict[vertex] = new_node
-            for nei in vertex.neighbors:
-                if nei not in visited:
-                    visited.add(nei)
+        def dfs(node):
+            new_node = Node(val=node.val)
+            node_map[node] = new_node
+            for nei in node.neighbors:
+                if nei.val not in visited:
+                    visited.add(nei.val)
                     dfs(nei)
-                new_node.neighbors.append(graph_dict[nei])
+                new_node.neighbors.append(node_map[nei])
+            
 
-        visited.add(node)
+        visited.add(node.val)
         dfs(node)
-        return graph_dict[node]
+        return node_map[node]
 
-
-
-
-
-
-
-        # # # DFS Solution
-        # # old_to_new = {}
-        # # def dfs(curr_node):
-        # #     if curr_node in old_to_new:
-        # #         return old_to_new[curr_node]
-            
-        # #     # Clone current Node
-        # #     clone = Node(curr_node.val)
-        # #     old_to_new[curr_node] = clone
-
-        # #     # Recursively clone neighbors
-        # #     for neighbor in curr_node.neighbors:
-        # #         clone.neighbors.append(dfs(neighbor))
-            
-        # #     return clone
-        
-        # # return dfs(node)
-
-        # # BFS Solution
-        # old_to_new = {}
-        # old_to_new[node] = Node(node.val)
-        # queue = deque()
-        # queue.append(node)
-
-        # while queue:
-        #     curr_node = queue.popleft()
-
-        #     for neighbor in curr_node.neighbors:
-        #         if neighbor not in old_to_new:
-        #             old_to_new[neighbor] = Node(neighbor.val)
-        #             queue.append(neighbor)
-        #         # Append the clone neighbor to the neighbors list of the clone of the current node
-        #         old_to_new[curr_node].neighbors.append(old_to_new[neighbor])
-        
-        # return old_to_new[node]
