@@ -14,13 +14,11 @@ class Solution:
         res = []
         if len(digits) == 0:
             return []
-        @lru_cache(None)
         def dfs(i, curr_str):
             if i == n:
                 res.append(curr_str)
                 return
             
-            # for j in range(i, n):
             digit = digits[i]
             if digit in digit_char_map:
                 for char in digit_char_map[digit]:
