@@ -1,49 +1,21 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
+        n = len(s)
+        word_set = set(wordDict)
+        #               (i,"leet")
+        #   l   e   e   t   c   o   d   e
 
-        # word_set = set(wordDict)
-        # start = 0
-        # for end in range(1, len(s)+1):
-        #     if s[start:end] in word_set:
-        #         start = end
-            
+        @lru_cache(None)
+        def dfs(i, curr_word):
+            if i >= n: 
+                if curr_word not in word_set:
+                    return False
+                else:
+                    return True
 
-        # return start == end
-
-
-        # # Top-down DP
-        # wordSet = set(wordDict)
-        # memo = set()
-
-        # def dfs(start):
-        #     if start in memo:
-        #         return False
-        #     if start == len(s):
-        #         return True
-
-        #     for end in range(start + 1, len(s) + 1):
-        #         if s[start:end] in wordSet and dfs(end):
-        #             return True
-
-        #     memo.add(start)  # mark this start as leading to a dead end
-        #     return False
-
-        # Bottom-up DP
-        dp = [False] * (len(s) + 1)
-        dp[len(s)] = True
-
-        for i in range(len(s) - 1, -1, -1):
-            for w in wordDict:
-                if (i + len(w)) <= len(s) and s[i : i + len(w)] == w:
-                    dp[i] = dp[i + len(w)]
-                if dp[i]:
-                    break
-
-        return dp[0]
-
-        return dfs(0)
-
-
-
-
-
+            if curr_word in word_set:
+                return dfs(i, "") or dfs(i+1, curr_word+s[i])
+            else:
+                return dfs(i+1, curr_word+s[i])
+        
+        return dfs(0, "")
