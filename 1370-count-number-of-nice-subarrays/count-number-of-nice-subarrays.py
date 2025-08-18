@@ -17,9 +17,7 @@ class Solution:
                     if nums[left]%2:
                         odd_count -= 1
                     left += 1
-                
                 count += right - left + 1
-                    
             
             return count
         
