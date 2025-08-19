@@ -1,25 +1,51 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.endOfWord = False
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def search(self, word):
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                return False
+            curr = curr.children[char]
+        return curr.endOfWord
+    def insert(self, word):
+        curr = self.root
+        for char in word:
+            if char not in curr.children:
+                curr.children[char] = TrieNode()
+            curr = curr.children[char]
+        curr.endOfWord = True
+    
+
 class Solution:
     def longestCommonPrefix(self, arr1: List[int], arr2: List[int]) -> int:
-        arr_str_1 = [(str(num), 1) for num in arr1]
-        arr_str_2 = [(str(num), 2) for num in arr2]
-        combined = arr_str_1 + arr_str_2
-        combined.sort(key=lambda x: x[0])
-
+        trie1 = Trie()
+        trie2 = Trie()
+        for num in arr1:
+            trie1.insert(str(num))
+        for num in arr2:
+            trie2.insert(str(num))
         lcp = 0
-
-        def get_lcp(str1, str2):
-            i, j = 0, 0
-            lcp = 0
-            while i < len(str1) and j < len(str2) and str1[i] == str2[j]:
-                lcp += 1
-                i += 1
-                j += 1
-            return lcp
         
-        for i in range(len(combined)-1):
-            str1, arr_1 = combined[i]
-            str2, arr_2 = combined[i+1]
-            if arr_1 != arr_2:
-                lcp = max(lcp, get_lcp(str1, str2))
+        for num in arr2:
+            curr_lcp = 0
+            curr = trie1.root
+            for char in str(num):
+                if char in curr.children:
+                    curr = curr.children[char]
+                    curr_lcp += 1
+                    lcp = max(curr_lcp, lcp)
+                else:
+                    break
+        
         
         return lcp
+
+                
+
+        
