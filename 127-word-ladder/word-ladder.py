@@ -4,17 +4,17 @@ class Solution:
         if endWord not in words:
             return 0
 
-        def get_neighbors(word, wordListSet):
-            neighbors = set()
+        def get_neighbors(word, words):
+            adjacents = set()
             for i in range(len(word)):
-                for c in 'abcdefghijklmnopqrstuvwxyz':
-                    if c != word[i]:
-                        new_word = list(word)      
-                        new_word[i] = c            
-                        new_word = ''.join(new_word)  
-                        if new_word in wordListSet:
-                            neighbors.add(new_word)
-            return neighbors    
+                for char in "abcdefghijklmnopqrstuvwxyz":
+                    if char != word[i]:
+                        # build the new word by slicing instead of copying lists
+                        new_word = word[:i] + char + word[i+1:]
+                        if new_word in words:
+                            adjacents.add(new_word)
+            return adjacents
+
 
         q = deque([(beginWord, 1)])
         num_words = 0
