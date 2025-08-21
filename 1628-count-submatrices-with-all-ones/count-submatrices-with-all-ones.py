@@ -49,28 +49,50 @@ class Solution:
         
         # return total
 
-        # Precompute horizontal consecutive 1s
-        horizontal = [[0] * cols for _ in range(rows)]
-        for r in range(rows):
-            for c in range(cols):
-                if mat[r][c] == 1:
-                    horizontal[r][c] = horizontal[r][c - 1] + 1 if c > 0 else 1
+        # # Precompute horizontal consecutive 1s
+        # horizontal = [[0] * cols for _ in range(rows)]
+        # for r in range(rows):
+        #     for c in range(cols):
+        #         if mat[r][c] == 1:
+        #             horizontal[r][c] = horizontal[r][c - 1] + 1 if c > 0 else 1
 
-        total = 0
-        # For each cell, look upward and count submatrices ending at (r, c)
-        for r in range(rows):
-            for c in range(cols):
-                if mat[r][c] == 0:
-                    continue
-                width = horizontal[r][c]
-                # Expand upwards
-                for k in range(r, -1, -1):
-                    width = min(width, horizontal[k][c])
-                    if width == 0:
-                        break
-                    total += width
+        # total = 0
+        # # For each cell, look upward and count submatrices ending at (r, c)
+        # for r in range(rows):
+        #     for c in range(cols):
+        #         if mat[r][c] == 0:
+        #             continue
+        #         width = horizontal[r][c]
+        #         # Expand upwards
+        #         for k in range(r, -1, -1):
+        #             width = min(width, horizontal[k][c])
+        #             if width == 0:
+        #                 break
+        #             total += width
 
-        return total
+        # return total
+
+        m = len(mat)
+        n = len(mat[0])
+        histogram = [0] * n
+        count = 0
+
+        for i in range(m):
+            # update histogram for row i
+            for j in range(n):
+                histogram[j] = histogram[j] + 1 if mat[i][j] == 1 else 0
+
+            # stack of tuples (height, index, prev_count); start with sentinel
+            stack = [(-1, -1, 0)]
+            for j in range(n):
+                while stack and stack[-1][0] >= histogram[j]:
+                    stack.pop()
+                prev_h, prev_idx, prev_count = stack[-1]
+                curr_count = histogram[j] * (j - prev_idx) + prev_count
+                stack.append((histogram[j], j, curr_count))
+                count += curr_count
+
+        return count
 
         # [[0,  1,  2,  0],
         # [0,   1,  2,  3],
