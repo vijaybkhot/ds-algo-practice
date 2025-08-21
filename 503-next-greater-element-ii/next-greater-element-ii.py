@@ -1,13 +1,7 @@
 class Solution:
     def nextGreaterElements(self, nums: List[int]) -> List[int]:
-        #   2   3   4   -1  -1
-        #             -1     4
-        #  [1,  2,  3,  4,  3]
-
         n = len(nums)
         res = [-1]* n
-        
-
         stack = []  #(num, idx)
 
         for i in range(2*n):
@@ -17,6 +11,5 @@ class Solution:
                 res[back_idx] = num
             if i < n:
                 stack.append((num, i))
-
         
         return res
