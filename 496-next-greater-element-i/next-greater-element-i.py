@@ -9,10 +9,8 @@ class Solution:
                 next_greater[num] = curr_num
             stack.append((curr_num, i))
 
-        print(next_greater)
         res = []
         for num in nums1:
-            print(num, next_greater[num])
             if next_greater[num] > 0:
                 res.append(next_greater[num])
             else:
