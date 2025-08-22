@@ -1,51 +1,39 @@
 class Solution:
     def minimumArea(self, grid: List[List[int]]) -> int:
-        
-        def dfs(grid):
-            if len(grid) == 1 and len(grid[0]) == 1:
-                return grid[0][0]
-            
-            rows, cols = len(grid), len(grid[0])
 
-            row_0_has_1 = False
-            row_last_has_1 = False
-            col_0_has_1 = False
-            col_last_has_1 = False
-            for c in range(cols):
-                if row_0_has_1 and row_last_has_1:
-                    break
-                if grid[0][c] == 1:
-                    row_0_has_1 = True
-                if grid[rows-1][c] == 1:
-                    row_last_has_1 = True
-            
+        def dfs(g: List[List[int]]) -> int:
+            rows, cols = len(g), len(g[0])
+
+            # Base case: single cell
+            if rows == 1 and cols == 1:
+                return g[0][0]
+
+            # Check if the outer rows/cols contain a '1'
+            top_has_1 = any(g[0][c] == 1 for c in range(cols))
+            bottom_has_1 = any(g[rows - 1][c] == 1 for c in range(cols))
+            left_has_1 = any(g[r][0] == 1 for r in range(rows))
+            right_has_1 = any(g[r][cols - 1] == 1 for r in range(rows))
+
+            # If all four borders have 1s, we've found the minimal rectangle
+            if top_has_1 and bottom_has_1 and left_has_1 and right_has_1:
+                return rows * cols
+
+            # Otherwise, trim away borders without 1s and recurse
+            new_grid = []
             for r in range(rows):
-                if col_0_has_1 and col_last_has_1:
-                    break
-                if grid[r][0] == 1:
-                    col_0_has_1 = True
-                if grid[r][cols-1] == 1:
-                    col_last_has_1 = True
-            if row_0_has_1 and row_last_has_1 and col_0_has_1 and col_last_has_1:
-                return rows*cols
-            else:
-                new_grid = []
-                for r in range(rows):
-                    if (not row_0_has_1 and r == 0) or (not row_last_has_1 and r == rows-1):
-                        continue
-                    curr_row = grid[r][::]
-                    if not col_0_has_1:
-                        curr_row = curr_row[1:]
-                    if not col_last_has_1:
-                        curr_row = curr_row[:-1]
-                    
-                    new_grid.append(curr_row)
-                
-                return dfs(new_grid)
-        
+                # Skip empty top or bottom row
+                if (not top_has_1 and r == 0) or (not bottom_has_1 and r == rows - 1):
+                    continue
+
+                # Trim left and right columns if empty
+                row_copy = g[r][:]
+                if not left_has_1:
+                    row_copy = row_copy[1:]
+                if not right_has_1:
+                    row_copy = row_copy[:-1]
+
+                new_grid.append(row_copy)
+
+            return dfs(new_grid)
+
         return dfs(grid)
-
-
-
-            
-            
