@@ -1,28 +1,21 @@
-class Solution(object):
-    def smallestSubsequence(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        freq = {ch: 0 for ch in s}
-        for ch in s:
-            freq[ch] += 1
-        
+class Solution:
+    def smallestSubsequence(self, s: str) -> str:
+        counter = Counter(s)
         stack = []
-        
+        stack_set = set()
         in_stack = set()
 
         for char in s:
-            freq[char] -= 1
+            counter[char] -= 1
             if char in in_stack:
                 continue
-            
-            while stack and stack[-1] > char and freq[stack[-1]] > 0:
-                popped_char = stack.pop()
-                in_stack.remove(popped_char)
-            
+            while stack and stack[-1] > char and counter[stack[-1]] > 0:
+                in_stack.remove(stack[-1])
+                stack.pop()
             stack.append(char)
             in_stack.add(char)
-        
+            
+
+            
+            
         return ''.join(stack)
-        
