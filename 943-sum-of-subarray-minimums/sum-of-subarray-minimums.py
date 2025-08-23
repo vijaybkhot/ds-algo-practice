@@ -18,7 +18,7 @@ class Solution:
                     next_smallest[idx] = last_idx-idx+1
 
             return next_smallest
-        
+        # Get Prev smallest elements
         def get_prev_smallest(arr):
             prev_smallest = [0]*len(arr)
             stack = []
