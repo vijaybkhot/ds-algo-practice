@@ -39,9 +39,9 @@ class Solution:
         next_smallest = get_next_smallest(arr)
         total = 0
         for i in range(len(arr)):
-            total += arr[i]*prev_smallest[i]*next_smallest[i]
+            total = (total + arr[i]*prev_smallest[i]*next_smallest[i]) % MOD
         
-        return total%MOD
+        return total
                 
                 
                 
