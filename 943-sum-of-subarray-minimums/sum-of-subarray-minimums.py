@@ -11,11 +11,8 @@ class Solution:
                     _, idx = stack.pop()
                     next_smallest[idx] = (i - idx)
                 stack.append((num, i))
-            if stack:
-                last_idx = stack[-1][1]
-
-                for num, idx in stack:
-                    next_smallest[idx] = last_idx-idx+1
+            for num, idx in stack:
+                next_smallest[idx] = len(arr) - idx
 
             return next_smallest
         # Get Prev smallest elements
