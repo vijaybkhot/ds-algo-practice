@@ -8,16 +8,12 @@ class Solution:
 
         while l < r:
             if height[l] < height[r]:
-                if height[l] > l_max:
-                    l_max = height[l]
-                else:
-                    rain += l_max - height[l]
-                l += 1
+                l_max = max(l_max, height[l])
+                rain += l_max - height[l]
+                l += 1 
             else:
-                if height[r] > r_max:
-                    r_max = height[r]
-                else:
-                    rain += r_max - height[r]
-                r -= 1
+                r_max = max(r_max, height[r])
+                rain += r_max - height[r]
+                r -= 1 
             
         return rain
