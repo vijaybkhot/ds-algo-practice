@@ -29,10 +29,10 @@ class Solution:
 
         for right in range(len(nums)):
             cur_map[nums[right]] += 1
-            if cur_map[0] == 0:
-                self.max= max(self.max, cur_map[1]-1)
-            if cur_map[0] == 1:
-                self.max= max(self.max, cur_map[1])
+            # if cur_map[0] == 0:
+            #     self.max= max(self.max, cur_map[1]-1)
+            # if cur_map[0] == 1:
+            #     self.max= max(self.max, cur_map[1])
             while left <= right and cur_map[0] > 1:
                 cur_map[nums[left]] -= 1
                 left += 1
