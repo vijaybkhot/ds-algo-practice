@@ -1,6 +1,5 @@
 class Solution:
     def subArrayRanges(self, nums: List[int]) -> int:
-        MOD = (10**9)+7
         def greater(arr):
             prev_greater = [0]*len(arr)
             next_greater = [0]*len(arr)
