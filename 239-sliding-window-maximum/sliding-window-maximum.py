@@ -13,8 +13,7 @@ class Solution:
         for right in range(k, len(nums)):
             num = nums[right]
             while q and q[-1][0] <= num:
-                q.pop()
-            
+                q.pop() 
             while q and q[0][1] <= left:
                 q.popleft()
             q.append((num, right))
