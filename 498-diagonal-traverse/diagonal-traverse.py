@@ -4,9 +4,7 @@ class Solution:
         clockwise = True
         res = []
         curr = (0, 0)
-        # cloc = True
-        # curr = 0, 0
-        # res = [1 ]
+       
 
         while True:
             row, col = curr
