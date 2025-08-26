@@ -26,6 +26,8 @@ class Solution:
         #         res.append(i)
         
         # return res
+
+        
         res = []
         for i in range(k):
             curr_map = Counter()
