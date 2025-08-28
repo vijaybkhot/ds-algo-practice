@@ -13,7 +13,6 @@ class Solution:
                     if s[left] != char:
                         non_char -= 1
                     left += 1
-                
                 res = max(res, right-left+1)
         
         return res
