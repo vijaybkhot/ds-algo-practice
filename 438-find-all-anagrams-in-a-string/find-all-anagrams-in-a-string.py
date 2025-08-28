@@ -14,7 +14,7 @@ class Solution:
                 counter[s[left]] -= 1
                 left += 1
             
-            if counter == p_counter:
+            if right-left+1 == len(p) and counter == p_counter:
                 res.append(left)
         
         return res
