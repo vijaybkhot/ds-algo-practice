@@ -1,6 +1,3 @@
-from collections import defaultdict
-from typing import List
-
 class Solution:
     def sortMatrix(self, grid: List[List[int]]) -> List[List[int]]:
         m, n = len(grid), len(grid[0])
