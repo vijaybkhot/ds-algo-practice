@@ -12,6 +12,8 @@ class Solution:
 
             while right-left+1 > len(p):
                 counter[s[left]] -= 1
+                if counter[s[left]] == 0:
+                    del counter[s[left]]
                 left += 1
             
             if right-left+1 == len(p) and counter == p_counter:
