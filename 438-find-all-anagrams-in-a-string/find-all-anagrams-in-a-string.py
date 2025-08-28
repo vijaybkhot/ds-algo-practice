@@ -1,22 +1,29 @@
-from collections import Counter
+from typing import List
+
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
-        left = 0
-        counter = Counter()
-        p_counter = Counter(p)
-
         res = []
+        if len(p) > len(s):
+            return res
 
+        # frequency arrays for p and sliding window
+        p_count = [0] * 26
+        s_count = [0] * 26
+
+        for ch in p:
+            p_count[ord(ch) - ord('a')] += 1
+
+        left = 0
         for right in range(len(s)):
-            counter[s[right]] += 1
+            s_count[ord(s[right]) - ord('a')] += 1
 
-            while right-left+1 > len(p):
-                counter[s[left]] -= 1
-                if counter[s[left]] == 0:
-                    del counter[s[left]]
+            # shrink window if it's bigger than p
+            if right - left + 1 > len(p):
+                s_count[ord(s[left]) - ord('a')] -= 1
                 left += 1
-            
-            if right-left+1 == len(p) and counter == p_counter:
+
+            # check if current window matches
+            if s_count == p_count:
                 res.append(left)
-        
+
         return res
