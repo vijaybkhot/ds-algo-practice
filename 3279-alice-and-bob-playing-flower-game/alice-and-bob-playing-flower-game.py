@@ -8,8 +8,4 @@ class Solution:
         m_odd = math.ceil(m/2)
         m_even = m//2
 
-        print( n_odd, n_even,
-        m_odd,
-        m_even)
-
         return (n_odd*m_even + n_even*m_odd)
