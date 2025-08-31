@@ -3,108 +3,48 @@ class Solution:
         """
         Do not return anything, modify board in-place instead.
         """
-        # # First Attempt: Correct answer!
-        # self.complete = False
-        # row_sets = [set() for _ in range(9)]
-        # col_sets = [set() for _ in range(9)]
-        # grid_sets = [set() for _ in range(9)]
+        row_set = [set() for _ in range(9)]
+        col_set = [set() for _ in range(9)]
+        box_set = [set() for _ in range(9)]
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] != '.':
+                    box_idx = ((r//3)*3) + c // 3
+                    num = board[r][c]
+                    row_set[r].add(num)
+                    col_set[c].add(num)
+                    box_set[box_idx].add(num)
+    
 
-        # for row in range(len(board)):
-        #     for col in range(len(board[0])):
-        #         if board[row][col] != ".":
-        #             num = int(board[row][col])
-        #             grid = ((row // 3) * 3) + (col // 3)
-        #             row_sets[row].add(num)
-        #             col_sets[col].add(num)
-        #             grid_sets[grid].add(num)
-        
-        # def dfs(row, col):
-        #     if self.complete:
-        #         return
-        #     if row == 9:
-        #         self.complete = True
-        #         return
-            
-        #     if board[row][col] != ".":
-        #         if col == 8:
-        #             dfs(row+1, 0)
-        #         else:
-        #             dfs(row, col+1)
-        #         return
-            
-        #     for i in range(1, 10):
-        #         grid = ((row // 3) * 3) + (col // 3)
-        #         if i not in row_sets[row] and i not in col_sets[col] and i not in grid_sets[grid]:
-        #             board[row][col] = str(i)
-        #             row_sets[row].add(i)
-        #             col_sets[col].add(i)
-        #             grid_sets[grid].add(i)
+        def dfs(r, c):
+            if r == 9:
+                return True  # solved entire board
 
-        #             if col == 8:
-        #                 dfs(row+1, 0)
-        #             else:
-        #                 dfs(row, col+1)
-        #             if not self.complete:
-        #                 board[row][col] = "."
-        #                 row_sets[row].remove(i)
-        #                 col_sets[col].remove(i)
-        #                 grid_sets[grid].remove(i)
-        
-        # dfs(0, 0)
+            if c == 9:
+                return dfs(r + 1, 0)  # move to next row
 
-        # Optimized solution: Using a separate empty cell array to traverse only the cells which are empty
-        self.complete = False
-        row_sets = [set() for _ in range(9)]
-        col_sets = [set() for _ in range(9)]
-        grid_sets = [set() for _ in range(9)]
+            if board[r][c] == '.':
+                for i in range(1, 10):
+                    num = str(i)
+                    box_idx = (r // 3) * 3 + (c // 3)
+                    if num not in row_set[r] and num not in col_set[c] and num not in box_set[box_idx]:
+                        # place number
+                        board[r][c] = num
+                        row_set[r].add(num)
+                        col_set[c].add(num)
+                        box_set[box_idx].add(num)
 
-        for row in range(len(board)):
-            for col in range(len(board[0])):
-                if board[row][col] != ".":
-                    grid = ((row // 3) * 3) + (col // 3)
-                    row_sets[row].add(board[row][col])
-                    col_sets[col].add(board[row][col])
-                    grid_sets[grid].add(board[row][col])
-        
-        empty_cells = []
-        for row in range(9):
-            for col in range(9):
-                if board[row][col] == ".":
-                    empty_cells.append((row, col))
-        
-        def dfs(index):
-            if self.complete:
-                return
-            if index == len(empty_cells):
-                self.complete = True
-                return
-            
-            row, col = empty_cells[index]
-            grid = ((row // 3) * 3) + (col // 3)
-            
-            for i in range(1, 10):
-                str_num = str(i)
-                grid = ((row // 3) * 3) + (col // 3)
-                if str_num not in row_sets[row] and str_num not in col_sets[col] and str_num not in grid_sets[grid]:
-                    board[row][col] = str_num
-                    row_sets[row].add(str_num)
-                    col_sets[col].add(str_num)
-                    grid_sets[grid].add(str_num)
+                        if dfs(r, c + 1):  # move to next cell
+                            return True
 
-                    dfs(index+1)
+                        # backtrack
+                        board[r][c] = '.'
+                        row_set[r].remove(num)
+                        col_set[c].remove(num)
+                        box_set[box_idx].remove(num)
 
-                    if not self.complete:
-                        board[row][col] = "."
-                        row_sets[row].remove(str_num)
-                        col_sets[col].remove(str_num)
-                        grid_sets[grid].remove(str_num)
-        
-        dfs(0)
-                                
-        
+                return False
+            else:
+                return dfs(r, c + 1)  # move to next cell if prefilled
 
-                
-
-
-
-
+        dfs(0, 0)
