@@ -18,7 +18,7 @@ class Solution:
 
             if diff in diff_map:
                 res = max(res, idx - diff_map[diff])
-            if diff not in diff_map:
+            else:
                 diff_map[diff] = idx
         
         return res
