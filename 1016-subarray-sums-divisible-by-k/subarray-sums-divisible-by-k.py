@@ -1,16 +1,16 @@
 class Solution:
     def subarraysDivByK(self, nums: List[int], k: int) -> int:
         
-        remainder_count = defaultdict(int)
-        remainder_count[0] = 1
-
+        rem_map = defaultdict(int)
+        rem_map[0] = 1
         curr_sum = 0
-        num_subarrays = 0
-
+        res = 0
         for idx, num in enumerate(nums):
             curr_sum += num
-            if curr_sum % k in remainder_count:
-                num_subarrays += remainder_count[curr_sum % k]
-            remainder_count[curr_sum % k] += 1
+            remainder = curr_sum%k
+            if remainder in rem_map:
+                res += rem_map[remainder]
+            
+            rem_map[remainder] += 1
         
-        return num_subarrays
+        return res
