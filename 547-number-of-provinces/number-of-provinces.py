@@ -1,12 +1,13 @@
 class UnionFind:
-    def __init__(self):
-        self.rank = {}
-        self.parent = {}
+    def __init__(self, n):
+        self.parent = {i:i for i in range(n)}
+        self.rank = {i:0 for i in range(n)}
+        self.count = n
     
     def find(self, x):
-        if x not in self.parent:
-            self.parent[x] = x
-            self.rank[x] = 0
+        # if x not in self.parent:
+        #     self.parent[x] = x
+        #     self.rank[x] = 0
         if x != self.parent[x]:
             self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
@@ -23,7 +24,7 @@ class UnionFind:
         else:
             self.parent[ry] = rx
             self.rank[rx] += 1
-        
+        self.count -= 1
         return True
 
 class Solution:
@@ -70,17 +71,17 @@ class Solution:
 
         # return num_components
 
-        uf = UnionFind()
+        uf = UnionFind(n)
         for i in range(n):
             for j in range(n):
                 if isConnected[i][j]:
                     uf.union(i, j)
         
-        components = set()
+        # components = set()
 
-        for i in range(n):
-            components.add(uf.find(i))
+        # for i in range(n):
+        #     components.add(uf.find(i))
+        return uf.count
         
-        return len(components)
         
 
