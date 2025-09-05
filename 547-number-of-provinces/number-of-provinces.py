@@ -10,14 +10,20 @@ class Solution:
                     graph[i].add(j)
         
         visited = set()
-        def dfs(node):
-            if node in visited:
-                return
-            visited.add(node)
-            for nei in graph[node]:
-                if nei not in visited:
-                    dfs(nei)
-        
+        # def dfs(node):
+        #     if node in visited:
+        #         return
+        #     visited.add(node)
+        #     for nei in graph[node]:
+        #         if nei not in visited:
+        #             dfs(nei)
+
+        def dfs(i):
+            for j in range(n):
+                if isConnected[i][j] == 1 and j not in visited:
+                    visited.add(j)
+                    dfs(j)
+                
         num_components = 0
 
         for i in range(n):
