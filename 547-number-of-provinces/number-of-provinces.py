@@ -18,18 +18,33 @@ class Solution:
         #         if nei not in visited:
         #             dfs(nei)
 
-        def dfs(i):
-            for j in range(n):
-                if isConnected[i][j] == 1 and j not in visited:
-                    visited.add(j)
-                    dfs(j)
+        # def dfs(i):
+        #     for j in range(n):
+        #         if isConnected[i][j] == 1 and j not in visited:
+        #             visited.add(j)
+        #             dfs(j)
+
+        def bfs(node):
+            q = deque()
+            q.append(node)
+            
+            while q:
+                curr = q.popleft()
+                for j in range(n):
+                    if isConnected[curr][j] == 1 and j not in visited:
+                        visited.add(j)
+                        q.append(j)
+            
+
                 
         num_components = 0
 
         for i in range(n):
             if i not in visited:
                 num_components += 1
-                dfs(i)
+                visited.add(i)
+                bfs(i)
+
         return num_components
         
 
