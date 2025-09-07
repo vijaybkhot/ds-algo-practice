@@ -1,15 +1,12 @@
 class Solution:
     def mySqrt(self, x: int) -> int:
 
-        l, r = 1, x
-        while l <= r:
-            mid = (l+r) // 2
-            curr_num_square = mid*mid
-            if curr_num_square == x:
-                return mid
-            elif curr_num_square < x:
-                l = mid + 1
-            else:
-                r = mid - 1
-        return r
+        res = 0
+        for i in range(1, x+1):
+            temp = i
+            temp_power = temp*temp
+            if temp_power > x:
+                return res
+            res = temp
         
+        return res
