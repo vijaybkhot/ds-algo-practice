@@ -15,18 +15,15 @@ class Solution:
             for dr, dc in directions:
                 nr, nc = dr+row, dc+col
                 if 0 <= nr < rows and 0 <= nc < cols and (nr, nc) not in curr_set and heights[nr][nc] >= heights[row][col]:
-                    # curr_set.add((nr, nc))
                     dfs(nr, nc, curr_set)
 
 
         for r in range(rows):
             for c in range(cols):
                 if (r == 0 or c == 0) and (r, c) not in pacific:
-                    # pacific.add((r, c))
                     dfs(r, c, pacific)
                 
                 if (r == rows-1 or c == cols-1) and (r, c) not in atlantic:
-                    # atlantic.add((r, c))
                     dfs(r, c, atlantic)
 
         res = []
