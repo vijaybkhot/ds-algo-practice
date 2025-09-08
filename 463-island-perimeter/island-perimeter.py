@@ -32,11 +32,6 @@ class Solution:
                     elif grid[nr][nc] == 1 and (nr, nc) not in visited:
                         q.append((nr, nc))
                         visited.add((nr, nc))
-                    # if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 1 and (nr, nc) not in visited:
-                    #     q.append((nr, nc))
-                    #     visited.add((nr, nc))
-                    # else:
-                    #     total += 1
             
             return total
 
