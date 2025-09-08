@@ -20,18 +20,16 @@ class Solution:
             q = deque()
             total = 0
             q.append((r, c))
-            visited = set()
-            visited.add((r, c))
-
+            grid[r][c] = -1
             while q:
                 row, col = q.popleft()
                 for dr, dc in directions:
                     nr, nc = row+dr, col+dc
                     if nr < 0 or nr >= rows or nc < 0 or nc >= cols or grid[nr][nc] == 0:
                         total += 1 
-                    elif grid[nr][nc] == 1 and (nr, nc) not in visited:
+                    elif grid[nr][nc] == 1:
                         q.append((nr, nc))
-                        visited.add((nr, nc))
+                        grid[nr][nc] = -1
             
             return total
 
