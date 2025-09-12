@@ -1,6 +1,5 @@
 class Solution:
     def doesAliceWin(self, s: str) -> bool:
-        return any(c in "aeiou" for c in s)
         
         vowel_count = 0
 
@@ -10,6 +9,4 @@ class Solution:
         
         if vowel_count == 0:
             return False
-        if vowel_count == 1:
-            return True
-        return vowel_count % 2 == 0
+        return True
