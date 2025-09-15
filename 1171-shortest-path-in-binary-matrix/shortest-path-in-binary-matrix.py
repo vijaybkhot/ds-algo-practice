@@ -1,24 +1,24 @@
 class Solution:
     def shortestPathBinaryMatrix(self, grid: List[List[int]]) -> int:
-        directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (-1, 1), (-1, -1), (1, -1)]
-        n = len(grid)
-        if grid[0][0] != 0 or grid[n-1][n-1] != 0:
+        rows, cols = len(grid), len(grid[0])
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1), (1, 1), (1, -1), (-1, -1), (-1, 1)]
+        if grid[0][0] != 0 or grid[rows-1][cols-1] != 0:
             return -1
         q = deque()
-        visited = set()
-        q.append((0, 0, 1))
-        visited.add((0, 0))
+        q.append((0, 0, 1)) # (row, col, visited_cells)
+        grid[0][0] = -1
+
 
         while q:
-            row, col, num_cells = q.popleft()
-            if (row, col) == (n-1, n-1):
-                return num_cells
+            row, col, visited_cells = q.popleft()
+            if row == rows-1 and col == cols-1:
+                return visited_cells
+            
             for dr, dc in directions:
-                r, c = row+dr, col+dc
-                if 0 <= r < n and 0 <= c < n and (r, c) not in visited and grid[r][c] == 0:
-                    q.append((r, c, num_cells+1))
-                    visited.add((r,c))
+                nr, nc = row+dr, col+dc
+                if 0 <= nr < rows and 0 <= nc < cols and grid[nr][nc] == 0:
+                    grid[nr][nc] = -1
+                    q.append((nr, nc, visited_cells+1))
         
         return -1
-        
-        
+            
