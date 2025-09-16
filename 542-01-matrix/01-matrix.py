@@ -15,7 +15,6 @@ class Solution:
 
 
         while q:
-            for _ in range(len(q)):
                 r, c, dist = q.popleft()
                 res[r][c] = dist
                 for dr, dc in directions:
