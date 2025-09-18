@@ -13,12 +13,11 @@ class TaskManager:
 
     def edit(self, taskId: int, newPriority: int) -> None:
         _, userId = self.task_priority_map[taskId]
-        self.rmv(taskId)
         self.task_priority_map[taskId] = (newPriority, userId)
         heapq.heappush(self.task_heap, (-newPriority, -taskId, userId))
 
     def rmv(self, taskId: int) -> None:
-        del self.task_priority_map[taskId]
+        self.task_priority_map.pop(taskId, None)
         
 
     def execTop(self) -> int:
@@ -26,10 +25,9 @@ class TaskManager:
             priority, taskId, userId = heapq.heappop(self.task_heap)
             taskId *= -1
             priority *= -1
-            if taskId not in self.task_priority_map or self.task_priority_map[taskId][0] != priority:
+            if taskId not in self.task_priority_map or self.task_priority_map[taskId][0] != priority or self.task_priority_map[taskId][1] != userId:
                 continue
             else:
-                userId = self.task_priority_map[taskId][1]
                 del self.task_priority_map[taskId]
                 return userId
 
