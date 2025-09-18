@@ -17,7 +17,8 @@ class TaskManager:
         heapq.heappush(self.task_heap, (-newPriority, -taskId, userId))
 
     def rmv(self, taskId: int) -> None:
-        self.task_priority_map.pop(taskId, None)
+        if taskId in self.task_priority_map:
+            del self.task_priority_map[taskId]
         
 
     def execTop(self) -> int:
@@ -28,7 +29,7 @@ class TaskManager:
             if taskId not in self.task_priority_map or self.task_priority_map[taskId][0] != priority or self.task_priority_map[taskId][1] != userId:
                 continue
             else:
-                del self.task_priority_map[taskId]
+                self.rmv(taskId)
                 return userId
 
         return -1 
