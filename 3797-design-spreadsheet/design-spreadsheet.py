@@ -17,10 +17,8 @@ class Spreadsheet:
     def getValue(self, formula: str) -> int:
         formula = formula[1:]
         references = formula.split('+')
-        X = references[0]
-        Y = references[1]
-        X = self.getVal(X)
-        Y = self.getVal(Y)
+        X = self.getVal(references[0])
+        Y = self.getVal(references[1])
         return X+Y
         
             
