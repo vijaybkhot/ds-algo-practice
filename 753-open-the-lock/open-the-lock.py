@@ -12,14 +12,16 @@ class Solution:
             return 0
 
         def getAdjacents(pos):
-            adj = []
-            pos_list = [int(num) for num in pos]
-            for i in range(4):
-                for move in (-1, 1):  # down, up
-                    adj_pos = pos_list[:]
-                    adj_pos[i] = (adj_pos[i] + move) % 10
-                    adj.append(''.join(str(num) for num in adj_pos))
-            return adj
+            pos_array = [num for num in pos]
+            adjacent = []
+            for i in range(len(pos_array)):
+                num = int(pos_array[i])
+                for direction in [1, -1]:
+                    new_num =( num + direction) % 10
+                    pos_array[i] = str(new_num)
+                    adjacent.append(''.join(pos_array))
+                pos_array[i] = str(num)
+            return adjacent
 
         # while q:
         #     curr_pos, level = q.popleft()
