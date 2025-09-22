@@ -54,6 +54,8 @@ class Solution:
                     return left_level + right_level
                 adj_pos = getAdjacents(curr_pos)
                 for pos in adj_pos:
+                    if pos in visited_right:
+                        return left_level + right_level+1
                     if pos not in visited_left and pos not in deadends:
                         visited_left.add(pos)
                         left.append(pos)
