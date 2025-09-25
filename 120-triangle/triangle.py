@@ -1,32 +1,34 @@
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-
-        # # Top-down DP solution
-        # dp = {}
-        # def dfs(i, j):
-        #     if i == len(triangle):
-        #         return 0
-        #     if (i, j) in dp:
-        #         return dp[(i, j)]
-        #     path_sum = 0
-
-        #     path_sum = (triangle[i][j] + dfs(i+1, j))
-        #     if j+1 < len(triangle[i]):
-        #         path_sum = min(path_sum, (triangle[i][j+1] + dfs(i+1, j+1)))
-
-        #     dp[(i, j)] = path_sum
-        #     return path_sum
+        n = len(triangle)
+        
+        # @lru_cache(maxsize=None)
+        # def dfs(level, index):
+            
+        #     if index == len(triangle[level])-1:
+        #         if level == n-1:
+        #             return triangle[level][index]
+        #         else:
+        #             return triangle[level][index] + min(dfs(level+1, index), dfs(level+1, index+1))
+        #     else:
+        #         if level == n-1:
+        #             return triangle[level][index]
+        #         else:
+                    
+        #             res = triangle[level][index] + min(dfs(level+1, index), dfs(level+1, index+1))
+        #             res = min(res, triangle[level][index+1] + min(dfs(level+1, index+1), dfs(level+1, index+2)))
+        #             return res
         
         # return dfs(0, 0)
 
-        # Bottom-up DP
-        n = len(triangle)
-        dp = triangle[n-1]
-
-        for i in range(n-2, -1, -1):
-            new_dp = dp[::]
-            for j in range(i+1):
-                new_dp[j] = min((triangle[i][j] + dp[j]), (triangle[i][j]+dp[j+1]))
-            dp = new_dp
-
-        return dp[0]        
+            
+        @lru_cache(None)
+        def dfs(level, index):
+                # Base case: last row
+                if level == n - 1:
+                    return triangle[level][index]
+                
+                # Recursive case: take current value + min of next row choices
+                return triangle[level][index] + min(dfs(level+1, index), dfs(level+1, index+1))
+            
+        return dfs(0, 0)
