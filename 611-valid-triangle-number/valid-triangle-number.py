@@ -1,6 +1,6 @@
 class Solution:
     def triangleNumber(self, nums: List[int]) -> int:
-        
+        # # Time complexity n^2(log n)
         # nums.sort()
         # count = 0
         # for i in range(len(nums)):
@@ -13,10 +13,10 @@ class Solution:
         
         # return count
 
+        # Time complexity n^2
         nums.sort()
         n = len(nums)
         count = 0
-        
         for k in range(n-1, 1, -1):  # largest side
             i, j = 0, k-1
             while i < j:
