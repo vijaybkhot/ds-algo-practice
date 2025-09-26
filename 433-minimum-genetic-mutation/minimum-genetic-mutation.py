@@ -1,33 +1,36 @@
+from typing import List
+
 class Solution:
     def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
         bank = set(bank)
-        q = deque([(startGene, 0)])
-        visited = set(startGene)
-
-        def getMutations(gene):
-            mutations = []
-            for idx, char in enumerate(gene):
-                for new_char in "ACGT":
-                    if char == new_char:
-                        continue
-                    new_gene = [char for char in gene]
-                    new_gene[idx] = new_char
-                    new_gene = ''.join(new_gene)
-                    if new_gene in bank and new_gene not in visited:
-                        visited.add(new_gene)
-                        mutations.append(new_gene)
-                    
-            return mutations
+        if endGene not in bank:
+            return -1
         
-
-        while q:
-            curr_gene, level = q.popleft()
-            if curr_gene == endGene:
-                return level
+        begin_set, end_set = {startGene}, {endGene}
+        visited = set()
+        steps = 0
+        choices = "ACGT"
+        
+        while begin_set and end_set:
+            # Always expand the smaller set
+            if len(begin_set) > len(end_set):
+                begin_set, end_set = end_set, begin_set
             
-            mutations = getMutations(curr_gene)
-
-            for mutation in mutations:
-                q.append((mutation, level+1))
+            next_level = set()
+            for gene in begin_set:
+                if gene in end_set:
+                    return steps
+                
+                visited.add(gene)
+                for idx, char in enumerate(gene):
+                    for new_char in choices:
+                        if new_char == char:
+                            continue
+                        mutation = gene[:idx] + new_char + gene[idx+1:]
+                        if mutation in bank and mutation not in visited:
+                            next_level.add(mutation)
+            
+            begin_set = next_level
+            steps += 1
         
         return -1
