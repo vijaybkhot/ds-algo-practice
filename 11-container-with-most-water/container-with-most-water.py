@@ -3,11 +3,14 @@ class Solution:
         l, r = 0, len(height)-1
         res = 0
         while l < r:
-            curr_water = min(height[l], height[r]) * (r-l)
-            res = max(res, curr_water)
-            if height[l] < height[r]:
+            left = height[l]
+            right= height[r]
+
+            res = max(res, min(left, right)* (r-l))
+
+            if left < right:
                 l += 1
             else:
                 r -= 1
-                
+        
         return res
