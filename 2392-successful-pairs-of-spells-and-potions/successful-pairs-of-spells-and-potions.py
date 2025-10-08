@@ -1,10 +1,6 @@
 class Solution:
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
-        # spells = [5,1,3]
-
-        # 1,2,3,4,5
-
-        # success = 7
+        
 
         def bs_left(arr, target):
             left, right = 0, len(arr)-1
@@ -16,13 +12,10 @@ class Solution:
                     left = mid+1
             return left
         
-        # 2 - > 5, 8, 8
-        #     l    m   r
         
 
         pairs = []
         potions.sort()
-        # return bisect_left(potions, 7/5)
 
         for idx, spell in enumerate(spells):
             required_potion_strength = success/spell
