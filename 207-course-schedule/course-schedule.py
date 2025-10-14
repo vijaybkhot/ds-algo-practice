@@ -1,21 +1,29 @@
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         graph = defaultdict(set)
-        inorder = defaultdict(int)
         for u, v in prerequisites:
             graph[v].add(u)
-            inorder[u] += 1
-        
-        q = deque([i for i in range(numCourses) if inorder[i] == 0])
 
-        while q:
-            node = q.popleft()
-            for u in graph[node]:
-                inorder[u] -= 1
-                if inorder[u] == 0:
-                    q.append(u)
-        for i in range(numCourses):
-            if inorder[i] > 0:
+        state = [0]*numCourses
+
+        def dfs(node):
+            if state[node] == 1:
                 return False
+            
+            if state[node] == 2:
+                return True
+            state[node] = 1
+
+            for nei in graph[node]:
+                if not dfs(nei):
+                    return False
+            
+            state[node] = 2
+            return True
+        
+        for i in range(numCourses):
+            if state[i] == 0:
+                if not dfs(i):
+                    return False
         
         return True
