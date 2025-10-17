@@ -1,25 +1,31 @@
 class Solution:
     def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
         graph = defaultdict(set)
-        inorder = defaultdict(int)
-
         for u, v in prerequisites:
             graph[v].add(u)
-            inorder[u] += 1
         
-        q = deque([i for i in range(numCourses) if inorder[i] == 0])
         res = []
 
-        while q:
-            node = q.popleft()
+        state = [0]*numCourses
+
+        def dfs(node):
+            if state[node] == 1:
+                return True
+            if state[node] == 2:
+                return False
+            
+            state[node] = 1
+            for nei in graph[node]:
+                if dfs(nei):
+                    return True
+            
             res.append(node)
-            for v in graph[node]:
-                inorder[v] -= 1
-                if inorder[v] == 0:
-                    q.append(v)
+            state[node] = 2
+            return False
         
         for i in range(numCourses):
-            if inorder[i] > 0:
-                return []
+            if state[i] == 0:
+                if dfs(i):
+                    return []
         
-        return res
+        return res[::-1]
