@@ -1,10 +1,5 @@
 class Solution:
     def longestCycle(self, edges: List[int]) -> int:
-        # graph = defaultdict(set)
-        # for u, v in enumerate(edges):
-        #     if v != -1:
-        #         graph[u].add(v)
-
         state = [0]*len(edges)
         depth_map = {}
         max_len = -1
