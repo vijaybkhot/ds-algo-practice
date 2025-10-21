@@ -32,8 +32,7 @@ class Solution:
         candidate1, candidate2 = None, None
         parents = {}
 
-        # [   0, 0, 1, 1, 1, 0               ]
-
+        # Find node with two parents
         for idx, edge in enumerate(edges):
             u, v = edge
             if v in parents:
@@ -42,16 +41,21 @@ class Solution:
                 break
             parents[v] = u
         
+        # Initiate Disjoint Set
         uf = UnionFind()
+
         for u, v in edges:
             if candidate2 and candidate2 == [u, v]:
                 continue
-            
+            # If Cycle found
             if not uf.union(u, v):
+                # if there is a node with two parents
                 if candidate1:
+                    # Return the edge with first parent
                     return candidate1
+                # else return the edge causing cycle
                 return [u, v]
-        
+        # this means there is a node with two parents and the first edge does not cause a cycle, hence return the second edge, becuase it must create a cycle.
         return candidate2
 
 
