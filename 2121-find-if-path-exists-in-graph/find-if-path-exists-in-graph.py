@@ -1,55 +1,32 @@
 class UnionFind:
     def __init__(self, size):
-        self.parent = [-1]*(size+1)
+        self.parent = {i:i for i in range(size)}
+        self.rank = {i:0 for i in range(size)}
     
     def find(self, x):
-        if self.parent[x] < 0:
-            return x
-        self.parent[x] = self.find(self.parent[x])
+        if self.parent[x] != x:
+            self.parent[x] = self.find(self.parent[x])
         return self.parent[x]
     
     def union(self, x, y):
-        rootX, rootY = self.find(x), self.find(y)
+        rootX = self.find(x)
+        rootY = self.find(y)
         if rootX == rootY:
             return False
         
-        if self.parent[rootX] < self.parent[rootY]:
-            self.parent[rootX] += self.parent[rootY]
-            self.parent[rootY] = rootX
-        else:
-            self.parent[rootY] += self.parent[rootX]
+        if self.rank[rootX] < self.rank[rootY]:
             self.parent[rootX] = rootY
+        else:
+            self.parent[rootY] = rootX
+            if self.rank[rootY] == self.rank[rootX]:
+                self.rank[rootX] += 1
+            
         return True
-
+            
 
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        # # DFS Approach:
-        # graph = defaultdict(set)
-        # visited = set()
-        # for u, v in edges:
-        #     graph[u].add(v)
-        #     graph[v].add(u)
-
-        # def dfs(node):
-        #     if node in visited:
-        #         return
-        #     if node == destination:
-        #         return True
-        #     visited.add(node)
-        #     for nei in graph[node]:
-        #         if nei not in visited:
-        #             if dfs(nei):
-        #                 return True
-        #     return False
-
-        # return dfs(source)
-
-        # Union Find approach:
         uf = UnionFind(n)
         for u, v in edges:
             uf.union(u, v)
-        
-        return not uf.union(source, destination)
-
-        
+        return uf.find(source) == uf.find(destination)
