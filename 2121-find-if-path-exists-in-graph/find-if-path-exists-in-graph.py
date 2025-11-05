@@ -26,7 +26,28 @@ class UnionFind:
 
 class Solution:
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
-        uf = UnionFind(n)
+        # uf = UnionFind(n)
+        # for u, v in edges:
+        #     uf.union(u, v)
+        # return uf.find(source) == uf.find(destination)
+
+        graph = defaultdict(list)
+
         for u, v in edges:
-            uf.union(u, v)
-        return uf.find(source) == uf.find(destination)
+            graph[u].append(v)
+            graph[v].append(u)
+        
+        visited = set()
+
+        def dfs(node):
+            if node == destination:
+                return True
+            visited.add(node)
+            
+            for nei in graph[node]:
+                if nei not in visited and dfs(nei):
+                    return True
+            
+            return False
+        
+        return dfs(source)
