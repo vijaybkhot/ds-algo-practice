@@ -1,30 +1,35 @@
 class Solution:
     def containsCycle(self, grid: List[List[str]]) -> bool:
-        m = len(grid)
-        n = len(grid[0])
-        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        directions = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+        rows, cols = len(grid), len(grid[0])
 
-        self.visited = set()
+        visited = set()
 
-        def dfs(r, c, prev_r, prev_c, curr_char, curr_set):  
-            for dr, dc in directions:
-                nr, nc = r+dr, c+dc
-                if 0 <= nr < m and 0 <= nc < n and grid[nr][nc] == curr_char and (nr, nc) != (prev_r, prev_c):
-                    if (nr, nc) in curr_set and len(curr_set) >= 4:
-                        return True
-                    else:
-                        curr_set.add((nr, nc))
-                        self.visited.add((nr,nc))
-                        if dfs(nr, nc, r, c, curr_char, curr_set):
+        def bfs(r, c, char):
+            curr_visited = set()
+            nonlocal visited
+            curr_visited.add((r, c))
+            
+            q = deque([(r, c, None, None)])
+
+            while q:
+                row, col, p_r, p_c = q.popleft()
+                
+                
+                for dr, dc in directions:
+                    nr, nc = row+dr, col+dc
+                    if 0 <= nr < rows and 0 <= nc < cols and (nr, nc) != (p_r, p_c) and grid[nr][nc] == char:
+                        if (nr, nc) in curr_visited and len(curr_visited) >= 4:
                             return True
+                        visited.add((nr, nc))
+                        curr_visited.add((nr, nc))
+                        q.append((nr, nc, row, col))
             
             return False
-        
-        for r in range(m):
-            for c in range(n):
-                if (r, c) not in self.visited:
-                    self.visited.add((r,c))
-                    if dfs(r, c, -1, -1, grid[r][c], set()):
+        for r in range(rows):
+            for c in range(cols):
+                if (r, c) not in visited:
+                    if bfs(r, c, grid[r][c]):
                         return True
         
         return False
